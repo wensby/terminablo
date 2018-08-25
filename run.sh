@@ -1,0 +1,1 @@
+java -classpath target/classes com.wensby.terminablo.Diablo
