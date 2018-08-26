@@ -1,10 +1,12 @@
 package com.wensby.terminablo.userinterface.terminal;
 
 import com.wensby.terminablo.scene.Orb;
+import com.wensby.userinterface.InterfacePosition;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalCharacter;
 import com.wensby.userinterface.TerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;
+import com.wensby.userinterface.TerminalLayerImpl;
 
 import java.awt.*;
 import java.math.BigDecimal;
@@ -31,16 +33,16 @@ public class OrbTerminalLayerBuilder {
 
     private TerminalLayer createFullSizeRepresentation(Orb orb, InterfaceSize size) {
         TerminalLayer layer = createLayer(size);
-        TerminalLayer orbContent = createOrbContent(orb, size);
-        layer.put(orbContent, 0, 0);
+        TerminalLayerImpl orbContent = createOrbContent(orb, size);
+        layer.put(orbContent, InterfacePosition.atOrigin());
         return layer;
     }
 
     private TerminalLayer createScaledDownRepresentation(Orb orb, InterfaceSize size) {
         TerminalLayer layer = createLayer(size);
         fillInBorder(layer);
-        TerminalLayer orbContent = createOrbContent(orb, new InterfaceSize(size.getWidth() - 2, size.getHeight() - 2));
-        layer.put(orbContent, 1, 1);
+        TerminalLayerImpl orbContent = createOrbContent(orb, new InterfaceSize(size.getWidth() - 2, size.getHeight() - 2));
+        layer.put(orbContent, InterfacePosition.of(1, 1));
         fillInValue(layer, orb);
         return layer;
     }
@@ -78,8 +80,8 @@ public class OrbTerminalLayerBuilder {
 
     private void fillInValue(TerminalLayer layer, Orb orb) {
         if (layer.getSize().getWidth() >= 6 && layer.getSize().getHeight() > 1) {
-            int height = layer.getHeight();
-            int width = layer.getWidth();
+            int height = layer.getSize().getHeight();
+            int width = layer.getSize().getWidth();
             String s = (orb.getValue() + " / " + orb.getCapacity()).substring(0, 6);
             int start = (width - s.length()) / 2;
             for (int i = 0; i < s.length(); i++) {
@@ -92,14 +94,14 @@ public class OrbTerminalLayerBuilder {
         int height = size.getHeight();
         int width = size.getWidth();
         TerminalCharacter[][] characters = new TerminalCharacter[height][width];
-        return new TerminalLayer(characters);
+        return new TerminalLayerImpl(characters);
     }
 
     private void fillInBorder(TerminalLayer layer) {
         if (isBorderless(layer.getSize())) {
             TerminalCharacter[][] characters = layer.getCharacters();
-            int height = layer.getHeight();
-            int width = layer.getWidth();
+            int height = layer.getSize().getHeight();
+            int width = layer.getSize().getWidth();
             for (int i = 1; i < width - 1; i++) {
                 characters[0][i] = characterFactory.createCharacter('─');
             }
@@ -114,7 +116,7 @@ public class OrbTerminalLayerBuilder {
         }
     }
 
-    private TerminalLayer createOrbContent(Orb orb, InterfaceSize size) {
+    private TerminalLayerImpl createOrbContent(Orb orb, InterfaceSize size) {
         TerminalCharacter[][] characters = new TerminalCharacter[size.getHeight()][size.getWidth()];
         int height = size.getHeight();
         BigDecimal rowCapacity = orb.getCapacity().divide(new BigDecimal(height), RoundingMode.HALF_UP);
@@ -132,6 +134,6 @@ public class OrbTerminalLayerBuilder {
                 characters[height-1-fullRows][x] = remainderRowCharacter;
             }
         }
-        return new TerminalLayer(characters);
+        return new TerminalLayerImpl(characters);
     }
 }

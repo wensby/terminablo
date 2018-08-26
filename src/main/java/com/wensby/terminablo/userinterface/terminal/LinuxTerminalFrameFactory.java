@@ -1,6 +1,10 @@
 package com.wensby.terminablo.userinterface.terminal;
 
 import com.wensby.userinterface.TerminalCharacter;
+import com.wensby.userinterface.TerminalFrame;
+import com.wensby.userinterface.TerminalFrameImpl;
+import com.wensby.userinterface.TerminalLayer;
+import com.wensby.userinterface.TerminalLayerImpl;
 
 import java.time.Instant;
 
@@ -15,11 +19,11 @@ public class LinuxTerminalFrameFactory {
         this.linuxTerminal = linuxTerminal;
     }
 
-    public TerminalCharacter[][] createFrame() {
+    public TerminalFrame createFrame() {
         if (Instant.now().isAfter(cacheRefreshDeadline)) {
             updateCache();
         }
-        return new TerminalCharacter[linesCached][columnsCached];
+        return new TerminalFrameImpl(new TerminalLayerImpl(new TerminalCharacter[linesCached][columnsCached]));
     }
 
     private void updateCache() {

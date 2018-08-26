@@ -1,8 +1,10 @@
 package com.wensby.terminablo.scene;
 
 import com.wensby.terminablo.world.Agent;
+import com.wensby.userinterface.InterfacePosition;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalLayer;
+import com.wensby.userinterface.TerminalLayerFactory;
 
 import java.awt.*;
 import java.math.BigDecimal;
@@ -10,29 +12,31 @@ import java.math.BigDecimal;
 public class HeroPlaySceneInterfaceRenderer {
 
     private final OrbTerminalRepresentationFactory orbTerminalRepresentationFactory;
+    private final TerminalLayerFactory terminalLayerFactory;
 
-    public HeroPlaySceneInterfaceRenderer(OrbTerminalRepresentationFactory orbTerminalRepresentationFactory) {
+    public HeroPlaySceneInterfaceRenderer(OrbTerminalRepresentationFactory orbTerminalRepresentationFactory, TerminalLayerFactory terminalLayerFactory) {
         this.orbTerminalRepresentationFactory = orbTerminalRepresentationFactory;
+        this.terminalLayerFactory = terminalLayerFactory;
     }
 
-    public void render(TerminalLayer terminalLayer, Agent hero) {
-        int height = terminalLayer.getHeight();
-        int width = terminalLayer.getWidth();
-        BigDecimal maxLife = hero.getStats().getMaxLife();
-        BigDecimal life = hero.getStats().getLife();
-        Orb healthOrb = new DefaultOrb("HP", Color.RED, maxLife, life);
-        Orb manaOrb = new DefaultOrb("MP", Color.BLUE, maxLife, life);
+    public TerminalLayer render(Agent hero, InterfaceSize size) {
+        TerminalLayer terminalLayer = terminalLayerFactory.createTerminalLayer(size);
+        InterfaceSize orbSize = getOrbSize(terminalLayer.getSize().getWidth());
+        Orb healthOrb = new DefaultOrb("HP", Color.RED, hero.getStats().getMaxLife(), hero.getStats().getLife());
+        TerminalLayer healthOrbRepresentation = orbTerminalRepresentationFactory.createRepresentation(healthOrb, orbSize);
+        int top = terminalLayer.getSize().getHeight() - orbSize.getHeight();
+        InterfacePosition healthOrbPosition = InterfacePosition.of(0, top);
+        terminalLayer.put(healthOrbRepresentation, healthOrbPosition);
+        Orb manaOrb = new DefaultOrb("MP", Color.BLUE, BigDecimal.TEN, BigDecimal.TEN);
+        TerminalLayer manaOrbRepresentation = orbTerminalRepresentationFactory.createRepresentation(manaOrb, orbSize);
+        InterfacePosition manaOrbPosition = InterfacePosition.of(terminalLayer.getSize().getWidth() - orbSize.getWidth(), top);
+        terminalLayer.put(manaOrbRepresentation, manaOrbPosition);
+        return terminalLayer;
+    }
 
-        int orbHeight = Math.max(1, terminalLayer.getWidth() / 15);
+    private InterfaceSize getOrbSize(int width) {
+        int orbHeight = Math.max(1, width / 15);
         int orbWidth = orbHeight > 1 ? orbHeight * 2 : orbHeight;
-        InterfaceSize size = new InterfaceSize(orbWidth, orbHeight);
-        TerminalLayer healthOrbRepresentation = orbTerminalRepresentationFactory.createRepresentation(healthOrb, size);
-        layer(terminalLayer, healthOrbRepresentation, height-healthOrbRepresentation.getHeight(), 0);
-        TerminalLayer manaOrbRepresentation = orbTerminalRepresentationFactory.createRepresentation(manaOrb, size);
-        layer(terminalLayer, manaOrbRepresentation, height-manaOrbRepresentation.getHeight(), width-manaOrbRepresentation.getWidth());
-    }
-
-    private void layer(TerminalLayer frame, TerminalLayer sphere, int y, int x) {
-        frame.put(sphere, y, x);
+        return new InterfaceSize(orbWidth, orbHeight);
     }
 }

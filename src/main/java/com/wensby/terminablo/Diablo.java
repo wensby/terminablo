@@ -5,6 +5,8 @@ import com.wensby.terminablo.scene.*;
 import com.wensby.terminablo.userinterface.terminal.*;
 import com.wensby.terminablo.world.Agent;
 import com.wensby.userinterface.LinuxTerminalCharacterFactory;
+import com.wensby.userinterface.TerminalLayerFactory;
+import com.wensby.userinterface.TerminalLayerFactoryImpl;
 
 public class Diablo {
 
@@ -18,8 +20,11 @@ public class Diablo {
         Agent hero = new AgentBuilder().build();
         PlaySceneModel playSceneModel = new PlaySceneModel(hero);
         OrbTerminalRepresentationFactory orbTerminalRepresentationFactory = new OrbTerminalRepresentationFactory(terminalCharacterFactory);
-        HeroPlaySceneInterfaceRenderer heroPlaySceneInterfaceRenderer = new HeroPlaySceneInterfaceRenderer(orbTerminalRepresentationFactory);
-        Scene scene = new PlayScene(new PlaySceneController(playSceneModel), playSceneModel, new PlaySceneView(terminalCharacterFactory, canvas, playSceneModel, heroPlaySceneInterfaceRenderer));
+        TerminalLayerFactory terminalLayerFactory = new TerminalLayerFactoryImpl();
+        HeroPlaySceneInterfaceRenderer heroPlaySceneInterfaceRenderer = new HeroPlaySceneInterfaceRenderer(orbTerminalRepresentationFactory, terminalLayerFactory);
+        PlaySceneView playSceneView = new PlaySceneView(canvas, playSceneModel, heroPlaySceneInterfaceRenderer);
+        PlaySceneController playSceneController = new PlaySceneController(playSceneModel);
+        Scene scene = new PlayScene(playSceneController, playSceneModel, playSceneView);
         final SceneTicker gameTicker = new SceneTicker(scene);
         try {
             new GameLooperBuilder()
