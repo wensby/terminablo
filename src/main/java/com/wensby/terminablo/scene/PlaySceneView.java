@@ -19,8 +19,8 @@ public class PlaySceneView {
     }
 
     public void render() {
-        TerminalFrame frame = canvas.createFrame();
-        TerminalLayer layer = heroPlaySceneInterfaceRenderer.render(playSceneModel.getHero(), frame.getSize());
+        var frame = canvas.createFrame();
+        var layer = heroPlaySceneInterfaceRenderer.render(playSceneModel.getHero(), frame.getSize());
         frame.put(layer, InterfacePosition.atOrigin());
         canvas.renderFrame(frame);
     }

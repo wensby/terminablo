@@ -16,7 +16,7 @@ public class PlaySceneController {
     }
 
     public void update(Duration elapsedTime, UserInput input) {
-        AgentStats stats = model.getHero().getStats();
+        var stats = model.getHero().getStats();
         if (input.getKeyStrokes().contains(Key.ARROW_UP)) {
             stats.setLife(stats.getLife().add(BigDecimal.ONE));
         }

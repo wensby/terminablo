@@ -11,21 +11,21 @@ import com.wensby.userinterface.TerminalLayerFactoryImpl;
 public class Diablo {
 
     public static void main(String[] args) {
-        LinuxTerminal linuxTerminal = new LinuxTerminal(System.in, System.out, new BashCommandExecutor());
-        LinuxTerminalCharacterFactory terminalCharacterFactory = new LinuxTerminalCharacterFactory();
-        LinuxTerminalRenderCommandFactory linuxTerminalRenderCommandFactory = new LinuxTerminalRenderCommandFactory(terminalCharacterFactory);
-        LinuxTerminalUserInterfaceFactory userInterfaceFactory = new LinuxTerminalUserInterfaceFactory(linuxTerminal, linuxTerminalRenderCommandFactory);
-        LinuxTerminalUserInterface userInterface = userInterfaceFactory.createUserInterface();
-        LinuxTerminalVisualCanvas canvas = (LinuxTerminalVisualCanvas) userInterface.getCanvas();
-        Agent hero = new AgentBuilder().build();
-        PlaySceneModel playSceneModel = new PlaySceneModel(hero);
-        OrbTerminalRepresentationFactory orbTerminalRepresentationFactory = new OrbTerminalRepresentationFactory(terminalCharacterFactory);
-        TerminalLayerFactory terminalLayerFactory = new TerminalLayerFactoryImpl();
-        HeroPlaySceneInterfaceRenderer heroPlaySceneInterfaceRenderer = new HeroPlaySceneInterfaceRenderer(orbTerminalRepresentationFactory, terminalLayerFactory, terminalCharacterFactory);
-        PlaySceneView playSceneView = new PlaySceneView(canvas, playSceneModel, heroPlaySceneInterfaceRenderer);
-        PlaySceneController playSceneController = new PlaySceneController(playSceneModel);
-        Scene scene = new PlayScene(playSceneController, playSceneModel, playSceneView);
-        final SceneTicker gameTicker = new SceneTicker(scene);
+        var linuxTerminal = new LinuxTerminal(System.in, System.out, new BashCommandExecutor());
+        var terminalCharacterFactory = new LinuxTerminalCharacterFactory();
+        var linuxTerminalRenderCommandFactory = new LinuxTerminalRenderCommandFactory(terminalCharacterFactory);
+        var userInterfaceFactory = new LinuxTerminalUserInterfaceFactory(linuxTerminal, linuxTerminalRenderCommandFactory);
+        var userInterface = userInterfaceFactory.createUserInterface();
+        var canvas = (LinuxTerminalVisualCanvas) userInterface.getCanvas();
+        var hero = new AgentBuilder().build();
+        var playSceneModel = new PlaySceneModel(hero);
+        var orbTerminalRepresentationFactory = new OrbTerminalRepresentationFactory(terminalCharacterFactory);
+        var terminalLayerFactory = new TerminalLayerFactoryImpl();
+        var heroPlaySceneInterfaceRenderer = new HeroPlaySceneInterfaceRenderer(orbTerminalRepresentationFactory, terminalLayerFactory, terminalCharacterFactory);
+        var playSceneView = new PlaySceneView(canvas, playSceneModel, heroPlaySceneInterfaceRenderer);
+        var playSceneController = new PlaySceneController(playSceneModel);
+        var scene = new PlayScene(playSceneController, playSceneModel, playSceneView);
+        var gameTicker = new SceneTicker(scene);
         try {
             new GameLooperBuilder()
                     .withTickable(gameTicker)

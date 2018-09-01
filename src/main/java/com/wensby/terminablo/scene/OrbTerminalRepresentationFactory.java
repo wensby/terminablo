@@ -36,35 +36,35 @@ public class OrbTerminalRepresentationFactory {
     }
 
     private TerminalLayer createScaledDownRepresentation(Orb orb, InterfaceSize size) {
-        TerminalLayer layer = createLayer(size);
+        var layer = createLayer(size);
         fillInBorder(layer);
-        TerminalLayer orbContent = createOrbContent(orb, new InterfaceSize(size.getWidth() - 2, size.getHeight() - 2));
+        var orbContent = createOrbContent(orb, new InterfaceSize(size.getWidth() - 2, size.getHeight() - 2));
         layer.put(orbContent, InterfacePosition.of(1, 1));
         fillInValue(layer, orb);
         return layer;
     }
 
     private TerminalLayer createLayer(InterfaceSize size) {
-        int height = size.getHeight();
-        int width = size.getWidth();
-        TerminalCharacter[][] characters = new TerminalCharacter[height][width];
+        var height = size.getHeight();
+        var width = size.getWidth();
+        var characters = new TerminalCharacter[height][width];
         return new TerminalLayerImpl(characters);
     }
 
     private TerminalLayer createOrbContent(Orb orb, InterfaceSize size) {
-        TerminalCharacter[][] characters = new TerminalCharacter[size.getHeight()][size.getWidth()];
-        int height = size.getHeight();
-        BigDecimal rowCapacity = orb.getCapacity().divide(new BigDecimal(height), RoundingMode.HALF_UP);
-        BigDecimal[] fullRowsAndRemainder = orb.getValue().divideAndRemainder(rowCapacity);
-        int fullRows = fullRowsAndRemainder[0].intValue();
+        var characters = new TerminalCharacter[size.getHeight()][size.getWidth()];
+        var height = size.getHeight();
+        var rowCapacity = orb.getCapacity().divide(new BigDecimal(height), RoundingMode.HALF_UP);
+        var fullRowsAndRemainder = orb.getValue().divideAndRemainder(rowCapacity);
+        var fullRows = fullRowsAndRemainder[0].intValue();
         for (int y = 0; y < fullRows; y++) {
             for (int x = 0; x < size.getWidth(); x++) {
                 characters[height-1-y][x] = characterFactory.createCharacter(' ', null, orb.getColor());
             }
         }
-        BigDecimal remainder = fullRowsAndRemainder[1];
+        var remainder = fullRowsAndRemainder[1];
         if (fullRows != height) {
-            TerminalCharacter remainderRowCharacter = getRemainderRowCharacter(remainder, rowCapacity, orb.getColor());
+            var remainderRowCharacter = getRemainderRowCharacter(remainder, rowCapacity, orb.getColor());
             for (int x = 0; x < size.getWidth(); x++) {
                 characters[height-1-fullRows][x] = remainderRowCharacter;
             }
@@ -74,9 +74,9 @@ public class OrbTerminalRepresentationFactory {
 
     private void fillInBorder(TerminalLayer layer) {
         if (isBorderless(layer.getSize())) {
-            TerminalCharacter[][] characters = layer.getCharacters();
-            int height = layer.getSize().getHeight();
-            int width = layer.getSize().getWidth();
+            var characters = layer.getCharacters();
+            var height = layer.getSize().getHeight();
+            var width = layer.getSize().getWidth();
             for (int i = 1; i < width - 1; i++) {
                 characters[0][i] = characterFactory.createCharacter('─');
             }
@@ -99,9 +99,9 @@ public class OrbTerminalRepresentationFactory {
         if (remainder.compareTo(BigDecimal.ZERO) == 0) {
             return characterFactory.createCharacter(' ');
         }
-        BigDecimal levels = BigDecimal.valueOf(9);
-        BigDecimal rowLevelCapacity = rowCapacity.divide(levels, 100, BigDecimal.ROUND_UP);
-        int rowLevels = remainder.divide(rowLevelCapacity, BigDecimal.ROUND_CEILING).intValue();
+        var levels = BigDecimal.valueOf(9);
+        var rowLevelCapacity = rowCapacity.divide(levels, 100, BigDecimal.ROUND_UP);
+        var rowLevels = remainder.divide(rowLevelCapacity, BigDecimal.ROUND_CEILING).intValue();
         char c;
         if (rowLevels == 9) {
             return characterFactory.createCharacter(' ', null, color);
@@ -124,10 +124,10 @@ public class OrbTerminalRepresentationFactory {
 
     private void fillInValue(TerminalLayer layer, Orb orb) {
         if (layer.getSize().getWidth() >= 6 && layer.getSize().getHeight() > 1) {
-            int height = layer.getSize().getHeight();
-            int width = layer.getSize().getWidth();
-            String s = (orb.getValue() + " / " + orb.getCapacity()).substring(0, 6);
-            int start = (width - s.length()) / 2;
+            var height = layer.getSize().getHeight();
+            var width = layer.getSize().getWidth();
+            var s = (orb.getValue() + " / " + orb.getCapacity()).substring(0, 6);
+            var start = (width - s.length()) / 2;
             for (int i = 0; i < s.length(); i++) {
                 layer.getCharacters()[height - 1][i + start] = characterFactory.createCharacter(s.charAt(i));
             }

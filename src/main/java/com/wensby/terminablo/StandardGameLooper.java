@@ -28,8 +28,8 @@ public class StandardGameLooper implements GameLooper {
     @Override
     public void run() {
         while (isRunning()) {
-            UserInput latestUserInput = pollUserInput();
-            Duration latestElapsedTime = pollElapsedTime();
+            var latestUserInput = pollUserInput();
+            var latestElapsedTime = pollElapsedTime();
             tick(latestElapsedTime, latestUserInput);
             sleep();
         }
@@ -48,7 +48,7 @@ public class StandardGameLooper implements GameLooper {
         if (latestTickInstant == null) {
             latestTickInstant = now;
         }
-        Duration elapsedTime = Duration.between(latestTickInstant, now);
+        var elapsedTime = Duration.between(latestTickInstant, now);
         latestTickInstant = now;
         return elapsedTime;
     }
