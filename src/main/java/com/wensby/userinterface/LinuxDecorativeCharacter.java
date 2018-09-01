@@ -14,6 +14,10 @@ public class LinuxDecorativeCharacter implements TerminalCharacter {
         this.backgroundColor = backgroundColor;
     }
 
+    LinuxDecorativeCharacter(CharSequence character) {
+        this(character, null, null);
+    }
+
     @Override
     public String toString() {
         return "LinuxDecorativeCharacter{" +

@@ -21,7 +21,7 @@ public class Diablo {
         PlaySceneModel playSceneModel = new PlaySceneModel(hero);
         OrbTerminalRepresentationFactory orbTerminalRepresentationFactory = new OrbTerminalRepresentationFactory(terminalCharacterFactory);
         TerminalLayerFactory terminalLayerFactory = new TerminalLayerFactoryImpl();
-        HeroPlaySceneInterfaceRenderer heroPlaySceneInterfaceRenderer = new HeroPlaySceneInterfaceRenderer(orbTerminalRepresentationFactory, terminalLayerFactory);
+        HeroPlaySceneInterfaceRenderer heroPlaySceneInterfaceRenderer = new HeroPlaySceneInterfaceRenderer(orbTerminalRepresentationFactory, terminalLayerFactory, terminalCharacterFactory);
         PlaySceneView playSceneView = new PlaySceneView(canvas, playSceneModel, heroPlaySceneInterfaceRenderer);
         PlaySceneController playSceneController = new PlaySceneController(playSceneModel);
         Scene scene = new PlayScene(playSceneController, playSceneModel, playSceneView);

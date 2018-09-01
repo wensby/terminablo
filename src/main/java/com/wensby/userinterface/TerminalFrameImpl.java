@@ -24,6 +24,11 @@ public class TerminalFrameImpl implements TerminalFrame {
     }
 
     @Override
+    public void put(InterfacePosition position, TerminalCharacter character) {
+        terminalLayer.put(position, character);
+    }
+
+    @Override
     public TerminalCharacter getCharacter(InterfacePosition interfacePosition) {
         return terminalLayer.getCharacter(interfacePosition);
     }

@@ -17,4 +17,9 @@ public class LinuxTerminalCharacterFactory implements TerminalCharacterFactory {
     public TerminalCharacter createCharacter(char character, Color foregroundColor, Color backgroundColor) {
         return new LinuxDecorativeCharacter(String.valueOf(character), foregroundColor, backgroundColor);
     }
+
+    @Override
+    public TerminalCharacter createCharacter(CharSequence character) {
+        return new LinuxDecorativeCharacter(character);
+    }
 }

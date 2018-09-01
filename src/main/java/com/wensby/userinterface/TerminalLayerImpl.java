@@ -30,6 +30,11 @@ public class TerminalLayerImpl implements TerminalLayer {
     }
 
     @Override
+    public void put(InterfacePosition position, TerminalCharacter character) {
+        characters[position.getRow()][position.getColumn()] = character;
+    }
+
+    @Override
     public TerminalCharacter getCharacter(InterfacePosition interfacePosition) {
         return characters[interfacePosition.getRow()][interfacePosition.getColumn()];
     }

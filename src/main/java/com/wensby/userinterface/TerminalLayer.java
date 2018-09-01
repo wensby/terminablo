@@ -8,5 +8,7 @@ public interface TerminalLayer {
 
     void put(TerminalLayer layer, InterfacePosition interfacePosition);
 
+    void put(InterfacePosition position, TerminalCharacter character);
+
     TerminalCharacter getCharacter(InterfacePosition position);
 }
