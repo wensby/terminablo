@@ -4,7 +4,9 @@ import com.wensby.userinterface.TerminalCharacter;
 
 public interface TerminalRenderCommandFactory {
 
-    TerminalRenderCommand createCommand(TerminalCharacter[][] characters);
+  TerminalRenderCommand createCommand(TerminalCharacter[][] characters);
 
-    TerminalRenderCommand createMoveCursorCommand(int row, int column);
+  TerminalRenderCommand createMoveCursorCommand(int row, int column);
+
+  TerminalRenderCommand createClearScreenCommand();
 }

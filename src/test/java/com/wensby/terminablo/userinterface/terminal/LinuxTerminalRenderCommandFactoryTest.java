@@ -1,33 +1,29 @@
 package com.wensby.terminablo.userinterface.terminal;
 
-import com.wensby.userinterface.LinuxTerminalCharacterFactory;
-import com.wensby.userinterface.TerminalCharacter;
-import org.junit.Test;
-
-import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
+import com.wensby.userinterface.LinuxTerminalCharacterFactory;
+import com.wensby.userinterface.TerminalCharacter;
+import java.util.List;
+import org.hamcrest.core.IsInstanceOf;
+import org.junit.Test;
+
 public class LinuxTerminalRenderCommandFactoryTest {
 
-    @Test
-    public void rcreateCommand_ofSimpleEmptyCharSequenceArray() {
-        LinuxTerminalCharacterFactory terminalCharacterFactory = new LinuxTerminalCharacterFactory();
-        TerminalRenderCommandFactory factory = new LinuxTerminalRenderCommandFactory(terminalCharacterFactory);
-        TerminalCharacter[][] characters = new TerminalCharacter[1][1];
+  @Test
+  public void createCommand_ofSimpleEmptyCharSequenceArray() {
+    var characterFactory = new LinuxTerminalCharacterFactory();
+    var commandFactory = new LinuxTerminalRenderCommandFactory(characterFactory);
+    var characters = new TerminalCharacter[1][1];
 
-        TerminalRenderCommand command = factory.createCommand(characters);
+    var command = commandFactory.createCommand(characters);
 
-        assertThat(command, instanceOf(CompositeTerminalRenderCommand.class));
-        CompositeTerminalRenderCommand composite = (CompositeTerminalRenderCommand) command;
-        List<TerminalRenderCommand> commands = composite.getCommands();
-        assertThat(commands.size(), is(2));
-        assertThat(commands.get(0), instanceOf(LinuxMoveCursorCommand.class));
-        MoveCursorCommand moveCursorCommand = (MoveCursorCommand) commands.get(0);
-        assertThat(moveCursorCommand.getCoordinates(), is(TerminalCoordinates.of(0, 0)));
-        assertThat(commands.get(1), instanceOf(TerminalCharacterRenderCommand.class));
-        assertThat(commands.get(1).toRenderString(), is(" "));
-    }
+    assertThat(command, instanceOf(CompositeTerminalRenderCommand.class));
+    CompositeTerminalRenderCommand composite = (CompositeTerminalRenderCommand) command;
+    List<TerminalRenderCommand> commands = composite.getCommands();
+    assertThat(commands.size(), is(1));
+    assertThat(commands.get(0), instanceOf(ClearScreenRenderCommand.class));
+  }
 }

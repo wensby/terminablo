@@ -2,13 +2,13 @@ package com.wensby.userinterface;
 
 public interface TerminalLayer {
 
-    TerminalCharacter[][] getCharacters();
+  TerminalCharacter[][] getCharacters();
 
-    InterfaceSize getSize();
+  InterfaceSize getSize();
 
-    void put(TerminalLayer layer, InterfacePosition interfacePosition);
+  void put(TerminalLayer layer, InterfacePosition interfacePosition);
 
-    void put(InterfacePosition position, TerminalCharacter character);
+  void put(InterfacePosition position, TerminalCharacter character);
 
-    TerminalCharacter getCharacter(InterfacePosition position);
+  TerminalCharacter getCharacter(InterfacePosition position);
 }

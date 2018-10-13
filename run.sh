@@ -1,1 +1,1 @@
-java -classpath target/classes com.wensby.terminablo.Diablo
+java -classpath target/classes com.wensby.terminablo.Terminablo

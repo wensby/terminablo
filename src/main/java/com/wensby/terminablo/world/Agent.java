@@ -1,8 +1,10 @@
 package com.wensby.terminablo.world;
 
+import com.wensby.terminablo.world.level.LevelEntity;
+
 public interface Agent {
 
-    AgentStats getStats();
+  AgentStats getStats();
 
-    MapEntity getMapEntity();
+  LevelEntity getLevelEntity();
 }

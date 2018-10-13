@@ -1,12 +1,12 @@
 package com.wensby.userinterface;
 
-import java.awt.*;
+import java.awt.Color;
 
 public interface TerminalCharacterFactory {
 
-    TerminalCharacter createCharacter(char character);
+  TerminalCharacter createCharacter(char character);
 
-    TerminalCharacter createCharacter(char character, Color foregroundColor, Color backgroundColor);
+  TerminalCharacter createCharacter(char character, Color foregroundColor, Color backgroundColor);
 
-    TerminalCharacter createCharacter(CharSequence character);
+  TerminalCharacter createCharacter(CharSequence character);
 }

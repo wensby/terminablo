@@ -1,15 +1,15 @@
 package com.wensby.terminablo.scene;
 
-import java.awt.*;
+import java.awt.Color;
 import java.math.BigDecimal;
 
 public interface Orb {
 
-    Color getColor();
+  Color getColor();
 
-    String getLabel();
+  String getLabel();
 
-    BigDecimal getCapacity();
+  BigDecimal getCapacity();
 
-    BigDecimal getValue();
+  BigDecimal getValue();
 }

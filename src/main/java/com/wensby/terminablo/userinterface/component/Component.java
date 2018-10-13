@@ -4,9 +4,9 @@ import com.wensby.userinterface.InterfaceSize;
 
 public interface Component {
 
-    void render(char[][] canvas);
+  void render(char[][] canvas);
 
-    InterfaceLocation getLocation();
+  InterfaceLocation getLocation();
 
-    InterfaceSize getSize();
+  InterfaceSize getSize();
 }

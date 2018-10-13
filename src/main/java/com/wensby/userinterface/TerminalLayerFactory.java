@@ -2,5 +2,5 @@ package com.wensby.userinterface;
 
 public interface TerminalLayerFactory {
 
-    TerminalLayer createTerminalLayer(InterfaceSize size);
+  TerminalLayer createTerminalLayer(InterfaceSize size);
 }

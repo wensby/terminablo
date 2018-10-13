@@ -4,9 +4,9 @@ import com.wensby.userinterface.UserInput;
 
 public interface UserInterface {
 
-    UserInput pollUserInput();
+  UserInput pollUserInput();
 
-    VisualCanvas getCanvas();
+  VisualCanvas getCanvas();
 
-    void release();
+  void release();
 }

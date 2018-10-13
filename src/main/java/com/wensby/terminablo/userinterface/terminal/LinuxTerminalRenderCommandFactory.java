@@ -5,34 +5,39 @@ import com.wensby.userinterface.TerminalCharacter;
 
 public class LinuxTerminalRenderCommandFactory implements TerminalRenderCommandFactory {
 
-    private final LinuxTerminalCharacterFactory terminalCharacterFactory;
+  private final LinuxTerminalCharacterFactory terminalCharacterFactory;
 
-    public LinuxTerminalRenderCommandFactory(LinuxTerminalCharacterFactory terminalCharacterFactory) {
-        this.terminalCharacterFactory = terminalCharacterFactory;
-    }
+  public LinuxTerminalRenderCommandFactory(LinuxTerminalCharacterFactory terminalCharacterFactory) {
+    this.terminalCharacterFactory = terminalCharacterFactory;
+  }
 
-    @Override
-    public TerminalRenderCommand createCommand(TerminalCharacter[][] characters) {
-        TerminalRenderCommandBuilder commandBuilder = new TerminalRenderCommandBuilder();
-        for (int y = 0; y < characters.length; y++) {
-            TerminalRenderCommand moveCursorCommand = createMoveCursorCommand(y, 0);
-            commandBuilder.addCommand(moveCursorCommand);
-            int rowLength = characters[y].length;
-            for (int x = 0; x < rowLength; x++) {
-                TerminalCharacter character = characters[y][x];
-                if (character != null) {
-                    commandBuilder.addTerminalCharacter(character);
-                }
-                else {
-                    commandBuilder.addTerminalCharacter(terminalCharacterFactory.createCharacter(' '));
-                }
-            }
+  @Override
+  public TerminalRenderCommand createCommand(TerminalCharacter[][] characters) {
+    TerminalRenderCommandBuilder commandBuilder = new TerminalRenderCommandBuilder();
+    commandBuilder.addCommand(createClearScreenCommand());
+    for (int y = 0; y < characters.length; y++) {
+      int rowLength = characters[y].length;
+      for (int x = 0; x < rowLength; x++) {
+        TerminalCharacter character = characters[y][x];
+        if (character != null) {
+          commandBuilder.addCommand(createMoveCursorCommand(y, x));
+          commandBuilder.addTerminalCharacter(character);
+          if (character.isLong()) {
+            commandBuilder.addCommand(createMoveCursorCommand(y, x + 1));
+          }
         }
-        return commandBuilder.build();
+      }
     }
+    return commandBuilder.build();
+  }
 
-    @Override
-    public TerminalRenderCommand createMoveCursorCommand(int row, int column) {
-        return new LinuxMoveCursorCommand(TerminalCoordinates.of(row, column));
-    }
+  @Override
+  public TerminalRenderCommand createMoveCursorCommand(int row, int column) {
+    return new LinuxMoveCursorCommand(TerminalCoordinates.of(row, column));
+  }
+
+  @Override
+  public TerminalRenderCommand createClearScreenCommand() {
+    return new LinuxClearScreenRenderCommand();
+  }
 }
