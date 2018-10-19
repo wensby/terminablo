@@ -6,7 +6,7 @@ public interface TerminalLayer {
 
   InterfaceSize getSize();
 
-  void put(TerminalLayer layer, InterfacePosition interfacePosition);
+  void put(InterfacePosition interfacePosition, TerminalLayer layer);
 
   void put(InterfacePosition position, TerminalCharacter character);
 

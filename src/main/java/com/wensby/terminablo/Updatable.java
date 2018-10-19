@@ -3,7 +3,7 @@ package com.wensby.terminablo;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 
-public interface Scene {
+public interface Updatable {
 
-  Scene update(Duration elapsedTime, UserInput input);
+  void update(Duration elapsedTime, UserInput input);
 }

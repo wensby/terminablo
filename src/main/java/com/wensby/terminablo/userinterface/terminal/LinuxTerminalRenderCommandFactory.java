@@ -1,24 +1,18 @@
 package com.wensby.terminablo.userinterface.terminal;
 
-import com.wensby.userinterface.LinuxTerminalCharacterFactory;
 import com.wensby.userinterface.TerminalCharacter;
 
 public class LinuxTerminalRenderCommandFactory implements TerminalRenderCommandFactory {
 
-  private final LinuxTerminalCharacterFactory terminalCharacterFactory;
-
-  public LinuxTerminalRenderCommandFactory(LinuxTerminalCharacterFactory terminalCharacterFactory) {
-    this.terminalCharacterFactory = terminalCharacterFactory;
-  }
-
   @Override
   public TerminalRenderCommand createCommand(TerminalCharacter[][] characters) {
-    TerminalRenderCommandBuilder commandBuilder = new TerminalRenderCommandBuilder();
+    var commandBuilder = new TerminalRenderCommandBuilder();
     commandBuilder.addCommand(createClearScreenCommand());
-    for (int y = 0; y < characters.length; y++) {
-      int rowLength = characters[y].length;
+    final int rowCount = characters.length;
+    for (int y = 0; y < rowCount; y++) {
+      int rowLength = characters[0].length;
       for (int x = 0; x < rowLength; x++) {
-        TerminalCharacter character = characters[y][x];
+        var character = characters[y][x];
         if (character != null) {
           commandBuilder.addCommand(createMoveCursorCommand(y, x));
           commandBuilder.addTerminalCharacter(character);
@@ -39,5 +33,15 @@ public class LinuxTerminalRenderCommandFactory implements TerminalRenderCommandF
   @Override
   public TerminalRenderCommand createClearScreenCommand() {
     return new LinuxClearScreenRenderCommand();
+  }
+
+  @Override
+  public TerminalRenderCommand createHideCursorCommand() {
+    return new LinuxHideCursorCommand();
+  }
+
+  @Override
+  public TerminalRenderCommand createShowCursorCommand() {
+    return new LinuxShowCursorCommand();
   }
 }

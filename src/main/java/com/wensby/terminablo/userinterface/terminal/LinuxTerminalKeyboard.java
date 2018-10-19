@@ -1,5 +1,7 @@
 package com.wensby.terminablo.userinterface.terminal;
 
+import static java.util.Objects.requireNonNull;
+
 import com.wensby.terminablo.ListUtil;
 import com.wensby.terminablo.userinterface.Key;
 import com.wensby.terminablo.userinterface.Keyboard;
@@ -13,7 +15,7 @@ public class LinuxTerminalKeyboard implements Keyboard, AutoCloseable {
   private final InputStream inputStream;
 
   LinuxTerminalKeyboard(InputStream inputStream) {
-    this.inputStream = inputStream;
+    this.inputStream = requireNonNull(inputStream);
   }
 
   @Override

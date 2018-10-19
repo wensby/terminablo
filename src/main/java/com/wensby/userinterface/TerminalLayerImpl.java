@@ -15,11 +15,11 @@ public class TerminalLayerImpl implements TerminalLayer {
 
   @Override
   public InterfaceSize getSize() {
-    return new InterfaceSize(characters[0].length, characters.length);
+    return InterfaceSize.of(characters[0].length, characters.length);
   }
 
   @Override
-  public void put(TerminalLayer layer, InterfacePosition target) {
+  public void put(InterfacePosition target, TerminalLayer layer) {
     var size = layer.getSize();
     for (int y = 0; y < size.getHeight(); y++) {
       for (int x = 0; x < size.getWidth(); x++) {

@@ -1,5 +1,7 @@
 package com.wensby.terminablo.userinterface.terminal;
 
+import java.util.StringJoiner;
+
 public class LinuxMoveCursorCommand implements MoveCursorCommand {
 
   private final TerminalCoordinates coordinates;
@@ -15,9 +17,9 @@ public class LinuxMoveCursorCommand implements MoveCursorCommand {
 
   @Override
   public String toString() {
-    return "LinuxMoveCursorCommand{" +
-        "coordinates=" + coordinates +
-        '}';
+    return new StringJoiner(", ", LinuxMoveCursorCommand.class.getSimpleName() + "{", "}")
+        .add("coordinates=" + coordinates)
+        .toString();
   }
 
   @Override

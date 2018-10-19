@@ -9,7 +9,7 @@ public class TerminalCoordinatesTest {
 
   @Test
   public void construction() {
-    TerminalCoordinates coordinates = TerminalCoordinates.of(1, 2);
+    var coordinates = TerminalCoordinates.of(1, 2);
     assertThat(coordinates.getRow(), is(1));
     assertThat(coordinates.getColumn(), is(2));
   }

@@ -4,8 +4,9 @@ import static com.wensby.terminablo.userinterface.Key.ARROW_DOWN;
 import static com.wensby.terminablo.userinterface.Key.ARROW_LEFT;
 import static com.wensby.terminablo.userinterface.Key.ARROW_RIGHT;
 import static com.wensby.terminablo.userinterface.Key.ARROW_UP;
+import static com.wensby.terminablo.userinterface.Key.ESCAPE;
 
-import com.wensby.terminablo.userinterface.Key;
+import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.world.level.LevelEntity;
 import com.wensby.terminablo.world.level.LevelLocation;
 import com.wensby.userinterface.UserInput;
@@ -14,13 +15,21 @@ import java.time.Duration;
 
 public class LevelSceneController {
 
+  private final SceneStack sceneStack;
   private final LevelSceneModel model;
 
-  public LevelSceneController(LevelSceneModel model) {
+  public LevelSceneController(SceneStack sceneStack,
+      LevelSceneModel model) {
+    this.sceneStack = sceneStack;
     this.model = model;
   }
 
   public void update(Duration elapsedTime, UserInput input) {
+    BigDecimal plus = model.getHero().getStats().getLife().add(BigDecimal.TEN);
+    model.getHero().getStats().setLife(plus);
+    if (input.getKeyStrokes().contains(ESCAPE)) {
+      sceneStack.pop();
+    }
     updateCharacterMovement(elapsedTime, input);
   }
 

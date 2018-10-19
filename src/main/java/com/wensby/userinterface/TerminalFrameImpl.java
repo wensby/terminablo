@@ -19,8 +19,8 @@ public class TerminalFrameImpl implements TerminalFrame {
   }
 
   @Override
-  public void put(TerminalLayer layer, InterfacePosition interfacePosition) {
-    terminalLayer.put(layer, interfacePosition);
+  public void put(InterfacePosition interfacePosition, TerminalLayer layer) {
+    terminalLayer.put(interfacePosition, layer);
   }
 
   @Override

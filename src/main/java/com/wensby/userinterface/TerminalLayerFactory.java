@@ -1,6 +1,10 @@
 package com.wensby.userinterface;
 
+import java.awt.Color;
+
 public interface TerminalLayerFactory {
 
-  TerminalLayer createTerminalLayer(InterfaceSize size);
+  TerminalLayer createBlankLayer(InterfaceSize size);
+  
+  TerminalLayer createColoredLayer(InterfaceSize size, Color color);
 }

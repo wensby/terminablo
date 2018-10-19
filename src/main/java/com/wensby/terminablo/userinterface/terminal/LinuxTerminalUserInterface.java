@@ -19,15 +19,6 @@ public class LinuxTerminalUserInterface implements UserInterface {
     this.canvas = canvas;
   }
 
-  private void clearCanvas(char[][] canvas) {
-    for (int y = 0; y < canvas.length; y++) {
-      char[] line = canvas[y];
-      for (int x = 0; x < line.length; x++) {
-        line[x] = ' ';
-      }
-    }
-  }
-
   @Override
   public UserInput pollUserInput() {
     List<Key> keyStrokes = keyboard.getKeyStrokes();
@@ -42,6 +33,7 @@ public class LinuxTerminalUserInterface implements UserInterface {
   @Override
   public void release() {
     linuxTerminal.setTerminalCooked();
+    linuxTerminal.showCursor(true);
     System.out.println();
   }
 }

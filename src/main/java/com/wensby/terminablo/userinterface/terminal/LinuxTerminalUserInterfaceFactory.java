@@ -6,23 +6,24 @@ public class LinuxTerminalUserInterfaceFactory implements UserInterfaceFactory {
 
   private static LinuxTerminalKeyboard terminalKeyboard;
   private final LinuxTerminal linuxTerminal;
-  private LinuxTerminalRenderCommandFactory linuxTerminalRenderCommandFactory;
+  private final LinuxTerminalRenderCommandFactory commandFactory;
 
   public LinuxTerminalUserInterfaceFactory(LinuxTerminal linuxTerminal,
-      final LinuxTerminalRenderCommandFactory linuxTerminalRenderCommandFactory) {
+      final LinuxTerminalRenderCommandFactory commandFactory) {
     this.linuxTerminal = linuxTerminal;
-    this.linuxTerminalRenderCommandFactory = linuxTerminalRenderCommandFactory;
+    this.commandFactory = commandFactory;
   }
 
   @Override
   public LinuxTerminalUserInterface createUserInterface() {
     linuxTerminal.setTerminalRaw();
+    linuxTerminal.showCursor(false);
     if (terminalKeyboard == null) {
       terminalKeyboard = createLinuxTerminalKeyboard();
     }
     LinuxTerminalFrameFactory frameFactory = new LinuxTerminalFrameFactory(linuxTerminal);
     LinuxTerminalVisualCanvas canvas = new LinuxTerminalVisualCanvas(frameFactory, System.out,
-        linuxTerminalRenderCommandFactory);
+        commandFactory);
     return new LinuxTerminalUserInterface(linuxTerminal, terminalKeyboard, canvas);
   }
 

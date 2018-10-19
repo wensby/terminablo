@@ -3,7 +3,6 @@ package com.wensby.terminablo.scene.levelscene;
 import static com.wensby.userinterface.InterfacePosition.atOrigin;
 
 import com.wensby.terminablo.TerminalLevelRenderer;
-import com.wensby.terminablo.scene.LevelSceneInterfaceRenderer;
 import com.wensby.terminablo.userinterface.terminal.LinuxTerminalVisualCanvas;
 
 public class LevelSceneTerminalView implements LevelSceneView {
@@ -32,8 +31,8 @@ public class LevelSceneTerminalView implements LevelSceneView {
     var interfaceSize = frame.getSize();
     var layerLevel = terminalLevelRenderer.render(level, heroLocation, interfaceSize);
     var layerInterface = levelSceneInterfaceRenderer.render(hero, interfaceSize);
-    frame.put(layerLevel, atOrigin());
-    frame.put(layerInterface, atOrigin());
+    frame.put(atOrigin(), layerLevel);
+    frame.put(atOrigin(), layerInterface);
     canvas.renderFrame(frame);
   }
 }

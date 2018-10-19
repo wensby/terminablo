@@ -1,11 +1,9 @@
 package com.wensby.terminablo;
 
-import static org.junit.Assert.*;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.wensby.terminablo.world.level.Level;
 import com.wensby.terminablo.world.level.LevelEntityFactory;
 import com.wensby.terminablo.world.level.LevelFactory;
 import com.wensby.terminablo.world.level.LevelLocation;
@@ -34,10 +32,10 @@ public class TerminalLevelRendererTest {
 
   @Test
   public void name() {
-    var interfaceSize = new InterfaceSize(5, 5);
+    var interfaceSize = InterfaceSize.of(5, 5);
     when(entityRenderer.getTerminalCharacter(any())).thenReturn(new SimpleTerminalCharacter('#'));
     var renderer = new TerminalLevelRenderer(layerFactory, entityRenderer);
-    when(layerFactory.createTerminalLayer(interfaceSize)).thenReturn(new TerminalLayerImpl(new TerminalCharacter[5][5]));
+    when(layerFactory.createBlankLayer(interfaceSize)).thenReturn(new TerminalLayerImpl(new TerminalCharacter[5][5]));
     var level = levelFactory.createFactoryFromString("###\n# #\n###");
     renderer.render(level, LevelLocation.of(1, 1), interfaceSize);
   }

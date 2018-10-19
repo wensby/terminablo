@@ -6,7 +6,5 @@ public class LinuxClearScreenRenderCommand implements ClearScreenRenderCommand {
   public String toRenderString() {
     char escapeCode = 0x1B;
     return String.format("%c[2J", escapeCode);
-
-
   }
 }

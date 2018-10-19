@@ -9,4 +9,8 @@ public interface TerminalRenderCommandFactory {
   TerminalRenderCommand createMoveCursorCommand(int row, int column);
 
   TerminalRenderCommand createClearScreenCommand();
+
+  TerminalRenderCommand createHideCursorCommand();
+
+  TerminalRenderCommand createShowCursorCommand();
 }

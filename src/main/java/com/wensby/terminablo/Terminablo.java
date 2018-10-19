@@ -3,61 +3,69 @@ package com.wensby.terminablo;
 import static java.lang.System.in;
 import static java.lang.System.out;
 
-import com.wensby.SceneTicker;
-import com.wensby.terminablo.scene.LevelSceneInterfaceRenderer;
-import com.wensby.terminablo.scene.OrbTerminalRepresentationFactory;
-import com.wensby.terminablo.scene.levelscene.LevelScene;
-import com.wensby.terminablo.scene.levelscene.LevelSceneController;
-import com.wensby.terminablo.scene.levelscene.LevelSceneModel;
-import com.wensby.terminablo.scene.levelscene.LevelSceneTerminalView;
+import com.wensby.SceneStackUpdater;
+import com.wensby.terminablo.scene.SceneStack;
+import com.wensby.terminablo.scene.SceneStackImpl;
+import com.wensby.terminablo.scene.levelscene.LevelSceneFactory;
+import com.wensby.terminablo.scene.levelscene.LevelSceneFactoryImpl;
+import com.wensby.terminablo.scene.mainmenu.LinuxTerminalMainMenuView;
+import com.wensby.terminablo.scene.mainmenu.MainMenuControllerImpl;
+import com.wensby.terminablo.scene.mainmenu.MainMenuModelImpl;
+import com.wensby.terminablo.scene.mainmenu.MainMenuScene;
 import com.wensby.terminablo.userinterface.terminal.BashCommandExecutor;
 import com.wensby.terminablo.userinterface.terminal.LinuxTerminal;
 import com.wensby.terminablo.userinterface.terminal.LinuxTerminalRenderCommandFactory;
 import com.wensby.terminablo.userinterface.terminal.LinuxTerminalUserInterfaceFactory;
 import com.wensby.terminablo.userinterface.terminal.LinuxTerminalVisualCanvas;
-import com.wensby.terminablo.world.AgentBuilder;
-import com.wensby.terminablo.world.level.LevelEntityFactory;
-import com.wensby.terminablo.world.level.LevelFactory;
-import com.wensby.terminablo.world.level.LevelLocation;
 import com.wensby.userinterface.LinuxTerminalCharacterFactory;
+import com.wensby.userinterface.TerminalCharacterFactory;
+import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.userinterface.TerminalLayerFactoryImpl;
+import org.apache.log4j.Logger;
 
 public class Terminablo {
 
   public static void main(String[] args) {
     var bashCommandExecutor = new BashCommandExecutor();
-    var linuxTerminal = new LinuxTerminal(in, out, bashCommandExecutor);
+    var commandFactory = new LinuxTerminalRenderCommandFactory();
+    var linuxTerminal = new LinuxTerminal(in, out, bashCommandExecutor, commandFactory);
     var characterFactory = new LinuxTerminalCharacterFactory();
-    var commandFactory = new LinuxTerminalRenderCommandFactory(characterFactory);
     var userInterfaceFactory = new LinuxTerminalUserInterfaceFactory(linuxTerminal, commandFactory);
     var userInterface = userInterfaceFactory.createUserInterface();
+    var sceneStack = new SceneStackImpl();
     var canvas = (LinuxTerminalVisualCanvas) userInterface.getCanvas();
-    var hero = new AgentBuilder().build();
-    var levelEntityFactory = new LevelEntityFactory();
-    var levelFactory = new LevelFactory(levelEntityFactory);
-    var level = levelFactory.createFactoryFromString("###\n# #\n###");
-    var levelSceneModel = new LevelSceneModel(hero, level);
-    level.putEntity(LevelLocation.of(1, 1), hero.getLevelEntity());
-    var orbTerminalRepresentationFactory = new OrbTerminalRepresentationFactory(characterFactory);
-    var terminalLayerFactory = new TerminalLayerFactoryImpl();
-    var levelSceneInterfaceRenderer = new LevelSceneInterfaceRenderer(
-        orbTerminalRepresentationFactory, terminalLayerFactory, characterFactory);
-    var levelEntityRenderer = new LevelEntityRenderer(characterFactory);
-    var levelRenderer = new TerminalLevelRenderer(terminalLayerFactory, levelEntityRenderer);
-    var levelSceneView = new LevelSceneTerminalView(canvas, levelSceneInterfaceRenderer,
-        levelRenderer, levelSceneModel);
-    var levelSceneController = new LevelSceneController(levelSceneModel);
-    var scene = new LevelScene(levelSceneController, levelSceneView);
-    var gameTicker = new SceneTicker(scene);
+    var layerFactory = new TerminalLayerFactoryImpl(characterFactory);
+    var levelSceneFactory = new LevelSceneFactoryImpl(characterFactory, layerFactory, canvas, sceneStack);
+    MainMenuScene scene = createMainMenuScene(characterFactory, sceneStack, canvas, layerFactory,
+        levelSceneFactory);
+    sceneStack.push(scene);
+    var sceneStackTicker = new SceneStackUpdater(sceneStack);
+    var renderer = new SceneStackRenderer(sceneStack);
     try {
       new GameLooperBuilder()
-          .withTickable(gameTicker)
+          .withTickable(sceneStackTicker)
           .withUserInterface(userInterface)
+          .withRenderer(renderer)
           .build()
           .run();
+    } catch (Throwable e) {
+      Logger.getLogger(Terminablo.class).fatal("Terminablo crashed.", e);
     } finally {
       userInterface.release();
     }
+  }
+
+  private static MainMenuScene createMainMenuScene(
+      TerminalCharacterFactory characterFactory,
+      SceneStack sceneStack,
+      LinuxTerminalVisualCanvas canvas,
+      TerminalLayerFactory layerFactory,
+      LevelSceneFactory levelSceneFactory
+  ) {
+    var model = new MainMenuModelImpl();
+    var view = new LinuxTerminalMainMenuView(model, canvas, layerFactory, characterFactory);
+    var controller = new MainMenuControllerImpl(model, sceneStack, levelSceneFactory);
+    return new MainMenuScene(controller, view);
   }
 
 }

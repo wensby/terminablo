@@ -1,22 +1,22 @@
 package com.wensby.terminablo.userinterface.terminal;
 
-import com.wensby.terminablo.Validate;
+import static com.wensby.terminablo.Validate.requireNonNegative;
+
 import java.util.Objects;
+import java.util.StringJoiner;
 
 public class TerminalCoordinates {
 
   private final int row;
   private final int column;
 
-  private TerminalCoordinates(int row, int column) {
-    Validate.notNegative(row, "Terminal coordinates row negative: " + row);
-    Validate.notNegative(column, "Terminal coordinates column negative: " + column);
-    this.row = row;
-    this.column = column;
-  }
-
   public static TerminalCoordinates of(int row, int column) {
     return new TerminalCoordinates(row, column);
+  }
+
+  private TerminalCoordinates(int row, int column) {
+    this.row = requireNonNegative(row);
+    this.column = requireNonNegative(column);
   }
 
   public int getRow() {
@@ -47,9 +47,9 @@ public class TerminalCoordinates {
 
   @Override
   public String toString() {
-    return "TerminalCoordinates{" +
-        "row=" + row +
-        ", column=" + column +
-        '}';
+    return new StringJoiner(", ", TerminalCoordinates.class.getSimpleName() + "{", "}")
+        .add("row=" + row)
+        .add("column=" + column)
+        .toString();
   }
 }

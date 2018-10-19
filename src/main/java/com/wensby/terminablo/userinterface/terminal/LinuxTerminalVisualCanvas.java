@@ -8,7 +8,7 @@ public class LinuxTerminalVisualCanvas implements VisualCanvas {
 
   private final LinuxTerminalFrameFactory frameFactory;
   private final PrintStream printStream;
-  private LinuxTerminalRenderCommandFactory commandFactory;
+  private final LinuxTerminalRenderCommandFactory commandFactory;
 
   public LinuxTerminalVisualCanvas(LinuxTerminalFrameFactory frameFactory, PrintStream printStream,
       final LinuxTerminalRenderCommandFactory commandFactory) {
@@ -17,13 +17,13 @@ public class LinuxTerminalVisualCanvas implements VisualCanvas {
     this.commandFactory = commandFactory;
   }
 
+  public TerminalFrame createFrame() {
+    return frameFactory.createFrame();
+  }
+
   public void renderFrame(TerminalFrame frame) {
     TerminalRenderCommand command = commandFactory.createCommand(frame.getCharacters());
     printStream.print(command.toRenderString());
     printStream.flush();
-  }
-
-  public TerminalFrame createFrame() {
-    return frameFactory.createFrame();
   }
 }

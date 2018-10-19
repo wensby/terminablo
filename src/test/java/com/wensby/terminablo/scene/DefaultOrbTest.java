@@ -6,6 +6,8 @@ import static java.math.BigDecimal.TEN;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+import com.wensby.terminablo.scene.levelscene.DefaultOrb;
+import com.wensby.terminablo.scene.levelscene.Orb;
 import org.junit.Test;
 
 public class DefaultOrbTest {

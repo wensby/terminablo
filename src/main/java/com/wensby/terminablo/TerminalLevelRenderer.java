@@ -19,7 +19,7 @@ public class TerminalLevelRenderer {
   }
 
   public TerminalLayer render(Level level, LevelLocation location, InterfaceSize size) {
-    var layer = layerFactory.createTerminalLayer(size);
+    var layer = layerFactory.createBlankLayer(size);
     var interfaceCenter = InterfacePosition.of(size.getWidth() / 2, size.getHeight() / 2);
     var topLeftInterfacePosition = topLeftInterfacePosition(interfaceCenter);
     var topLeftLevelLocation = topLeftLevelLocation(topLeftInterfacePosition, location, interfaceCenter);

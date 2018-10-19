@@ -1,5 +1,8 @@
 package com.wensby.userinterface;
 
+import java.util.Objects;
+import java.util.StringJoiner;
+
 public class InterfacePosition {
 
   private static final InterfacePosition ORIGIN = new InterfacePosition(0, 0);
@@ -30,5 +33,31 @@ public class InterfacePosition {
 
   public int getRow() {
     return row;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    InterfacePosition that = (InterfacePosition) o;
+    return column == that.column &&
+        row == that.row;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(column, row);
+  }
+
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", InterfacePosition.class.getSimpleName() + "[", "]")
+        .add("column=" + column)
+        .add("row=" + row)
+        .toString();
   }
 }

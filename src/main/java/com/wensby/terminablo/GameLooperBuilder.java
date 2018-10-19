@@ -1,15 +1,16 @@
 package com.wensby.terminablo;
 
-import com.wensby.Ticker;
+import com.wensby.Updater;
 import com.wensby.terminablo.userinterface.UserInterface;
 
 public class GameLooperBuilder {
 
-  private Ticker ticker;
+  private Updater updater;
   private UserInterface userInterface;
+  private Renderer renderer;
 
-  public GameLooperBuilder withTickable(Ticker ticker) {
-    this.ticker = ticker;
+  public GameLooperBuilder withTickable(Updater updater) {
+    this.updater = updater;
     return this;
   }
 
@@ -18,7 +19,12 @@ public class GameLooperBuilder {
     return this;
   }
 
+  public GameLooperBuilder withRenderer(Renderer renderer) {
+    this.renderer = renderer;
+    return this;
+  }
+
   GameLooper build() {
-    return new StandardGameLooper(userInterface, ticker);
+    return new GameLooperImpl(userInterface, updater, renderer);
   }
 }

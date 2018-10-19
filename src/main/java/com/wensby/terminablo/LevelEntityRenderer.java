@@ -14,6 +14,6 @@ public class LevelEntityRenderer {
   }
 
   public TerminalCharacter getTerminalCharacter(LevelEntity levelEntity) {
-    return terminalCharacterFactory.createCharacter('#');
+    return terminalCharacterFactory.createCharacter("\uD83C\uDF33");
   }
 }

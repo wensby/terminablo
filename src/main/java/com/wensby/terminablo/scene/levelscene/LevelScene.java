@@ -1,6 +1,6 @@
 package com.wensby.terminablo.scene.levelscene;
 
-import com.wensby.terminablo.Scene;
+import com.wensby.terminablo.scene.Scene;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 
@@ -15,9 +15,12 @@ public class LevelScene implements Scene {
   }
 
   @Override
-  public Scene update(Duration elapsedTime, UserInput input) {
+  public void update(Duration elapsedTime, UserInput input) {
     controller.update(elapsedTime, input);
+  }
+
+  @Override
+  public void render() {
     view.render();
-    return this;
   }
 }

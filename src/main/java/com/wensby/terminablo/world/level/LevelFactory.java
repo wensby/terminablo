@@ -1,5 +1,10 @@
 package com.wensby.terminablo.world.level;
 
+import static java.util.stream.Collectors.joining;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +16,19 @@ public class LevelFactory {
 
   public LevelFactory(LevelEntityFactory levelEntityFactory) {
     this.levelEntityFactory = levelEntityFactory;
+  }
+  
+  public Level createFactoryFromResourceFile(Path resourcePath) {
+    final String mapString = readString(resourcePath);
+    return createFactoryFromString(mapString);
+  }
+
+  private String readString(Path filepath) {
+    try (var lines = Files.lines(filepath)){
+      return lines.collect(joining("\n"));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   public Level createFactoryFromString(String stringRepresentation) {
@@ -33,6 +51,11 @@ public class LevelFactory {
   }
 
   private Optional<LevelEntity> parseEntity(char c) {
-    return c == '#' ? Optional.of(levelEntityFactory.createWall()) : Optional.empty();
+    if (c == '#') {
+      return Optional.of(levelEntityFactory.createWall());
+    } 
+    else {
+      return Optional.empty();
+    }
   }
 }
