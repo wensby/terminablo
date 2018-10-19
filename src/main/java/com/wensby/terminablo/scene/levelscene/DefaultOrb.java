@@ -1,22 +1,22 @@
 package com.wensby.terminablo.scene.levelscene;
 
+import static java.util.Objects.requireNonNull;
+
+import com.wensby.util.Fraction;
 import java.awt.Color;
-import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.StringJoiner;
 
 public class DefaultOrb implements Orb {
 
-  private final BigDecimal value;
-  private final BigDecimal capacity;
   private final String label;
   private final Color color;
+  private final Fraction values;
 
-  public DefaultOrb(String label, Color color, BigDecimal capacity, BigDecimal value) {
-    this.value = value;
-    this.capacity = capacity;
-    this.label = label;
-    this.color = color;
+  public DefaultOrb(String label, Color color, Fraction values) {
+    this.label = requireNonNull(label);
+    this.color = requireNonNull(color);
+    this.values = requireNonNull(values);
   }
 
   @Override
@@ -29,24 +29,8 @@ public class DefaultOrb implements Orb {
     return label;
   }
 
-  @Override
-  public BigDecimal getCapacity() {
-    return capacity;
-  }
-
-  @Override
-  public BigDecimal getValue() {
-    return value;
-  }
-
-  @Override
-  public String toString() {
-    return new StringJoiner(", ", DefaultOrb.class.getSimpleName() + "[", "]")
-        .add("value=" + value)
-        .add("capacity=" + capacity)
-        .add("label='" + label + "'")
-        .add("color=" + color)
-        .toString();
+  public Fraction getValues() {
+    return values;
   }
 
   @Override
@@ -58,14 +42,22 @@ public class DefaultOrb implements Orb {
       return false;
     }
     DefaultOrb that = (DefaultOrb) o;
-    return Objects.equals(value, that.value) &&
-        Objects.equals(capacity, that.capacity) &&
-        Objects.equals(label, that.label) &&
-        Objects.equals(color, that.color);
+    return Objects.equals(label, that.label) &&
+        Objects.equals(color, that.color) &&
+        Objects.equals(values, that.values);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(value, capacity, label, color);
+    return Objects.hash(label, color, values);
+  }
+
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", DefaultOrb.class.getSimpleName() + "{", "}")
+        .add("label='" + label + "'")
+        .add("color=" + color)
+        .add("values=" + values)
+        .toString();
   }
 }

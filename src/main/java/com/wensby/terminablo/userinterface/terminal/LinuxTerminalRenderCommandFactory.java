@@ -11,14 +11,21 @@ public class LinuxTerminalRenderCommandFactory implements TerminalRenderCommandF
     final int rowCount = characters.length;
     for (int y = 0; y < rowCount; y++) {
       int rowLength = characters[0].length;
+      boolean cursorAtCorrectPosition = false;
       for (int x = 0; x < rowLength; x++) {
         var character = characters[y][x];
         if (character != null) {
-          commandBuilder.addCommand(createMoveCursorCommand(y, x));
+          if (!cursorAtCorrectPosition) {
+            commandBuilder.addCommand(createMoveCursorCommand(y, x));
+            cursorAtCorrectPosition = true;
+          }
           commandBuilder.addTerminalCharacter(character);
           if (character.isLong()) {
             commandBuilder.addCommand(createMoveCursorCommand(y, x + 1));
           }
+        }
+        else {
+          cursorAtCorrectPosition = false;
         }
       }
     }

@@ -7,20 +7,21 @@ import com.wensby.userinterface.TerminalCharacter;
 import com.wensby.userinterface.TerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactory;
+import com.wensby.util.Fraction;
 import java.awt.Color;
 import java.math.BigDecimal;
 
 public class LevelSceneInterfaceRenderer {
 
-  private final OrbTerminalRepresentationFactory orbTerminalRepresentationFactory;
+  private final TerminalOrbRenderer orbRenderer;
   private final TerminalLayerFactory terminalLayerFactory;
   private final TerminalCharacterFactory terminalCharacterFactory;
 
   public LevelSceneInterfaceRenderer(
-      OrbTerminalRepresentationFactory orbTerminalRepresentationFactory,
+      TerminalOrbRenderer orbRenderer,
       TerminalLayerFactory terminalLayerFactory,
       final TerminalCharacterFactory terminalCharacterFactory) {
-    this.orbTerminalRepresentationFactory = orbTerminalRepresentationFactory;
+    this.orbRenderer = orbRenderer;
     this.terminalLayerFactory = terminalLayerFactory;
     this.terminalCharacterFactory = terminalCharacterFactory;
   }
@@ -50,14 +51,13 @@ public class LevelSceneInterfaceRenderer {
 
   private void renderOrbs(final Agent hero, final TerminalLayer terminalLayer) {
     var orbSize = getOrbSize(terminalLayer.getSize().getWidth());
-    var healthOrb = new DefaultOrb("HP", Color.RED, hero.getStats().getMaxLife(), hero.getStats().getLife());
-    var healthOrbRepresentation = orbTerminalRepresentationFactory.createRepresentation(healthOrb, orbSize);
+    var healthOrb = new DefaultOrb("HP", Color.RED, new Fraction(hero.getStats().getLife(), hero.getStats().getMaxLife()));
+    var healthOrbRepresentation = orbRenderer.render(healthOrb, orbSize);
     int top = terminalLayer.getSize().getHeight() - orbSize.getHeight();
     var healthOrbPosition = InterfacePosition.of(0, top);
     terminalLayer.put(healthOrbPosition, healthOrbRepresentation);
-    var manaOrb = new DefaultOrb("MP", Color.BLUE, BigDecimal.TEN, BigDecimal.TEN);
-    var manaOrbRepresentation = orbTerminalRepresentationFactory
-        .createRepresentation(manaOrb, orbSize);
+    var manaOrb = new DefaultOrb("MP", Color.BLUE, new Fraction(BigDecimal.TEN, new BigDecimal(100)));
+    var manaOrbRepresentation = orbRenderer.render(manaOrb, orbSize);
     var manaOrbPosition = InterfacePosition.of(terminalLayer.getSize().getWidth() - orbSize.getWidth(), top);
     terminalLayer.put(manaOrbPosition, manaOrbRepresentation);
   }

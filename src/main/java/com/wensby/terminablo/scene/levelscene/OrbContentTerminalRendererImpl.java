@@ -1,7 +1,6 @@
 package com.wensby.terminablo.scene.levelscene;
 
 import static java.math.BigDecimal.ONE;
-import static java.math.RoundingMode.HALF_UP;
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.userinterface.InterfacePosition;
@@ -11,7 +10,6 @@ import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.util.UnitInterval;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import org.apache.log4j.Logger;
 
 public class OrbContentTerminalRendererImpl implements OrbContentTerminalRenderer {
@@ -38,9 +36,10 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
     var layer = layerFactory.createBlankLayer(size);
     var color = orb.getColor();
     var rows = size.getHeight();
-    var percent = orb.getValue().divide(orb.getCapacity(), HALF_UP);
+    var percent = orb.getValues().toUnitInterval();
     var rowsPercent = BigDecimal.valueOf(rows).multiply(percent);
     var fullRows = rowsPercent.intValue();
+    LOGGER.debug("Rendered full rows: " + fullRows);
 
     if (fullRows > 0) {
       var fullColorLayerSize = InterfaceSize.of(size.getWidth(), fullRows);
@@ -49,8 +48,8 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
       layer.put(topOffset, fullColorLayer);
     }
 
-    var surfaceRowPercent = rowsPercent.divideAndRemainder(ONE)[1].floatValue();
     if (fullRows != size.getHeight()) {
+      var surfaceRowPercent = rowsPercent.divideAndRemainder(ONE)[1].floatValue();
       var character = partialBlockFactory.getPartialBlockCharacter(UnitInterval.of(surfaceRowPercent));
       var surfaceRow = size.getHeight() - fullRows - 1;
       var surfaceCharacter = characterFactory.createCharacter(character, color, null);

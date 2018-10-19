@@ -1,5 +1,6 @@
 package com.wensby.terminablo.scene.levelscene;
 
+import com.wensby.util.Fraction;
 import java.awt.Color;
 import java.math.BigDecimal;
 
@@ -9,7 +10,5 @@ public interface Orb {
 
   String getLabel();
 
-  BigDecimal getCapacity();
-
-  BigDecimal getValue();
+  Fraction getValues();
 }

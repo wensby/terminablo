@@ -17,6 +17,7 @@ import com.wensby.userinterface.TerminalCharacter;
 import com.wensby.userinterface.TerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactory;
+import com.wensby.util.Fraction;
 import java.awt.Color;
 import java.math.BigDecimal;
 import java.util.List;
@@ -46,8 +47,7 @@ public class OrbContentTerminalRendererImplTest {
     var colorLayer = mock(TerminalLayer.class);
     var color = mock(Color.class);
     when(orb.getColor()).thenReturn(color);
-    when(orb.getCapacity()).thenReturn(ONE);
-    when(orb.getValue()).thenReturn(ONE);
+    when(orb.getValues()).thenReturn(new Fraction(ONE, ONE));
     when(layerFactory.createBlankLayer(size)).thenReturn(layer);
     when(layerFactory.createColoredLayer(size, color)).thenReturn(colorLayer);
 
@@ -66,8 +66,7 @@ public class OrbContentTerminalRendererImplTest {
     var character = mock(TerminalCharacter.class);
     var color = mock(Color.class);
     when(orb.getColor()).thenReturn(color);
-    when(orb.getCapacity()).thenReturn(TEN);
-    when(orb.getValue()).thenReturn(TEN);
+    when(orb.getValues()).thenReturn(new Fraction(TEN, TEN));
     when(layerFactory.createBlankLayer(size)).thenReturn(layer);
     when(characterFactory.createCharacter(' ', null, color)).thenReturn(character);
 
@@ -86,8 +85,7 @@ public class OrbContentTerminalRendererImplTest {
     var terminalCharacter = mock(TerminalCharacter.class);
     when(layerFactory.createBlankLayer(size)).thenReturn(layer);
     when(orb.getColor()).thenReturn(color);
-    when(orb.getValue()).thenReturn(ONE);
-    when(orb.getCapacity()).thenReturn(TEN);
+    when(orb.getValues()).thenReturn(new Fraction(ONE, TEN));
     when(partialBlockFactory.getPartialBlockCharacter(any())).thenReturn(character);
     when(characterFactory.createCharacter(character, color, null)).thenReturn(terminalCharacter);
 

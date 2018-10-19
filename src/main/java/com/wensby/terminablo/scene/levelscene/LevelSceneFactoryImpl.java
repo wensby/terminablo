@@ -47,7 +47,7 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
     var partialBlockCharacterFactory = new PartialBlockCharacterFactoryImpl();
     OrbContentTerminalRenderer orbContentTerminalRenderer = new OrbContentTerminalRendererImpl(
         partialBlockCharacterFactory, layerFactory, characterFactory);
-    var orbTerminalRepresentationFactory = new OrbTerminalRepresentationFactory(layerFactory,
+    var orbTerminalRepresentationFactory = new TerminalOrbRenderer(layerFactory,
         characterFactory,
         orbContentTerminalRenderer);
     var levelSceneInterfaceRenderer = new LevelSceneInterfaceRenderer(

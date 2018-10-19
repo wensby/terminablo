@@ -10,40 +10,41 @@ import static org.mockito.Mockito.when;
 
 import com.wensby.terminablo.scene.levelscene.DefaultOrb;
 import com.wensby.terminablo.scene.levelscene.OrbContentTerminalRenderer;
-import com.wensby.terminablo.scene.levelscene.OrbTerminalRepresentationFactory;
+import com.wensby.terminablo.scene.levelscene.TerminalOrbRenderer;
 import com.wensby.userinterface.InterfacePosition;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.LinuxTerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactory;
+import com.wensby.util.Fraction;
 import org.junit.Before;
 import org.junit.Test;
 
-public class OrbTerminalRepresentationFactoryTest {
+public class TerminalOrbRendererTest {
 
   private TerminalLayerFactory layerFactory;
   private LinuxTerminalCharacterFactory characterFactory;
   private OrbContentTerminalRenderer contentRenderer;
-  private OrbTerminalRepresentationFactory factory;
+  private TerminalOrbRenderer factory;
 
   @Before
   public void setUp() {
     layerFactory = mock(TerminalLayerFactory.class);
     characterFactory = new LinuxTerminalCharacterFactory();
     contentRenderer = mock(OrbContentTerminalRenderer.class);
-    factory = new OrbTerminalRepresentationFactory(layerFactory, characterFactory, contentRenderer);
+    factory = new TerminalOrbRenderer(layerFactory, characterFactory, contentRenderer);
   }
 
   @Test
-  public void createRepresentation_when1By1Size_andFullHealth() {
-    var orb = new DefaultOrb("HP", RED, ONE, ONE);
+  public void render_when1By1Size_andFullHealth() {
+    var orb = new DefaultOrb("HP", RED, new Fraction(ONE, ONE));
     var size = InterfaceSize.of(1, 1);
     var layer = mock(TerminalLayer.class);
     var orbContentLayer = mock(TerminalLayer.class);
     when(layerFactory.createBlankLayer(size)).thenReturn(layer);
     when(contentRenderer.render(orb, size)).thenReturn(orbContentLayer);
-    
-    var representation = factory.createRepresentation(orb, size);
+
+    var representation = factory.render(orb, size);
 
     verify(layer).put(InterfacePosition.atOrigin(), orbContentLayer);
     assertThat(representation, is(layer));

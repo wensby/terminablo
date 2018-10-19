@@ -10,14 +10,14 @@ import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.userinterface.smartstring.NumberedString;
 import org.apache.log4j.Logger;
 
-public class OrbTerminalRepresentationFactory {
+public class TerminalOrbRenderer {
 
-  private static final Logger LOGGER = Logger.getLogger(OrbTerminalRepresentationFactory.class);
+  private static final Logger LOGGER = Logger.getLogger(TerminalOrbRenderer.class);
   private final TerminalLayerFactory layerFactory;
   private final TerminalCharacterFactory characterFactory;
   private final OrbContentTerminalRenderer orbContentTerminalRenderer;
 
-  public OrbTerminalRepresentationFactory(
+  public TerminalOrbRenderer(
       TerminalLayerFactory layerFactory,
       TerminalCharacterFactory characterFactory,
       OrbContentTerminalRenderer orbContentTerminalRenderer
@@ -27,7 +27,7 @@ public class OrbTerminalRepresentationFactory {
     this.orbContentTerminalRenderer = requireNonNull(orbContentTerminalRenderer);
   }
 
-  public TerminalLayer createRepresentation(Orb orb, InterfaceSize size) {
+  public TerminalLayer render(Orb orb, InterfaceSize size) {
     LOGGER.debug("Create Orb Representation: " + orb + ", " + size);
     if (isBordered(size)) {
       return createFullSizeRepresentation(orb, size);
@@ -80,7 +80,7 @@ public class OrbTerminalRepresentationFactory {
     if (layer.getSize().getWidth() >= 6 && layer.getSize().getHeight() > 1) {
       var height = layer.getSize().getHeight();
       var width = layer.getSize().getWidth();
-      var s = NumberedString.format("%s/%s", orb.getValue(), orb.getCapacity());
+      var s = NumberedString.format("%s/%s", orb.getValues().getNumerator(), orb.getValues().getDenominator());
       s = s.length() > 6 ? s.substring(0, 6) : s;
       var start = (width - s.length()) / 2;
       for (int i = 0; i < s.length(); i++) {
