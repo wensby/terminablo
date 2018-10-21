@@ -8,7 +8,7 @@ public class MainMenuModelImpl implements MainMenuModel {
   private int selectedItemIndex;
 
   public MainMenuModelImpl() {
-    menuItems = List.of("SINGLE PLAYER", "Level Scene", "BATTLE.NET", "OTHER MULTIPLAYER", "CREDITS", "CINEMATICS", "EXIT DIABLO II");
+    menuItems = List.of("SINGLE PLAYER", "Level Scene", "BATTLE.NET", "OTHER MULTIPLAYER", "CREDITS", "CINEMATICS", "EXIT TERMINABLO");
   }
 
   @Override
