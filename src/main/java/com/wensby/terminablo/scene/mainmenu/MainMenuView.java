@@ -1,6 +1,9 @@
 package com.wensby.terminablo.scene.mainmenu;
 
+import com.wensby.userinterface.InterfaceSize;
+import com.wensby.userinterface.TerminalLayer;
+
 public interface MainMenuView {
 
-  void render();
+  TerminalLayer render(InterfaceSize size);
 }

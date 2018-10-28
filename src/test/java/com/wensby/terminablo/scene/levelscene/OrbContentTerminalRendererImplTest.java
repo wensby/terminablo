@@ -5,13 +5,12 @@ import static java.math.BigDecimal.TEN;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import com.wensby.userinterface.InterfacePosition;
+import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalCharacter;
 import com.wensby.userinterface.TerminalCharacterFactory;
@@ -19,8 +18,6 @@ import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.util.Fraction;
 import java.awt.Color;
-import java.math.BigDecimal;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -53,7 +50,7 @@ public class OrbContentTerminalRendererImplTest {
 
     var result = renderer.render(orb, size);
 
-    verify(layer).put(InterfacePosition.of(0, 0), colorLayer);
+    verify(layer).put(colorLayer, InterfaceLocation.of(0, 0));
     verifyNoMoreInteractions(layer);
     assertThat(result, is(layer));
   }
@@ -91,7 +88,7 @@ public class OrbContentTerminalRendererImplTest {
 
     var result = renderer.render(orb, size);
 
-    verify(layer).put(InterfacePosition.of(0, 0), terminalCharacter);
+    verify(layer).put(InterfaceLocation.of(0, 0), terminalCharacter);
     verifyNoMoreInteractions(layer);
     assertThat(result, is(layer));
   }

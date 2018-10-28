@@ -1,6 +1,9 @@
 package com.wensby.terminablo.scene.levelscene;
 
+import com.wensby.userinterface.InterfaceSize;
+import com.wensby.userinterface.TerminalLayer;
+
 public interface LevelSceneView {
 
-  void render();
+  TerminalLayer render(InterfaceSize size);
 }

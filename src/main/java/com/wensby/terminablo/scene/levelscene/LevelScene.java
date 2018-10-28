@@ -1,6 +1,8 @@
 package com.wensby.terminablo.scene.levelscene;
 
 import com.wensby.terminablo.scene.Scene;
+import com.wensby.userinterface.InterfaceSize;
+import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 
@@ -20,7 +22,7 @@ public class LevelScene implements Scene {
   }
 
   @Override
-  public void render() {
-    view.render();
+  public TerminalLayer render(InterfaceSize size) {
+    return view.render(size);
   }
 }

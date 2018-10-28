@@ -1,14 +1,16 @@
 package com.wensby.userinterface;
 
+import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+
 public interface TerminalLayer {
 
   TerminalCharacter[][] getCharacters();
 
   InterfaceSize getSize();
 
-  void put(InterfacePosition interfacePosition, TerminalLayer layer);
+  void put(TerminalLayer layer, InterfaceLocation interfacePosition);
 
-  void put(InterfacePosition position, TerminalCharacter character);
+  boolean put(InterfaceLocation position, TerminalCharacter character);
 
-  TerminalCharacter getCharacter(InterfacePosition position);
+  TerminalCharacter getCharacter(InterfaceLocation position);
 }

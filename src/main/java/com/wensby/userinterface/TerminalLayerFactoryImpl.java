@@ -2,10 +2,11 @@ package com.wensby.userinterface;
 
 import static java.util.Objects.requireNonNull;
 
+import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import java.awt.Color;
 
 public class TerminalLayerFactoryImpl implements TerminalLayerFactory {
-  
+
   private final TerminalCharacterFactory characterFactory;
 
   public TerminalLayerFactoryImpl(TerminalCharacterFactory characterFactory) {
@@ -30,7 +31,7 @@ public class TerminalLayerFactoryImpl implements TerminalLayerFactory {
 
   private void paintLayerRow(TerminalLayer layer, int row, TerminalCharacter character) {
     for (int column = 0; column < layer.getSize().getWidth(); column++) {
-      var position = InterfacePosition.of(column, row);
+      var position = InterfaceLocation.of(column, row);
       layer.put(position, character);
     }
   }

@@ -13,33 +13,45 @@ import org.apache.log4j.Logger;
 
 public class GameLooperImpl implements GameLooper {
 
+  private static final Logger LOGGER = Logger.getLogger(GameLooperImpl.class);
+
   private final UserInterface userInterface;
   private final Updater updater;
   private final Renderer renderer;
+  private final BenchmarkModel benchmarkModel;
 
   private Instant latestTickInstant;
   private UpdateResult latestUpdateResult;
+  private long ticks;
 
-  GameLooperImpl(UserInterface userInterface, Updater updater, Renderer renderer) {
+  GameLooperImpl(UserInterface userInterface, Updater updater, Renderer renderer,
+      BenchmarkModel benchmarkModel) {
     this.userInterface = requireNonNull(userInterface);
     this.updater = requireNonNull(updater);
     this.renderer = requireNonNull(renderer);
+    this.benchmarkModel = requireNonNull(benchmarkModel);
   }
 
   @Override
   public void run() {
     Logger.getLogger(getClass()).debug("Running Game Loop");
     while (isRunning()) {
-      tickOnce();
+      tick();
       sleep();
     }
   }
 
-  private void tickOnce() {
+  private void tick() {
+    LOGGER.debug("Tick " + ticks);
+    Instant tickStart = Instant.now();
     var userInput = pollUserInput();
     var elapsedTime = pollElapsedTime();
     update(elapsedTime, userInput);
     render();
+    Duration tickDuration = Duration.between(tickStart, Instant.now());
+    benchmarkModel.setLastUpdateTime(tickDuration);
+    LOGGER.debug("Tick " + ticks + " completed in " + tickDuration);
+    ticks++;
   }
 
   private boolean isRunning() {

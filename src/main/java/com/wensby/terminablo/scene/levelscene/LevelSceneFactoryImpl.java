@@ -54,7 +54,8 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
         orbTerminalRepresentationFactory, layerFactory, characterFactory);
     var levelEntityRenderer = new LevelEntityRenderer(characterFactory);
     var levelRenderer = new TerminalLevelRenderer(layerFactory, levelEntityRenderer);
-    var levelSceneView = new LevelSceneTerminalView(canvas, levelSceneInterfaceRenderer,
+    var levelSceneView = new LevelSceneTerminalView(layerFactory,
+        levelSceneInterfaceRenderer,
         levelRenderer, model);
     var levelSceneController = new LevelSceneController(sceneStack, model);
     return new LevelScene(levelSceneController, levelSceneView);

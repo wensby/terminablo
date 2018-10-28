@@ -1,5 +1,7 @@
 package com.wensby.userinterface;
 
+import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+
 public class TerminalFrameImpl implements TerminalFrame {
 
   private final TerminalLayer terminalLayer;
@@ -19,17 +21,17 @@ public class TerminalFrameImpl implements TerminalFrame {
   }
 
   @Override
-  public void put(InterfacePosition interfacePosition, TerminalLayer layer) {
-    terminalLayer.put(interfacePosition, layer);
+  public void put(TerminalLayer layer, InterfaceLocation interfacePosition) {
+    terminalLayer.put(layer, interfacePosition);
   }
 
   @Override
-  public void put(InterfacePosition position, TerminalCharacter character) {
-    terminalLayer.put(position, character);
+  public boolean put(InterfaceLocation position, TerminalCharacter character) {
+    return terminalLayer.put(position, character);
   }
 
   @Override
-  public TerminalCharacter getCharacter(InterfacePosition interfacePosition) {
+  public TerminalCharacter getCharacter(InterfaceLocation interfacePosition) {
     return terminalLayer.getCharacter(interfacePosition);
   }
 }

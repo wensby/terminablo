@@ -1,38 +1,39 @@
 package com.wensby.terminablo.scene.levelscene;
 
-import static com.wensby.userinterface.InterfacePosition.atOrigin;
+import static com.wensby.terminablo.userinterface.component.InterfaceLocation.atOrigin;
 
 import com.wensby.terminablo.TerminalLevelRenderer;
 import com.wensby.terminablo.userinterface.terminal.LinuxTerminalVisualCanvas;
+import com.wensby.userinterface.InterfaceSize;
+import com.wensby.userinterface.TerminalLayer;
+import com.wensby.userinterface.TerminalLayerFactory;
 
 public class LevelSceneTerminalView implements LevelSceneView {
 
-  private final LinuxTerminalVisualCanvas canvas;
+  private final TerminalLayerFactory layerFactory;
   private final LevelSceneInterfaceRenderer levelSceneInterfaceRenderer;
   private final TerminalLevelRenderer terminalLevelRenderer;
   private final LevelSceneModel model;
 
-  public LevelSceneTerminalView(LinuxTerminalVisualCanvas canvas,
+  public LevelSceneTerminalView(
+      TerminalLayerFactory layerFactory,
       LevelSceneInterfaceRenderer levelSceneInterfaceRenderer,
       TerminalLevelRenderer terminalLevelRenderer,
       LevelSceneModel model) {
-    this.canvas = canvas;
+    this.layerFactory = layerFactory;
     this.levelSceneInterfaceRenderer = levelSceneInterfaceRenderer;
     this.terminalLevelRenderer = terminalLevelRenderer;
     this.model = model;
   }
 
   @Override
-  public void render() {
+  public TerminalLayer render(InterfaceSize size) {
     var level = model.getLevel();
     var hero = model.getHero();
     var heroLocation = level.locationOf(hero.getLevelEntity()).orElseThrow();
-    var frame = canvas.createFrame();
-    var interfaceSize = frame.getSize();
-    var layerLevel = terminalLevelRenderer.render(level, heroLocation, interfaceSize);
-    var layerInterface = levelSceneInterfaceRenderer.render(hero, interfaceSize);
-    frame.put(atOrigin(), layerLevel);
-    frame.put(atOrigin(), layerInterface);
-    canvas.renderFrame(frame);
+    var layerLevel = terminalLevelRenderer.render(level, heroLocation, size);
+    var layerInterface = levelSceneInterfaceRenderer.render(hero, size);
+    layerLevel.put(layerInterface, atOrigin());
+    return layerLevel;
   }
 }

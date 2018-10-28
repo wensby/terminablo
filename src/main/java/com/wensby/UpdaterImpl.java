@@ -2,16 +2,20 @@ package com.wensby;
 
 import static com.wensby.terminablo.userinterface.Key.END_OF_FILE;
 
+import com.wensby.terminablo.BenchmarkModel;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 
-public class SceneStackUpdater implements Updater {
+public class UpdaterImpl implements Updater {
 
   private final SceneStack sceneStack;
+  private final BenchmarkController benchmarkController;
 
-  public SceneStackUpdater(SceneStack sceneStack) {
+  public UpdaterImpl(SceneStack sceneStack,
+      BenchmarkController benchmarkController) {
     this.sceneStack = sceneStack;
+    this.benchmarkController = benchmarkController;
   }
 
   @Override
@@ -19,7 +23,8 @@ public class SceneStackUpdater implements Updater {
     if (isFinalTick(userInput)) {
       return UpdateResult.FINAL_UPDATE;
     } else {
-      sceneStack.update(elapsedTime, userInput);
+      sceneStack.getTop().update(elapsedTime, userInput);
+      benchmarkController.update(elapsedTime, userInput);
       return UpdateResult.CONTINUE;
     }
   }

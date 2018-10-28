@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 import com.wensby.terminablo.scene.levelscene.DefaultOrb;
 import com.wensby.terminablo.scene.levelscene.OrbContentTerminalRenderer;
 import com.wensby.terminablo.scene.levelscene.TerminalOrbRenderer;
-import com.wensby.userinterface.InterfacePosition;
+import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.LinuxTerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;
@@ -46,7 +46,7 @@ public class TerminalOrbRendererTest {
 
     var representation = factory.render(orb, size);
 
-    verify(layer).put(InterfacePosition.atOrigin(), orbContentLayer);
+    verify(layer).put(orbContentLayer, InterfaceLocation.atOrigin());
     assertThat(representation, is(layer));
    }
 }

@@ -3,7 +3,12 @@ package com.wensby.terminablo;
 import static java.lang.System.in;
 import static java.lang.System.out;
 
-import com.wensby.SceneStackUpdater;
+import com.wensby.BenchmarkController;
+import com.wensby.BenchmarkRenderer;
+import com.wensby.BenchmarkRendererImpl;
+import com.wensby.TerminalLayerWriter;
+import com.wensby.TerminalLayerWriterImpl;
+import com.wensby.UpdaterImpl;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.scene.SceneStackImpl;
 import com.wensby.terminablo.scene.levelscene.LevelSceneFactory;
@@ -21,6 +26,7 @@ import com.wensby.userinterface.LinuxTerminalCharacterFactory;
 import com.wensby.userinterface.TerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.userinterface.TerminalLayerFactoryImpl;
+import com.wensby.util.BenchmarkView;
 import org.apache.log4j.Logger;
 
 public class Terminablo {
@@ -36,16 +42,20 @@ public class Terminablo {
     var canvas = (LinuxTerminalVisualCanvas) userInterface.getCanvas();
     var layerFactory = new TerminalLayerFactoryImpl(characterFactory);
     var levelSceneFactory = new LevelSceneFactoryImpl(characterFactory, layerFactory, canvas, sceneStack);
-    MainMenuScene scene = createMainMenuScene(characterFactory, sceneStack, canvas, layerFactory,
+    MainMenuScene scene = createMainMenuScene(characterFactory, sceneStack, layerFactory,
         levelSceneFactory);
     sceneStack.push(scene);
-    var sceneStackTicker = new SceneStackUpdater(sceneStack);
-    var renderer = new SceneStackRenderer(sceneStack);
+    BenchmarkModel benchmarkModel = new BenchmarkModelImpl();
+    BenchmarkController benchmarkController = new BenchmarkControllerImpl(benchmarkModel);
+    var sceneStackTicker = new UpdaterImpl(sceneStack, benchmarkController);
+    BenchmarkView view = new BenchmarkViewImpl(layerFactory, characterFactory, benchmarkModel);
+    var renderer = new RendererImpl(canvas, sceneStack, benchmarkModel, view);
     try {
       new GameLooperBuilder()
           .withTickable(sceneStackTicker)
           .withUserInterface(userInterface)
           .withRenderer(renderer)
+          .withBenchmarkModel(benchmarkModel)
           .build()
           .run();
     } catch (Throwable e) {
@@ -58,12 +68,11 @@ public class Terminablo {
   private static MainMenuScene createMainMenuScene(
       TerminalCharacterFactory characterFactory,
       SceneStack sceneStack,
-      LinuxTerminalVisualCanvas canvas,
       TerminalLayerFactory layerFactory,
       LevelSceneFactory levelSceneFactory
   ) {
     var model = new MainMenuModelImpl();
-    var view = new LinuxTerminalMainMenuView(model, canvas, layerFactory, characterFactory);
+    var view = new LinuxTerminalMainMenuView(model, layerFactory, characterFactory);
     var controller = new MainMenuControllerImpl(model, sceneStack, levelSceneFactory);
     return new MainMenuScene(controller, view);
   }

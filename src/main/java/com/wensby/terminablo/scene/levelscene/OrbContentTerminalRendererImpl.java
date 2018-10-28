@@ -3,7 +3,7 @@ package com.wensby.terminablo.scene.levelscene;
 import static java.math.BigDecimal.ONE;
 import static java.util.Objects.requireNonNull;
 
-import com.wensby.userinterface.InterfacePosition;
+import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;
@@ -44,8 +44,8 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
     if (fullRows > 0) {
       var fullColorLayerSize = InterfaceSize.of(size.getWidth(), fullRows);
       var fullColorLayer = layerFactory.createColoredLayer(fullColorLayerSize, color);
-      var topOffset = InterfacePosition.of(0, size.getHeight() - fullRows);
-      layer.put(topOffset, fullColorLayer);
+      var topOffset = InterfaceLocation.of(0, size.getHeight() - fullRows);
+      layer.put(fullColorLayer, topOffset);
     }
 
     if (fullRows != size.getHeight()) {
@@ -54,7 +54,7 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
       var surfaceRow = size.getHeight() - fullRows - 1;
       var surfaceCharacter = characterFactory.createCharacter(character, color, null);
       for (int x = 0; x < size.getWidth(); x++) {
-        var position = InterfacePosition.of(x, surfaceRow);
+        var position = InterfaceLocation.of(x, surfaceRow);
         layer.put(position, surfaceCharacter);
       }
     }

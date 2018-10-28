@@ -1,7 +1,5 @@
 package com.wensby.terminablo.scene;
 
-import com.wensby.userinterface.UserInput;
-import java.time.Duration;
 import java.util.Deque;
 import java.util.LinkedList;
 
@@ -29,16 +27,7 @@ public class SceneStackImpl implements SceneStack {
   }
 
   @Override
-  public void update(Duration elapsedTime, UserInput input) {
-    if (!scenes.isEmpty()) {
-      scenes.getLast().update(elapsedTime, input);
-    }
-  }
-
-  @Override
-  public void render() {
-    if (!scenes.isEmpty()) {
-      scenes.getLast().render();
-    }
+  public Scene getTop() {
+    return scenes.getLast();
   }
 }

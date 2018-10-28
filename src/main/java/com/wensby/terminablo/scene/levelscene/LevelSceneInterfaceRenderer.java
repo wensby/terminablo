@@ -1,7 +1,7 @@
 package com.wensby.terminablo.scene.levelscene;
 
+import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.terminablo.world.Agent;
-import com.wensby.userinterface.InterfacePosition;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalCharacter;
 import com.wensby.userinterface.TerminalCharacterFactory;
@@ -37,7 +37,7 @@ public class LevelSceneInterfaceRenderer {
     InterfaceSize layerSize = layer.getSize();
     int midColumn = layerSize.getWidth() / 2;
     int midRow = layerSize.getHeight() / 2;
-    InterfacePosition layerMidpoint = InterfacePosition.of(midColumn, midRow);
+    InterfaceLocation layerMidpoint = InterfaceLocation.of(midColumn, midRow);
     TerminalCharacter character;
     if (hero.getStats().getLife().compareTo(BigDecimal.ZERO) == 0) {
       character = terminalCharacterFactory.createCharacter("\uD83D\uDC80");
@@ -54,12 +54,12 @@ public class LevelSceneInterfaceRenderer {
     var healthOrb = new DefaultOrb("HP", Color.RED, new Fraction(hero.getStats().getLife(), hero.getStats().getMaxLife()));
     var healthOrbRepresentation = orbRenderer.render(healthOrb, orbSize);
     int top = terminalLayer.getSize().getHeight() - orbSize.getHeight();
-    var healthOrbPosition = InterfacePosition.of(0, top);
-    terminalLayer.put(healthOrbPosition, healthOrbRepresentation);
+    var healthOrbPosition = InterfaceLocation.of(0, top);
+    terminalLayer.put(healthOrbRepresentation, healthOrbPosition);
     var manaOrb = new DefaultOrb("MP", Color.BLUE, new Fraction(BigDecimal.TEN, new BigDecimal(100)));
     var manaOrbRepresentation = orbRenderer.render(manaOrb, orbSize);
-    var manaOrbPosition = InterfacePosition.of(terminalLayer.getSize().getWidth() - orbSize.getWidth(), top);
-    terminalLayer.put(manaOrbPosition, manaOrbRepresentation);
+    var manaOrbPosition = InterfaceLocation.of(terminalLayer.getSize().getWidth() - orbSize.getWidth(), top);
+    terminalLayer.put(manaOrbRepresentation, manaOrbPosition);
   }
 
   private InterfaceSize getOrbSize(int width) {

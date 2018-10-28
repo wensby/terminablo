@@ -1,51 +1,45 @@
 package com.wensby.terminablo.scene.mainmenu;
 
-import static com.wensby.userinterface.InterfacePosition.atOrigin;
 import static java.util.Objects.requireNonNull;
 
-import com.wensby.terminablo.userinterface.terminal.LinuxTerminalVisualCanvas;
-import com.wensby.userinterface.InterfacePosition;
+import com.wensby.TerminalLayerWriterImpl;
+import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalCharacterFactory;
+import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactory;
 
 public class LinuxTerminalMainMenuView implements MainMenuView {
 
   private final MainMenuModel model;
-  private final LinuxTerminalVisualCanvas canvas;
   private final TerminalLayerFactory layerFactory;
   private final TerminalCharacterFactory characterFactory;
 
   public LinuxTerminalMainMenuView(
       MainMenuModel model,
-      LinuxTerminalVisualCanvas canvas,
       TerminalLayerFactory layerFactory,
-      TerminalCharacterFactory characterFactory) {
+      TerminalCharacterFactory characterFactory
+  ) {
     this.model = requireNonNull(model);
-    this.canvas = requireNonNull(canvas);
     this.layerFactory = requireNonNull(layerFactory);
     this.characterFactory = requireNonNull(characterFactory);
   }
 
   @Override
-  public void render() {
-    var frame = canvas.createFrame();
-    var layer = layerFactory.createBlankLayer(frame.getSize());
+  public TerminalLayer render(InterfaceSize size) {
+    var layer = layerFactory.createBlankLayer(size);
 
     var menuItems = model.getMenuItems();
+    var writer = new TerminalLayerWriterImpl(characterFactory, layer);
     for (int i = 0; i < menuItems.size(); i++) {
-      var menuItemTxt = menuItems.get(i);
+      var menuItem = new StringBuilder();
       if (model.getSelectedMenuItemIndex() == i) {
-        menuItemTxt = "> " + menuItemTxt;
+        menuItem.append("> ");
       }
-      var column = 0;
-      for (var c : menuItemTxt.toCharArray()) {
-        layer.put(InterfacePosition.of(column, i), characterFactory.createCharacter(c));
-        column++;
-      }
+      menuItem.append(menuItems.get(i));
+      writer.write(menuItem.toString(), InterfaceLocation.of(0, i));
     }
 
-
-    frame.put(atOrigin(), layer);
-    canvas.renderFrame(frame);
+    return layer;
   }
 }

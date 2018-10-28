@@ -1,5 +1,7 @@
 package com.wensby.userinterface;
 
+import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+
 public class TerminalLayerImpl implements TerminalLayer {
 
   private final TerminalCharacter[][] characters;
@@ -19,14 +21,14 @@ public class TerminalLayerImpl implements TerminalLayer {
   }
 
   @Override
-  public void put(InterfacePosition target, TerminalLayer layer) {
+  public void put(TerminalLayer layer, InterfaceLocation target) {
     var size = layer.getSize();
-    for (int y = 0; y < size.getHeight(); y++) {
-      for (int x = 0; x < size.getWidth(); x++) {
-        var originPosition = InterfacePosition.of(x, y);
-        var character = layer.getCharacter(originPosition);
+    for (int row = 0; row < size.getHeight(); row++) {
+      for (int column = 0; column < size.getWidth(); column++) {
+        var originLocation = InterfaceLocation.of(column, row);
+        var character = layer.getCharacter(originLocation);
         if (character != null) {
-          var destinationPosition = originPosition.plus(target);
+          var destinationPosition = originLocation.plus(target);
           put(destinationPosition, character);
         }
       }
@@ -34,12 +36,20 @@ public class TerminalLayerImpl implements TerminalLayer {
   }
 
   @Override
-  public void put(InterfacePosition position, TerminalCharacter character) {
-    characters[position.getRow()][position.getColumn()] = character;
+  public boolean put(InterfaceLocation position, TerminalCharacter character) {
+    var row = position.getRow();
+    if (row <= characters.length) {
+      var column = position.getColumn();
+      if (column <= characters[row].length) {
+        characters[row][column] = character;
+        return true;
+      }
+    }
+    return false;
   }
 
   @Override
-  public TerminalCharacter getCharacter(InterfacePosition interfacePosition) {
+  public TerminalCharacter getCharacter(InterfaceLocation interfacePosition) {
     return characters[interfacePosition.getRow()][interfacePosition.getColumn()];
   }
 }

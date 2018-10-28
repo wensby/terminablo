@@ -2,7 +2,7 @@ package com.wensby.terminablo.scene.levelscene;
 
 import static java.util.Objects.requireNonNull;
 
-import com.wensby.userinterface.InterfacePosition;
+import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;
@@ -39,7 +39,7 @@ public class TerminalOrbRenderer {
   private TerminalLayer createScaledDownRepresentation(Orb orb, InterfaceSize size) {
     var layer = layerFactory.createBlankLayer(size);
     var orbContent = orbContentTerminalRenderer.render(orb, size);
-    layer.put(InterfacePosition.atOrigin(), orbContent);
+    layer.put(orbContent, InterfaceLocation.atOrigin());
     return layer;
   }
 
@@ -48,7 +48,7 @@ public class TerminalOrbRenderer {
     fillInBorder(layer);
     var orbContentSize = size.minus(InterfaceSize.of(2, 2));
     var orbContent = orbContentTerminalRenderer.render(orb, orbContentSize);
-    layer.put(InterfacePosition.of(1, 1), orbContent);
+    layer.put(orbContent, InterfaceLocation.of(1, 1));
     fillInValue(layer, orb);
     return layer;
   }

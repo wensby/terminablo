@@ -1,28 +1,29 @@
 package com.wensby.terminablo.userinterface.component;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import static java.util.Objects.hash;
 
 public class InterfaceLocation {
 
-  private static final Map<Integer, InterfaceLocation> cachedLocationsByHash = new HashMap<>();
+  private static final InterfaceLocation ORIGIN = of(0, 0);
 
   private final int row;
   private final int column;
 
-  private InterfaceLocation(int row, int column) {
+  private InterfaceLocation(int column, int row) {
     this.row = row;
     this.column = column;
   }
 
-  public static InterfaceLocation of(int row, int column) {
-    int hash = calculateHash(row, column);
-    return cachedLocationsByHash.computeIfAbsent(hash, k -> new InterfaceLocation(row, column));
+  public static InterfaceLocation of(int column, int row) {
+    return new InterfaceLocation(column, row);
   }
 
-  private static int calculateHash(int row, int column) {
-    return Objects.hash(row, column);
+  public static InterfaceLocation atOrigin() {
+    return ORIGIN;
+  }
+
+  public InterfaceLocation plus(InterfaceLocation position) {
+    return new InterfaceLocation(column + position.column, row + position.row);
   }
 
   @Override
@@ -40,7 +41,7 @@ public class InterfaceLocation {
 
   @Override
   public int hashCode() {
-    return calculateHash(row, column);
+    return hash(row, column);
   }
 
   public int getRow() {
