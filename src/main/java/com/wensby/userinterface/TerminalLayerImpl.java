@@ -21,31 +21,33 @@ public class TerminalLayerImpl implements TerminalLayer {
   }
 
   @Override
-  public void put(TerminalLayer layer, InterfaceLocation target) {
+  public void put(TerminalLayer layer, InterfaceLocation location) {
     var size = layer.getSize();
     for (int row = 0; row < size.getHeight(); row++) {
       for (int column = 0; column < size.getWidth(); column++) {
         var originLocation = InterfaceLocation.of(column, row);
         var character = layer.getCharacter(originLocation);
         if (character != null) {
-          var destinationPosition = originLocation.plus(target);
-          put(destinationPosition, character);
+          var destinationPosition = originLocation.plus(location);
+          if (!put(character, destinationPosition)) {
+            break;
+          }
         }
       }
     }
   }
 
   @Override
-  public boolean put(InterfaceLocation position, TerminalCharacter character) {
-    var row = position.getRow();
-    if (row <= characters.length) {
-      var column = position.getColumn();
-      if (column <= characters[row].length) {
-        characters[row][column] = character;
-        return true;
-      }
+  public boolean put(TerminalCharacter character, InterfaceLocation location) {
+    var row = location.getRow();
+    var column = location.getColumn();
+    if (row >= characters.length || column >= characters[row].length) {
+      return false;
     }
-    return false;
+    else {
+      characters[row][column] = character;
+      return true;
+    }
   }
 
   @Override

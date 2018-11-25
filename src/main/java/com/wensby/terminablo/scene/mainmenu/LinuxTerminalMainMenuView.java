@@ -2,7 +2,7 @@ package com.wensby.terminablo.scene.mainmenu;
 
 import static java.util.Objects.requireNonNull;
 
-import com.wensby.TerminalLayerWriterImpl;
+import com.wensby.LayerWriterImpl;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalCharacterFactory;
@@ -30,7 +30,7 @@ public class LinuxTerminalMainMenuView implements MainMenuView {
     var layer = layerFactory.createBlankLayer(size);
 
     var menuItems = model.getMenuItems();
-    var writer = new TerminalLayerWriterImpl(characterFactory, layer);
+    var writer = new LayerWriterImpl(characterFactory, layer);
     for (int i = 0; i < menuItems.size(); i++) {
       var menuItem = new StringBuilder();
       if (model.getSelectedMenuItemIndex() == i) {

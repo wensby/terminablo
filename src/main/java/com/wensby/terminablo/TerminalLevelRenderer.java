@@ -30,7 +30,7 @@ public class TerminalLevelRenderer {
         var levelLocation = LevelLocation.of(topLeftLevelLocation.getX() + x, topLeftLevelLocation.getY() + y);
         level.entities(levelLocation).stream()
             .map(entityRenderer::getTerminalCharacter)
-            .forEach(character -> layer.put(layerPosition, character));
+            .forEach(character -> layer.put(character, layerPosition));
       }
     }
     return layer;

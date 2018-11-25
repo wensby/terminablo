@@ -84,7 +84,7 @@ public class GameLooperImpl implements GameLooper {
 
   private void sleep() {
     try {
-      Thread.sleep(33);
+      Thread.sleep(50);
     } catch (InterruptedException e) {
       throw new RuntimeException(e);
     }

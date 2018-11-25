@@ -3,7 +3,6 @@ package com.wensby.terminablo;
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.BenchmarkRendererImpl;
-import com.wensby.TerminalLayerWriterImpl;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.LinuxTerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;

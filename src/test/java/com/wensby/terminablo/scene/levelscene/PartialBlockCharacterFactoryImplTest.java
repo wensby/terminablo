@@ -2,17 +2,9 @@ package com.wensby.terminablo.scene.levelscene;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
-import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.TerminalCharacter;
-import com.wensby.userinterface.TerminalLayer;
 import com.wensby.util.UnitInterval;
-import java.awt.Color;
-import java.math.BigDecimal;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 

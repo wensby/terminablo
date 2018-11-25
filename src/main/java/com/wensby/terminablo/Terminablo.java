@@ -4,10 +4,6 @@ import static java.lang.System.in;
 import static java.lang.System.out;
 
 import com.wensby.BenchmarkController;
-import com.wensby.BenchmarkRenderer;
-import com.wensby.BenchmarkRendererImpl;
-import com.wensby.TerminalLayerWriter;
-import com.wensby.TerminalLayerWriterImpl;
 import com.wensby.UpdaterImpl;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.scene.SceneStackImpl;

@@ -27,10 +27,10 @@ public class LevelSceneInterfaceRenderer {
   }
 
   public TerminalLayer render(Agent hero, InterfaceSize size) {
-    TerminalLayer terminalLayer = terminalLayerFactory.createBlankLayer(size);
-    renderHero(hero, terminalLayer);
-    renderOrbs(hero, terminalLayer);
-    return terminalLayer;
+    TerminalLayer layer = terminalLayerFactory.createBlankLayer(size);
+    renderHero(hero, layer);
+    renderOrbs(hero, layer);
+    return layer;
   }
 
   private void renderHero(Agent hero, TerminalLayer layer) {
@@ -46,20 +46,20 @@ public class LevelSceneInterfaceRenderer {
     } else {
       character = terminalCharacterFactory.createCharacter("\uD83D\uDE42");
     }
-    layer.put(layerMidpoint, character);
+    layer.put(character, layerMidpoint);
   }
 
-  private void renderOrbs(final Agent hero, final TerminalLayer terminalLayer) {
-    var orbSize = getOrbSize(terminalLayer.getSize().getWidth());
+  private void renderOrbs(final Agent hero, final TerminalLayer layer) {
+    var orbSize = getOrbSize(layer.getSize().getWidth());
     var healthOrb = new DefaultOrb("HP", Color.RED, new Fraction(hero.getStats().getLife(), hero.getStats().getMaxLife()));
     var healthOrbRepresentation = orbRenderer.render(healthOrb, orbSize);
-    int top = terminalLayer.getSize().getHeight() - orbSize.getHeight();
+    int top = layer.getSize().getHeight() - orbSize.getHeight();
     var healthOrbPosition = InterfaceLocation.of(0, top);
-    terminalLayer.put(healthOrbRepresentation, healthOrbPosition);
+    layer.put(healthOrbRepresentation, healthOrbPosition);
     var manaOrb = new DefaultOrb("MP", Color.BLUE, new Fraction(BigDecimal.TEN, new BigDecimal(100)));
     var manaOrbRepresentation = orbRenderer.render(manaOrb, orbSize);
-    var manaOrbPosition = InterfaceLocation.of(terminalLayer.getSize().getWidth() - orbSize.getWidth(), top);
-    terminalLayer.put(manaOrbRepresentation, manaOrbPosition);
+    var manaOrbPosition = InterfaceLocation.of(layer.getSize().getWidth() - orbSize.getWidth(), top);
+    layer.put(manaOrbRepresentation, manaOrbPosition);
   }
 
   private InterfaceSize getOrbSize(int width) {

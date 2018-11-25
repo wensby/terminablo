@@ -4,34 +4,34 @@ import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 
 public class TerminalFrameImpl implements TerminalFrame {
 
-  private final TerminalLayer terminalLayer;
+  private final TerminalLayer layer;
 
-  public TerminalFrameImpl(TerminalLayer terminalLayer) {
-    this.terminalLayer = terminalLayer;
+  public TerminalFrameImpl(TerminalLayer layer) {
+    this.layer = layer;
   }
 
   @Override
   public TerminalCharacter[][] getCharacters() {
-    return terminalLayer.getCharacters();
+    return layer.getCharacters();
   }
 
   @Override
   public InterfaceSize getSize() {
-    return terminalLayer.getSize();
+    return layer.getSize();
   }
 
   @Override
   public void put(TerminalLayer layer, InterfaceLocation interfacePosition) {
-    terminalLayer.put(layer, interfacePosition);
+    this.layer.put(layer, interfacePosition);
   }
 
   @Override
-  public boolean put(InterfaceLocation position, TerminalCharacter character) {
-    return terminalLayer.put(position, character);
+  public boolean put(TerminalCharacter character, InterfaceLocation position) {
+    return layer.put(character, position);
   }
 
   @Override
   public TerminalCharacter getCharacter(InterfaceLocation interfacePosition) {
-    return terminalLayer.getCharacter(interfacePosition);
+    return layer.getCharacter(interfacePosition);
   }
 }

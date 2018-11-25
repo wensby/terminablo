@@ -7,29 +7,28 @@ import com.wensby.userinterface.InterfaceRegion;
 import com.wensby.userinterface.TerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;
 
-public class TerminalLayerWriterImpl implements TerminalLayerWriter {
+public class LayerWriterImpl implements LayerWriter {
 
   private final TerminalCharacterFactory characterFactory;
-  private final TerminalLayer terminalLayer;
+  private final TerminalLayer layer;
 
-  public TerminalLayerWriterImpl(
-      TerminalCharacterFactory characterFactory,
-      TerminalLayer terminalLayer
-  ) {
+  public LayerWriterImpl(TerminalCharacterFactory characterFactory, TerminalLayer layer) {
     this.characterFactory = requireNonNull(characterFactory);
-    this.terminalLayer = requireNonNull(terminalLayer);
+    this.layer = requireNonNull(layer);
   }
 
   @Override
   public void write(String text, InterfaceLocation location) {
     requireNonNull(location);
     requireNonNull(text);
+    var row = location.getRow();
     boolean put = true;
     for (int i = 0; put && i < text.length(); i++) {
-      var characterLocation = InterfaceLocation.of(location.getColumn() + i, location.getRow());
+      var column = location.getColumn() + i;
+      var characterLocation = InterfaceLocation.of(column, row);
       var character = text.charAt(i);
       var terminalCharacter = characterFactory.createCharacter(character);
-      put = terminalLayer.put(characterLocation, terminalCharacter);
+      put = layer.put(terminalCharacter, characterLocation);
     }
   }
 

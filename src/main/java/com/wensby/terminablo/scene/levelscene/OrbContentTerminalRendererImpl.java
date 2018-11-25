@@ -55,7 +55,7 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
       var surfaceCharacter = characterFactory.createCharacter(character, color, null);
       for (int x = 0; x < size.getWidth(); x++) {
         var position = InterfaceLocation.of(x, surfaceRow);
-        layer.put(position, surfaceCharacter);
+        layer.put(surfaceCharacter, position);
       }
     }
 

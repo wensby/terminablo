@@ -3,7 +3,6 @@ package com.wensby.terminablo.scene.levelscene;
 import static com.wensby.terminablo.userinterface.component.InterfaceLocation.atOrigin;
 
 import com.wensby.terminablo.TerminalLevelRenderer;
-import com.wensby.terminablo.userinterface.terminal.LinuxTerminalVisualCanvas;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactory;

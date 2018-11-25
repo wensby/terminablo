@@ -27,7 +27,7 @@ public class BenchmarkRendererImpl implements BenchmarkRenderer {
   @Override
   public TerminalLayer render(InterfaceSize size) {
     var layer = layerFactory.createBlankLayer(size);
-    var writer = new TerminalLayerWriterImpl(characterFactory, layer);
+    var writer = new LayerWriterImpl(characterFactory, layer);
     var updateTimeMs = Long.toString(benchmark.getLastUpdateTime().toMillis());
     writer.write("Update time ms: " + updateTimeMs, atOrigin());
     return layer;

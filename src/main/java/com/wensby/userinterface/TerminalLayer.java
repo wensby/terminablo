@@ -10,7 +10,7 @@ public interface TerminalLayer {
 
   void put(TerminalLayer layer, InterfaceLocation interfacePosition);
 
-  boolean put(InterfaceLocation position, TerminalCharacter character);
+  boolean put(TerminalCharacter character, InterfaceLocation position);
 
   TerminalCharacter getCharacter(InterfaceLocation position);
 }
