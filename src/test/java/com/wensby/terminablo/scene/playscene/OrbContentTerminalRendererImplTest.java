@@ -1,4 +1,4 @@
-package com.wensby.terminablo.scene.levelscene;
+package com.wensby.terminablo.scene.playscene;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;

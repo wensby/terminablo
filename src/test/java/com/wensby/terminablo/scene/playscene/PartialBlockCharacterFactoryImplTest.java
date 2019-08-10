@@ -1,4 +1,4 @@
-package com.wensby.terminablo.scene.levelscene;
+package com.wensby.terminablo.scene.playscene;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;

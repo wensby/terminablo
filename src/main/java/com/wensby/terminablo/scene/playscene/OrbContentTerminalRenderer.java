@@ -1,4 +1,4 @@
-package com.wensby.terminablo.scene.levelscene;
+package com.wensby.terminablo.scene.playscene;
 
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalLayer;

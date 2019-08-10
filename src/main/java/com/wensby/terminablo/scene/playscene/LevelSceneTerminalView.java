@@ -1,4 +1,4 @@
-package com.wensby.terminablo.scene.levelscene;
+package com.wensby.terminablo.scene.playscene;
 
 import static com.wensby.terminablo.userinterface.component.InterfaceLocation.atOrigin;
 

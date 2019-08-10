@@ -8,9 +8,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.wensby.terminablo.scene.levelscene.DefaultOrb;
-import com.wensby.terminablo.scene.levelscene.OrbContentTerminalRenderer;
-import com.wensby.terminablo.scene.levelscene.TerminalOrbRenderer;
+import com.wensby.terminablo.scene.playscene.DefaultOrb;
+import com.wensby.terminablo.scene.playscene.OrbContentTerminalRenderer;
+import com.wensby.terminablo.scene.playscene.TerminalOrbRenderer;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.LinuxTerminalCharacterFactory;

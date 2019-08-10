@@ -1,4 +1,4 @@
-package com.wensby.terminablo.scene.levelscene;
+package com.wensby.terminablo.scene.playscene;
 
 import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.world.level.Level;

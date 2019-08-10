@@ -1,8 +1,7 @@
-package com.wensby.terminablo.scene.levelscene;
+package com.wensby.terminablo.scene.playscene;
 
 import com.wensby.util.Fraction;
 import java.awt.Color;
-import java.math.BigDecimal;
 
 public interface Orb {
 

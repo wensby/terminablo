@@ -1,12 +1,10 @@
-package com.wensby.terminablo.scene.levelscene;
+package com.wensby.terminablo.scene.playscene;
 
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.util.UnitInterval;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 public class PartialBlockCharacterFactoryImpl implements PartialBlockCharacterFactory {
 

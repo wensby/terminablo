@@ -4,7 +4,7 @@ import static com.wensby.terminablo.userinterface.Key.*;
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.terminablo.scene.SceneStack;
-import com.wensby.terminablo.scene.levelscene.LevelSceneFactory;
+import com.wensby.terminablo.scene.playscene.LevelSceneFactory;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 

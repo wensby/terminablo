@@ -1,4 +1,4 @@
-package com.wensby.terminablo.scene.levelscene;
+package com.wensby.terminablo.scene.playscene;
 
 import static java.util.Objects.requireNonNull;
 
@@ -18,7 +18,6 @@ import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Random;
-import java.util.Set;
 
 public class LevelSceneFactoryImpl implements LevelSceneFactory {
 
