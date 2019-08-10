@@ -48,4 +48,8 @@ public class LinuxTerminal {
       printStream.print(commandFactory.createHideCursorCommand().toRenderString());
     }
   }
+
+  public void moveCursor(int row, int column) {
+    printStream.print(commandFactory.createMoveCursorCommand(row, column).toRenderString());
+  }
 }

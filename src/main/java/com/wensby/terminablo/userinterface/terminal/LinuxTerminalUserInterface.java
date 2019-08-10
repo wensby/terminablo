@@ -32,8 +32,8 @@ public class LinuxTerminalUserInterface implements UserInterface {
 
   @Override
   public void release() {
+    linuxTerminal.moveCursor(0, 0);
     linuxTerminal.setTerminalCooked();
     linuxTerminal.showCursor(true);
-    System.out.println();
   }
 }
