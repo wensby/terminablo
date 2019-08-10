@@ -1,5 +1,6 @@
 package com.wensby.terminablo.userinterface.terminal;
 
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public class LinuxMoveCursorCommand implements MoveCursorCommand {
@@ -28,5 +29,18 @@ public class LinuxMoveCursorCommand implements MoveCursorCommand {
     int row = coordinates.getRow() + 1;
     int column = coordinates.getColumn() + 1;
     return String.format("%c[%d;%df", escapeCode, row, column);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    LinuxMoveCursorCommand that = (LinuxMoveCursorCommand) o;
+    return Objects.equals(coordinates, that.coordinates);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(coordinates);
   }
 }

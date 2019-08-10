@@ -4,6 +4,7 @@ import static java.util.stream.Collectors.joining;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CompositeTerminalRenderCommand implements TerminalRenderCommand {
 
@@ -29,5 +30,18 @@ public class CompositeTerminalRenderCommand implements TerminalRenderCommand {
     return commands.stream()
         .map(TerminalRenderCommand::toRenderString)
         .collect(joining());
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CompositeTerminalRenderCommand that = (CompositeTerminalRenderCommand) o;
+    return Objects.equals(commands, that.commands);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(commands);
   }
 }
