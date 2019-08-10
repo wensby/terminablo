@@ -6,8 +6,10 @@ import com.wensby.terminablo.LevelEntityRenderer;
 import com.wensby.terminablo.TerminalLevelRenderer;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.userinterface.terminal.LinuxTerminalVisualCanvas;
+import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.world.AgentBuilder;
 import com.wensby.terminablo.world.level.LevelEntityFactory;
+import com.wensby.terminablo.world.level.LevelEntityImpl;
 import com.wensby.terminablo.world.level.LevelFactory;
 import com.wensby.terminablo.world.level.LevelLocation;
 import com.wensby.userinterface.TerminalCharacterFactory;
@@ -15,6 +17,8 @@ import com.wensby.userinterface.TerminalLayerFactory;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Random;
+import java.util.Set;
 
 public class LevelSceneFactoryImpl implements LevelSceneFactory {
 
@@ -43,6 +47,10 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
     final Path funnylevel = getResourceFilePath("funnylevel");
     var level = levelFactory.createFactoryFromResourceFile(funnylevel);
     level.putEntity(LevelLocation.of(1, 1), hero.getLevelEntity());
+    for (int i = 0; i < 50; i++) {
+      Agent monster = new AgentBuilder().withLevelEntity(new LevelEntityImpl("\uD83D\uDC7E")).build();
+      level.putEntity(LevelLocation.of(new Random().nextInt(100), new Random().nextInt(100)), monster.getLevelEntity());
+    }
     var model = new LevelSceneModel(hero, level);
     var partialBlockCharacterFactory = new PartialBlockCharacterFactoryImpl();
     OrbContentTerminalRenderer orbContentTerminalRenderer = new OrbContentTerminalRendererImpl(
