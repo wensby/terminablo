@@ -7,11 +7,13 @@ public class LinuxTerminalUserInterfaceFactory implements UserInterfaceFactory {
   private static LinuxTerminalKeyboard terminalKeyboard;
   private final LinuxTerminal linuxTerminal;
   private final LinuxTerminalRenderCommandFactory commandFactory;
+  private CharacterDifferenceFactory characterDifferenceFactory;
 
   public LinuxTerminalUserInterfaceFactory(LinuxTerminal linuxTerminal,
-      final LinuxTerminalRenderCommandFactory commandFactory) {
+      final LinuxTerminalRenderCommandFactory commandFactory, CharacterDifferenceFactory characterDifferenceFactory) {
     this.linuxTerminal = linuxTerminal;
     this.commandFactory = commandFactory;
+    this.characterDifferenceFactory = characterDifferenceFactory;
   }
 
   @Override
@@ -23,7 +25,7 @@ public class LinuxTerminalUserInterfaceFactory implements UserInterfaceFactory {
     }
     LinuxTerminalFrameFactory frameFactory = new LinuxTerminalFrameFactory(linuxTerminal);
     LinuxTerminalVisualCanvas canvas = new LinuxTerminalVisualCanvas(frameFactory, System.out,
-        commandFactory);
+        commandFactory, characterDifferenceFactory);
     return new LinuxTerminalUserInterface(linuxTerminal, terminalKeyboard, canvas);
   }
 

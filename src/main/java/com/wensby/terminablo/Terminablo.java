@@ -14,6 +14,7 @@ import com.wensby.terminablo.scene.mainmenu.MainMenuControllerImpl;
 import com.wensby.terminablo.scene.mainmenu.MainMenuModelImpl;
 import com.wensby.terminablo.scene.mainmenu.MainMenuScene;
 import com.wensby.terminablo.userinterface.terminal.BashCommandExecutor;
+import com.wensby.terminablo.userinterface.terminal.CharacterDifferenceFactory;
 import com.wensby.terminablo.userinterface.terminal.LinuxTerminal;
 import com.wensby.terminablo.userinterface.terminal.LinuxTerminalRenderCommandFactory;
 import com.wensby.terminablo.userinterface.terminal.LinuxTerminalUserInterfaceFactory;
@@ -32,7 +33,8 @@ public class Terminablo {
     var commandFactory = new LinuxTerminalRenderCommandFactory();
     var linuxTerminal = new LinuxTerminal(in, out, bashCommandExecutor, commandFactory);
     var characterFactory = new LinuxTerminalCharacterFactory();
-    var userInterfaceFactory = new LinuxTerminalUserInterfaceFactory(linuxTerminal, commandFactory);
+    var characterDifferenceFactory = new CharacterDifferenceFactory(characterFactory);
+    var userInterfaceFactory = new LinuxTerminalUserInterfaceFactory(linuxTerminal, commandFactory, characterDifferenceFactory);
     var userInterface = userInterfaceFactory.createUserInterface();
     var sceneStack = new SceneStackImpl();
     var canvas = (LinuxTerminalVisualCanvas) userInterface.getCanvas();

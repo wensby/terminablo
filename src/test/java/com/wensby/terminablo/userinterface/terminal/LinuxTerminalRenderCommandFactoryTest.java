@@ -13,7 +13,6 @@ public class LinuxTerminalRenderCommandFactoryTest {
 
   @Test
   public void createCommand_ofSimpleEmptyCharSequenceArray() {
-    var characterFactory = new LinuxTerminalCharacterFactory();
     var commandFactory = new LinuxTerminalRenderCommandFactory();
     var characters = new TerminalCharacter[1][1];
 
@@ -22,7 +21,6 @@ public class LinuxTerminalRenderCommandFactoryTest {
     assertThat(command, instanceOf(CompositeTerminalRenderCommand.class));
     CompositeTerminalRenderCommand composite = (CompositeTerminalRenderCommand) command;
     List<TerminalRenderCommand> commands = composite.getCommands();
-    assertThat(commands.size(), is(1));
-    assertThat(commands.get(0), instanceOf(ClearScreenRenderCommand.class));
+    assertThat(commands.size(), is(0));
   }
 }

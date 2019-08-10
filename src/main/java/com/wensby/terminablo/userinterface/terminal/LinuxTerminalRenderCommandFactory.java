@@ -7,7 +7,6 @@ public class LinuxTerminalRenderCommandFactory implements TerminalRenderCommandF
   @Override
   public TerminalRenderCommand createCommand(TerminalCharacter[][] characters) {
     var commandBuilder = new TerminalRenderCommandBuilder();
-    commandBuilder.addCommand(createClearScreenCommand());
     final int rowCount = characters.length;
     for (int y = 0; y < rowCount; y++) {
       int rowLength = characters[0].length;

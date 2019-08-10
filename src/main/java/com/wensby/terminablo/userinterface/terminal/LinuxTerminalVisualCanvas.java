@@ -9,12 +9,17 @@ public class LinuxTerminalVisualCanvas implements VisualCanvas {
   private final LinuxTerminalFrameFactory frameFactory;
   private final PrintStream printStream;
   private final LinuxTerminalRenderCommandFactory commandFactory;
+  private final CharacterDifferenceFactory characterDifferenceFactory;
+
+  private TerminalFrame previousFrame = null;
 
   public LinuxTerminalVisualCanvas(LinuxTerminalFrameFactory frameFactory, PrintStream printStream,
-      final LinuxTerminalRenderCommandFactory commandFactory) {
+      final LinuxTerminalRenderCommandFactory commandFactory,
+      final CharacterDifferenceFactory characterDifferenceFactory) {
     this.frameFactory = frameFactory;
     this.printStream = printStream;
     this.commandFactory = commandFactory;
+    this.characterDifferenceFactory = characterDifferenceFactory;
   }
 
   public TerminalFrame createFrame() {
@@ -22,8 +27,17 @@ public class LinuxTerminalVisualCanvas implements VisualCanvas {
   }
 
   public void renderFrame(TerminalFrame frame) {
-    TerminalRenderCommand command = commandFactory.createCommand(frame.getCharacters());
+    if (isScreenClearNecessary(frame)) {
+      printStream.print(commandFactory.createClearScreenCommand().toRenderString());
+    }
+    var characters = characterDifferenceFactory.getDifferingCharacters(previousFrame, frame);
+    var command = commandFactory.createCommand(characters);
     printStream.print(command.toRenderString());
     printStream.flush();
+    previousFrame = frame;
+  }
+
+  private boolean isScreenClearNecessary(final TerminalFrame frame) {
+    return previousFrame == null || !previousFrame.getSize().equals(frame.getSize());
   }
 }
