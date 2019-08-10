@@ -4,9 +4,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsInstanceOf.instanceOf;
 
-import com.wensby.userinterface.LinuxTerminalCharacterFactory;
 import com.wensby.userinterface.TerminalCharacter;
+
 import java.util.List;
+
 import org.junit.Test;
 
 public class LinuxTerminalRenderCommandFactoryTest {
