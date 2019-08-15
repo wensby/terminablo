@@ -30,7 +30,7 @@ public class LinuxTerminalVisualCanvas implements VisualCanvas {
     if (isScreenClearNecessary(frame)) {
       printStream.print(commandFactory.createClearScreenCommand().toRenderString());
     }
-    var characters = characterDifferenceFactory.getDifferingCharacters(previousFrame, frame);
+    var characters = characterDifferenceFactory.getDifference(previousFrame, frame);
     var command = commandFactory.createCommand(characters);
     printStream.print(command.toRenderString());
     printStream.flush();
