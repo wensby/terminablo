@@ -22,13 +22,20 @@ public class LayerWriterImpl implements LayerWriter {
     requireNonNull(location);
     requireNonNull(text);
     var row = location.getRow();
+    var column = location.getColumn();
     boolean put = true;
     for (int i = 0; put && i < text.length(); i++) {
-      var column = location.getColumn() + i;
       var characterLocation = InterfaceLocation.of(column, row);
       var character = text.charAt(i);
-      var terminalCharacter = characterFactory.createCharacter(character);
-      put = layer.put(terminalCharacter, characterLocation);
+      if (character != '\n') {
+        var terminalCharacter = characterFactory.createCharacter(character);
+        put = layer.put(terminalCharacter, characterLocation);
+        column = column + 1;
+      }
+      else {
+        row = characterLocation.getRow() + 1;
+        column = location.getColumn();
+      }
     }
   }
 
