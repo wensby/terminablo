@@ -29,7 +29,8 @@ public class BenchmarkRendererImpl implements BenchmarkRenderer {
     var layer = layerFactory.createBlankLayer(size);
     var writer = new LayerWriterImpl(characterFactory, layer);
     var updateTimeMs = Long.toString(benchmark.getLastUpdateTime().toMillis());
-    writer.write("Update time ms: " + updateTimeMs, atOrigin());
+    var renderTimeMs = Long.toString(benchmark.getLastRenderTime().toMillis());
+    writer.write("Update time ms: " + updateTimeMs + "\nRender time ms: " + renderTimeMs, atOrigin());
     return layer;
   }
 }

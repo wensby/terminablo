@@ -8,6 +8,7 @@ public class BenchmarkModelImpl implements BenchmarkModel {
 
   private boolean displayed;
   private Duration lastUpdateTime = Duration.ZERO;
+  private Duration lastRenderTime = Duration.ZERO;
 
   @Override
   public boolean isDisplayed() {
@@ -25,7 +26,12 @@ public class BenchmarkModelImpl implements BenchmarkModel {
   }
 
   @Override
+  public void setLastRenderTime(Duration duration) {
+    lastRenderTime = duration;
+  }
+
+  @Override
   public Benchmark getBenchmark() {
-    return new BenchmarkImpl(lastUpdateTime);
+    return new BenchmarkImpl(lastUpdateTime, lastRenderTime);
   }
 }

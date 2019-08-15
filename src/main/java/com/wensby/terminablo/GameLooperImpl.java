@@ -47,9 +47,12 @@ public class GameLooperImpl implements GameLooper {
     var userInput = pollUserInput();
     var elapsedTime = pollElapsedTime();
     update(elapsedTime, userInput);
-    render();
-    Duration tickDuration = Duration.between(tickStart, Instant.now());
+    var tickDuration = Duration.between(tickStart, Instant.now());
     benchmarkModel.setLastUpdateTime(tickDuration);
+    Instant renderStart = Instant.now();
+    render();
+    var renderDuration = Duration.between(renderStart, Instant.now());
+    benchmarkModel.setLastRenderTime(renderDuration);
     LOGGER.debug("Tick " + ticks + " completed in " + tickDuration);
     ticks++;
   }

@@ -11,5 +11,7 @@ public interface BenchmarkModel {
 
   void setLastUpdateTime(Duration duration);
 
+  void setLastRenderTime(Duration duration);
+
   Benchmark getBenchmark();
 }

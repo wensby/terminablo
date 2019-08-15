@@ -7,13 +7,20 @@ import java.time.Duration;
 public class BenchmarkImpl implements Benchmark {
 
   private final Duration lastUpdateTime;
+  private final Duration lastRenderTime;
 
-  public BenchmarkImpl(Duration lastUpdateTime) {
+  public BenchmarkImpl(Duration lastUpdateTime, Duration lastRenderTime) {
     this.lastUpdateTime = requireNonNull(lastUpdateTime);
+    this.lastRenderTime = requireNonNull(lastRenderTime);
   }
 
   @Override
   public Duration getLastUpdateTime() {
     return lastUpdateTime;
+  }
+
+  @Override
+  public Duration getLastRenderTime() {
+    return lastRenderTime;
   }
 }
