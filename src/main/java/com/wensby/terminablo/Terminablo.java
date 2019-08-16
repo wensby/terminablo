@@ -54,6 +54,7 @@ public class Terminablo {
           .withUserInterface(userInterface)
           .withRenderer(renderer)
           .withBenchmarkModel(benchmarkModel)
+          .withTargetTicksPerSecond(15)
           .build()
           .run();
     } catch (Throwable e) {

@@ -9,6 +9,7 @@ public class GameLooperBuilder {
   private UserInterface userInterface;
   private Renderer renderer;
   private BenchmarkModel benchmarkModel;
+  private int targetTicksPerSecond;
 
   public GameLooperBuilder withTickable(Updater updater) {
     this.updater = updater;
@@ -30,7 +31,12 @@ public class GameLooperBuilder {
     return this;
   }
 
+  public GameLooperBuilder withTargetTicksPerSecond(int target) {
+    this.targetTicksPerSecond = target;
+    return this;
+  }
+
   GameLooper build() {
-    return new GameLooperImpl(userInterface, updater, renderer, benchmarkModel);
+    return new GameLooperImpl(userInterface, updater, renderer, benchmarkModel, targetTicksPerSecond);
   }
 }

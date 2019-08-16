@@ -7,4 +7,6 @@ public interface Benchmark {
   Duration getLastUpdateTime();
 
   Duration getLastRenderTime();
+
+  Duration getLastTickTime();
 }

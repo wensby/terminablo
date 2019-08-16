@@ -19,17 +19,24 @@ public class GameLooperImpl implements GameLooper {
   private final Updater updater;
   private final Renderer renderer;
   private final BenchmarkModel benchmarkModel;
+  private final int targetTicksPerSecond;
 
-  private Instant latestTickInstant;
+  private Instant latestPollMoment;
   private UpdateResult latestUpdateResult;
   private long ticks;
+  private Duration latestTickDuration;
 
-  GameLooperImpl(UserInterface userInterface, Updater updater, Renderer renderer,
-      BenchmarkModel benchmarkModel) {
+  GameLooperImpl(
+      UserInterface userInterface,
+      Updater updater,
+      Renderer renderer,
+      BenchmarkModel benchmarkModel,
+      int targetTicksPerSecond) {
     this.userInterface = requireNonNull(userInterface);
     this.updater = requireNonNull(updater);
     this.renderer = requireNonNull(renderer);
     this.benchmarkModel = requireNonNull(benchmarkModel);
+    this.targetTicksPerSecond = targetTicksPerSecond;
   }
 
   @Override
@@ -43,17 +50,20 @@ public class GameLooperImpl implements GameLooper {
 
   private void tick() {
     LOGGER.debug("Tick " + ticks);
-    Instant tickStart = Instant.now();
+    var tickStart = Instant.now();
     var userInput = pollUserInput();
     var elapsedTime = pollElapsedTime();
+    var updateStart = Instant.now();
     update(elapsedTime, userInput);
-    var tickDuration = Duration.between(tickStart, Instant.now());
-    benchmarkModel.setLastUpdateTime(tickDuration);
-    Instant renderStart = Instant.now();
+    var updateDuration = Duration.between(updateStart, Instant.now());
+    benchmarkModel.setLastUpdateTime(updateDuration);
+    var renderStart = Instant.now();
     render();
     var renderDuration = Duration.between(renderStart, Instant.now());
     benchmarkModel.setLastRenderTime(renderDuration);
-    LOGGER.debug("Tick " + ticks + " completed in " + tickDuration);
+    latestTickDuration = Duration.between(tickStart, Instant.now());
+    benchmarkModel.setLastTickTime(latestTickDuration);
+    LOGGER.debug("Tick " + ticks + " completed in " + latestTickDuration);
     ticks++;
   }
 
@@ -67,11 +77,11 @@ public class GameLooperImpl implements GameLooper {
 
   private Duration pollElapsedTime() {
     var now = Instant.now();
-    if (latestTickInstant == null) {
-      latestTickInstant = now;
+    if (latestPollMoment == null) {
+      latestPollMoment = now;
     }
-    var elapsedTime = Duration.between(latestTickInstant, now);
-    latestTickInstant = now;
+    var elapsedTime = Duration.between(latestPollMoment, now);
+    latestPollMoment = now;
     return elapsedTime;
   }
 
@@ -86,10 +96,14 @@ public class GameLooperImpl implements GameLooper {
   }
 
   private void sleep() {
-    try {
-      Thread.sleep(50);
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
+    var sleepTime = (1000 / targetTicksPerSecond) - latestTickDuration.toMillisPart();
+    if (sleepTime > 0) {
+      try {
+        LOGGER.debug("Sleeping for " + sleepTime + "ms");
+        Thread.sleep(sleepTime);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
     }
   }
 }
