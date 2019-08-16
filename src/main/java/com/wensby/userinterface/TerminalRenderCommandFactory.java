@@ -1,12 +1,10 @@
 package com.wensby.userinterface;
 
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-
-import java.util.Map;
+import java.util.List;
 
 public interface TerminalRenderCommandFactory {
 
-  TerminalRenderCommand createCommand(Map<InterfaceLocation, TerminalCharacter> characters);
+  TerminalRenderCommand createCommand(List<PositionedTerminalCharacter> characters);
 
   TerminalRenderCommand createMoveCursorCommand(int row, int column);
 

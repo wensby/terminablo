@@ -1,13 +1,8 @@
 package com.wensby.userinterface;
 
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-import com.wensby.userinterface.TerminalCharacter;
-import com.wensby.userinterface.TerminalCharacterFactory;
-import com.wensby.userinterface.TerminalLayer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class CharacterDifferenceFactory {
 
@@ -17,18 +12,18 @@ public class CharacterDifferenceFactory {
     this.characterFactory = Objects.requireNonNull(characterFactory);
   }
 
-  public Map<InterfaceLocation, TerminalCharacter> getDifference(TerminalLayer a, TerminalLayer b) {
-    var difference = new HashMap<InterfaceLocation, TerminalCharacter>();
+  /**
+   * @return a list of positioned characters, sorted by column and row.
+   */
+  public List<PositionedTerminalCharacter> getDifference(TerminalLayer a, TerminalLayer b) {
+    var difference = new ArrayList<PositionedTerminalCharacter>();
 
-    var size = b.getSize();
-    var height = size.getHeight();
-    var width = size.getWidth();
-    for (int row = 0; row < height; row++) {
-      for (int column = 0; column < width; column++) {
+    for (int row = 0; row < b.getSize().getHeight(); row++) {
+      for (int column = 0; column < b.getSize().getWidth(); column++) {
         var location = InterfaceLocation.of(column, row);
         var differingCharacter = getDifferingCharacter(a, b, location);
         if (differingCharacter != null) {
-          difference.put(location, differingCharacter);
+          difference.add(new PositionedTerminalCharacter(location, differingCharacter));
         }
       }
     }
