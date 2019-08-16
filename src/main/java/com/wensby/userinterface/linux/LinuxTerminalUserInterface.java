@@ -1,9 +1,10 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface.linux;
 
 import com.wensby.terminablo.userinterface.Key;
 import com.wensby.terminablo.userinterface.UserInterface;
 import com.wensby.terminablo.userinterface.VisualCanvas;
 import com.wensby.userinterface.UserInput;
+
 import java.util.List;
 
 public class LinuxTerminalUserInterface implements UserInterface {

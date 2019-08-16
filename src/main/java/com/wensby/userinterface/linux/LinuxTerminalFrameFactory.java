@@ -1,9 +1,10 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface.linux;
 
 import com.wensby.userinterface.TerminalCharacter;
 import com.wensby.userinterface.TerminalFrame;
 import com.wensby.userinterface.TerminalFrameImpl;
 import com.wensby.userinterface.TerminalLayerImpl;
+
 import java.time.Instant;
 
 public class LinuxTerminalFrameFactory {

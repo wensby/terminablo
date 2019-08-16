@@ -1,4 +1,4 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface;
 
 import static java.util.stream.Collectors.joining;
 

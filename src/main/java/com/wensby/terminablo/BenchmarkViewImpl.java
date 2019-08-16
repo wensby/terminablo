@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.BenchmarkRendererImpl;
 import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.LinuxTerminalCharacterFactory;
+import com.wensby.userinterface.linux.LinuxTerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactoryImpl;
 import com.wensby.util.BenchmarkView;

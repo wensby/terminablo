@@ -1,4 +1,4 @@
-package com.wensby.userinterface;
+package com.wensby.userinterface.linux;
 
 import java.awt.Color;
 

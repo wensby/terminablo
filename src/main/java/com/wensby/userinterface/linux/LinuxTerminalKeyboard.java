@@ -1,4 +1,4 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface.linux;
 
 import static java.util.Objects.requireNonNull;
 

@@ -1,4 +1,4 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface;
 
 import static com.wensby.terminablo.Validate.requireNonNegative;
 
@@ -25,6 +25,10 @@ public class TerminalCoordinates {
 
   public int getColumn() {
     return column;
+  }
+
+  public TerminalCoordinates plus(int row, int column) {
+    return new TerminalCoordinates(this.row + row, this.column + column);
   }
 
   @Override

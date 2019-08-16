@@ -7,11 +7,7 @@ import static org.mockito.Mockito.when;
 import com.wensby.terminablo.world.level.LevelEntityFactory;
 import com.wensby.terminablo.world.level.LevelFactory;
 import com.wensby.terminablo.world.level.LevelLocation;
-import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.SimpleTerminalCharacter;
-import com.wensby.userinterface.TerminalCharacter;
-import com.wensby.userinterface.TerminalLayerFactory;
-import com.wensby.userinterface.TerminalLayerImpl;
+import com.wensby.userinterface.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,7 +29,7 @@ public class TerminalLevelRendererTest {
   @Test
   public void name() {
     var interfaceSize = InterfaceSize.of(5, 5);
-    when(entityRenderer.getTerminalCharacter(any())).thenReturn(new SimpleTerminalCharacter('#'));
+    when(entityRenderer.getTerminalCharacter(any())).thenReturn(new SimpleTerminalCharacterImpl('#'));
     var renderer = new TerminalLevelRenderer(layerFactory, entityRenderer);
     when(layerFactory.createBlankLayer(interfaceSize)).thenReturn(new TerminalLayerImpl(new TerminalCharacter[5][5]));
     var level = levelFactory.createFactoryFromString("###\n# #\n###");

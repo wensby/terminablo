@@ -13,7 +13,7 @@ import com.wensby.terminablo.scene.playscene.OrbContentTerminalRenderer;
 import com.wensby.terminablo.scene.playscene.TerminalOrbRenderer;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.LinuxTerminalCharacterFactory;
+import com.wensby.userinterface.linux.LinuxTerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.util.Fraction;

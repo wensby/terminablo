@@ -1,4 +1,6 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface.linux;
+
+import com.wensby.userinterface.TerminalRenderCommand;
 
 public class LinuxHideCursorCommand implements TerminalRenderCommand {
 

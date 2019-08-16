@@ -1,4 +1,6 @@
-package com.wensby.userinterface;
+package com.wensby.userinterface.linux;
+
+import com.wensby.userinterface.*;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -11,18 +13,18 @@ public class LinuxTerminalCharacterFactory implements TerminalCharacterFactory {
   @Override
   public TerminalCharacter createCharacter(char character) {
     return simpleTerminalCharacterByCharacter
-        .computeIfAbsent(character, SimpleTerminalCharacter::new);
+        .computeIfAbsent(character, SimpleTerminalCharacterImpl::new);
   }
 
   @Override
   public TerminalCharacter createCharacter(char character, Color foregroundColor,
       Color backgroundColor) {
-    return new LinuxDecorativeCharacter(String.valueOf(character), foregroundColor,
-        backgroundColor);
+    return new ComplexTerminalCharacterImpl(String.valueOf(character),
+        new CharacterDecoration(backgroundColor, foregroundColor));
   }
 
   @Override
   public TerminalCharacter createCharacter(CharSequence character) {
-    return new LinuxDecorativeCharacter(character);
+    return new ComplexTerminalCharacterImpl(character);
   }
 }

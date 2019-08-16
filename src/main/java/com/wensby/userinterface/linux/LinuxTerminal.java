@@ -1,10 +1,11 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface.linux;
+
+import com.wensby.userinterface.RuntimeProcessExecutor;
 
 import static java.util.Objects.requireNonNull;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.Objects;
 
 public class LinuxTerminal {
 

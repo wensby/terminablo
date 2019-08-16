@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import com.wensby.terminablo.LevelEntityRenderer;
 import com.wensby.terminablo.TerminalLevelRenderer;
 import com.wensby.terminablo.scene.SceneStack;
-import com.wensby.terminablo.userinterface.terminal.LinuxTerminalVisualCanvas;
+import com.wensby.userinterface.linux.LinuxTerminalVisualCanvas;
 import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.world.AgentBuilder;
 import com.wensby.terminablo.world.level.LevelEntityFactory;

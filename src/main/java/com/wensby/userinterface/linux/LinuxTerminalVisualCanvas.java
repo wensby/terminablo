@@ -1,7 +1,9 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface.linux;
 
 import com.wensby.terminablo.userinterface.VisualCanvas;
+import com.wensby.userinterface.CharacterDifferenceFactory;
 import com.wensby.userinterface.TerminalFrame;
+
 import java.io.PrintStream;
 
 public class LinuxTerminalVisualCanvas implements VisualCanvas {
@@ -27,17 +29,14 @@ public class LinuxTerminalVisualCanvas implements VisualCanvas {
   }
 
   public void renderFrame(TerminalFrame frame) {
-    if (isScreenClearNecessary(frame)) {
+    if (previousFrame == null) {
       printStream.print(commandFactory.createClearScreenCommand().toRenderString());
     }
-    var characters = characterDifferenceFactory.getDifference(previousFrame, frame);
-    var command = commandFactory.createCommand(characters);
+    var differingCharacters = characterDifferenceFactory.getDifference(previousFrame, frame);
+    var command = commandFactory.createCommand(differingCharacters);
     printStream.print(command.toRenderString());
     printStream.flush();
     previousFrame = frame;
   }
 
-  private boolean isScreenClearNecessary(final TerminalFrame frame) {
-    return previousFrame == null || !previousFrame.getSize().equals(frame.getSize());
-  }
 }

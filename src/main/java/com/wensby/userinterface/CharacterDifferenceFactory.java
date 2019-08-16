@@ -1,4 +1,4 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface;
 
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.userinterface.TerminalCharacter;
@@ -44,7 +44,7 @@ public class CharacterDifferenceFactory {
     }
     else {
       if (next == null) {
-        if (prev.isLong()) {
+        if (prev instanceof ComplexTerminalCharacter && ((ComplexTerminalCharacter) prev).getCharSequence().length() > 1) {
           return characterFactory.createCharacter("  ");
         }
         return characterFactory.createCharacter(' ');

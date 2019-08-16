@@ -1,4 +1,4 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface;
 
 public interface MoveCursorCommand extends TerminalRenderCommand {
 

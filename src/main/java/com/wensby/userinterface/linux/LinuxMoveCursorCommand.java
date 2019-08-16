@@ -1,4 +1,7 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface.linux;
+
+import com.wensby.userinterface.MoveCursorCommand;
+import com.wensby.userinterface.TerminalCoordinates;
 
 import java.util.Objects;
 import java.util.StringJoiner;

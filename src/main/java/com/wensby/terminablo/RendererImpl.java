@@ -4,7 +4,7 @@ import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.terminablo.scene.SceneStack;
-import com.wensby.terminablo.userinterface.terminal.LinuxTerminalVisualCanvas;
+import com.wensby.userinterface.linux.LinuxTerminalVisualCanvas;
 import com.wensby.util.BenchmarkView;
 import org.apache.log4j.Logger;
 

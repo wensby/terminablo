@@ -1,4 +1,6 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface.linux;
+
+import com.wensby.userinterface.ClearScreenRenderCommand;
 
 public class LinuxClearScreenRenderCommand implements ClearScreenRenderCommand {
 

@@ -1,6 +1,7 @@
-package com.wensby.terminablo.userinterface.terminal;
+package com.wensby.userinterface.linux;
 
 import com.wensby.terminablo.userinterface.UserInterfaceFactory;
+import com.wensby.userinterface.CharacterDifferenceFactory;
 
 public class LinuxTerminalUserInterfaceFactory implements UserInterfaceFactory {
 

@@ -5,6 +5,8 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import com.wensby.userinterface.CompositeTerminalRenderCommand;
+import com.wensby.userinterface.TerminalRenderCommand;
 import org.junit.Test;
 
 public class CompositeTerminalRenderCommandTest {
