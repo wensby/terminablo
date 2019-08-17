@@ -18,7 +18,7 @@ public class LevelFactory {
     this.levelEntityFactory = levelEntityFactory;
   }
   
-  public Level createFactoryFromResourceFile(Path resourcePath) {
+  public Level createLevelFromResourceFile(Path resourcePath) {
     final String mapString = readString(resourcePath);
     return createFactoryFromString(mapString);
   }

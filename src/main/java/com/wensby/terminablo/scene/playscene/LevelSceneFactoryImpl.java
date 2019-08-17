@@ -6,7 +6,6 @@ import com.wensby.terminablo.LevelEntityRenderer;
 import com.wensby.terminablo.TerminalLevelRenderer;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStack;
-import com.wensby.userinterface.linux.LinuxTerminalVisualCanvas;
 import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.world.AgentBuilder;
 import com.wensby.terminablo.world.level.LevelEntityFactory;
@@ -42,7 +41,7 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
     var entityFactory = new LevelEntityFactory();
     var levelFactory = new LevelFactory(entityFactory);
     final Path funnylevel = getResourceFilePath("funnylevel");
-    var level = levelFactory.createFactoryFromResourceFile(funnylevel);
+    var level = levelFactory.createLevelFromResourceFile(funnylevel);
     level.putEntity(LevelLocation.of(1, 1), hero.getLevelEntity());
     for (int i = 0; i < 50; i++) {
       Agent monster = new AgentBuilder().withLevelEntity(new LevelEntityImpl("\uD83D\uDC7E")).build();
