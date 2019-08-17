@@ -31,6 +31,7 @@ public class TerminalLayerImplTest {
     var layer = new TerminalLayerImpl(new TerminalCharacter[1][1]);
     when(location.getRow()).thenReturn(0);
     when(location.getColumn()).thenReturn(1);
+    when(character.getRenderLength()).thenReturn(1);
 
     var put = layer.put(character, location);
 

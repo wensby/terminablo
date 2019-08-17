@@ -47,4 +47,9 @@ public class ComplexTerminalCharacterImpl implements ComplexTerminalCharacter {
   public int hashCode() {
     return Objects.hash(charSequence, decoration);
   }
+
+  @Override
+  public int getRenderLength() {
+    return charSequence.length();
+  }
 }
