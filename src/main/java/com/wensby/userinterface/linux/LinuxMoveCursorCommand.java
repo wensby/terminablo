@@ -1,5 +1,6 @@
 package com.wensby.userinterface.linux;
 
+import com.wensby.userinterface.Ansi;
 import com.wensby.userinterface.MoveCursorCommand;
 import com.wensby.userinterface.TerminalCoordinates;
 
@@ -28,10 +29,9 @@ public class LinuxMoveCursorCommand implements MoveCursorCommand {
 
   @Override
   public String toRenderString() {
-    char escapeCode = 0x1B;
     int row = coordinates.getRow() + 1;
     int column = coordinates.getColumn() + 1;
-    return String.format("%c[%d;%df", escapeCode, row, column);
+    return String.format("%c[%d;%df", Ansi.ESCAPE, row, column);
   }
 
   @Override

@@ -1,5 +1,6 @@
 package com.wensby.userinterface.linux;
 
+import com.wensby.userinterface.Ansi;
 import com.wensby.userinterface.CharacterDecoration;
 import com.wensby.userinterface.TerminalRenderCommand;
 
@@ -13,7 +14,7 @@ public class LinuxColorAdjustmentCommand implements TerminalRenderCommand {
     int backgroundColorCode = LinuxColorConverter.getBackgroundColorCode(background);
     int foregroundColorCode = LinuxColorConverter.getForegroundColorCode(foreground);
     StringBuilder colorAdjust = new StringBuilder();
-    colorAdjust.append((char) 0x1B)
+    colorAdjust.append(Ansi.ESCAPE)
         .append("[")
         .append(foregroundColorCode)
         .append(";")
