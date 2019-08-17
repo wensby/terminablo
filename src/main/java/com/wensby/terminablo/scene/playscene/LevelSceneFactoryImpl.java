@@ -24,18 +24,15 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
 
   private final TerminalCharacterFactory characterFactory;
   private final TerminalLayerFactory layerFactory;
-  private final LinuxTerminalVisualCanvas canvas;
   private final SceneStack sceneStack;
 
   public LevelSceneFactoryImpl(
       TerminalCharacterFactory characterFactory,
       TerminalLayerFactory layerFactory,
-      LinuxTerminalVisualCanvas canvas,
       SceneStack sceneStack
   ) {
     this.characterFactory = requireNonNull(characterFactory);
     this.layerFactory = requireNonNull(layerFactory);
-    this.canvas = requireNonNull(canvas);
     this.sceneStack = requireNonNull(sceneStack);
   }
 

@@ -39,7 +39,7 @@ public class Terminablo {
     var sceneStack = new SceneStackImpl();
     var canvas = (LinuxTerminalVisualCanvas) userInterface.getCanvas();
     var layerFactory = new TerminalLayerFactoryImpl(characterFactory);
-    var levelSceneFactory = new LevelSceneFactoryImpl(characterFactory, layerFactory, canvas, sceneStack);
+    var levelSceneFactory = new LevelSceneFactoryImpl(characterFactory, layerFactory, sceneStack);
     Scene scene = createMainMenuScene(characterFactory, sceneStack, layerFactory,
         levelSceneFactory);
     sceneStack.push(scene);
