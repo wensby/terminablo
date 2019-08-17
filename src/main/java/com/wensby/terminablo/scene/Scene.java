@@ -1,10 +1,26 @@
 package com.wensby.terminablo.scene;
 
-import com.wensby.terminablo.Renderable;
-import com.wensby.terminablo.Updatable;
+import com.wensby.terminablo.scene.playscene.Controller;
+import com.wensby.userinterface.InterfaceSize;
+import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 
-public interface Scene extends Updatable, Renderable {
+public class Scene {
 
+  private final Controller controller;
+  private final View view;
+
+  public Scene(Controller controller, View view) {
+    this.controller = controller;
+    this.view = view;
+  }
+
+  public void update(Duration elapsedTime, UserInput input) {
+    controller.update(elapsedTime, input);
+  }
+
+  public TerminalLayer render(InterfaceSize size) {
+    return view.render(size);
+  }
 }

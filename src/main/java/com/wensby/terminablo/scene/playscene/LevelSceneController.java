@@ -13,7 +13,7 @@ import com.wensby.userinterface.UserInput;
 import java.math.BigDecimal;
 import java.time.Duration;
 
-public class LevelSceneController {
+public class LevelSceneController implements Controller {
 
   private final SceneStack sceneStack;
   private final LevelSceneModel model;
@@ -24,6 +24,7 @@ public class LevelSceneController {
     this.model = model;
   }
 
+  @Override
   public void update(Duration elapsedTime, UserInput input) {
     BigDecimal plus = model.getHero().getStats().getLife().add(BigDecimal.TEN);
     model.getHero().getStats().setLife(plus);

@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.terminablo.LevelEntityRenderer;
 import com.wensby.terminablo.TerminalLevelRenderer;
+import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.userinterface.linux.LinuxTerminalVisualCanvas;
 import com.wensby.terminablo.world.Agent;
@@ -39,7 +40,7 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
   }
 
   @Override
-  public LevelScene createLevelScene() {
+  public Scene createLevelScene() {
     var hero = new AgentBuilder().build();
     var entityFactory = new LevelEntityFactory();
     var levelFactory = new LevelFactory(entityFactory);
@@ -61,11 +62,11 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
         orbTerminalRepresentationFactory, layerFactory, characterFactory);
     var levelEntityRenderer = new LevelEntityRenderer(characterFactory);
     var levelRenderer = new TerminalLevelRenderer(layerFactory, levelEntityRenderer);
-    var levelSceneView = new LevelSceneTerminalView(layerFactory,
+    var levelSceneView = new TerminalView(layerFactory,
         levelSceneInterfaceRenderer,
         levelRenderer, model);
     var levelSceneController = new LevelSceneController(sceneStack, model);
-    return new LevelScene(levelSceneController, levelSceneView);
+    return new Scene(levelSceneController, levelSceneView);
   }
 
   private Path getResourceFilePath(final String resourceFilepath) {

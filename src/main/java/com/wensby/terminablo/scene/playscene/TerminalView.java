@@ -3,18 +3,19 @@ package com.wensby.terminablo.scene.playscene;
 import static com.wensby.terminablo.userinterface.component.InterfaceLocation.atOrigin;
 
 import com.wensby.terminablo.TerminalLevelRenderer;
+import com.wensby.terminablo.scene.View;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactory;
 
-public class LevelSceneTerminalView implements LevelSceneView {
+public class TerminalView implements View {
 
   private final TerminalLayerFactory layerFactory;
   private final LevelSceneInterfaceRenderer levelSceneInterfaceRenderer;
   private final TerminalLevelRenderer terminalLevelRenderer;
   private final LevelSceneModel model;
 
-  public LevelSceneTerminalView(
+  public TerminalView(
       TerminalLayerFactory layerFactory,
       LevelSceneInterfaceRenderer levelSceneInterfaceRenderer,
       TerminalLevelRenderer terminalLevelRenderer,

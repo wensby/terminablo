@@ -5,6 +5,7 @@ import static java.lang.System.out;
 
 import com.wensby.BenchmarkController;
 import com.wensby.UpdaterImpl;
+import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.scene.SceneStackImpl;
 import com.wensby.terminablo.scene.playscene.LevelSceneFactory;
@@ -12,7 +13,6 @@ import com.wensby.terminablo.scene.playscene.LevelSceneFactoryImpl;
 import com.wensby.terminablo.scene.mainmenu.LinuxTerminalMainMenuView;
 import com.wensby.terminablo.scene.mainmenu.MainMenuControllerImpl;
 import com.wensby.terminablo.scene.mainmenu.MainMenuModelImpl;
-import com.wensby.terminablo.scene.mainmenu.MainMenuScene;
 import com.wensby.userinterface.BashCommandExecutor;
 import com.wensby.userinterface.CharacterDifferenceFactory;
 import com.wensby.userinterface.linux.LinuxTerminal;
@@ -40,7 +40,7 @@ public class Terminablo {
     var canvas = (LinuxTerminalVisualCanvas) userInterface.getCanvas();
     var layerFactory = new TerminalLayerFactoryImpl(characterFactory);
     var levelSceneFactory = new LevelSceneFactoryImpl(characterFactory, layerFactory, canvas, sceneStack);
-    MainMenuScene scene = createMainMenuScene(characterFactory, sceneStack, layerFactory,
+    Scene scene = createMainMenuScene(characterFactory, sceneStack, layerFactory,
         levelSceneFactory);
     sceneStack.push(scene);
     BenchmarkModel benchmarkModel = new BenchmarkModelImpl();
@@ -64,7 +64,7 @@ public class Terminablo {
     }
   }
 
-  private static MainMenuScene createMainMenuScene(
+  private static Scene createMainMenuScene(
       TerminalCharacterFactory characterFactory,
       SceneStack sceneStack,
       TerminalLayerFactory layerFactory,
@@ -73,7 +73,7 @@ public class Terminablo {
     var model = new MainMenuModelImpl();
     var view = new LinuxTerminalMainMenuView(model, layerFactory, characterFactory);
     var controller = new MainMenuControllerImpl(model, sceneStack, levelSceneFactory);
-    return new MainMenuScene(controller, view);
+    return new Scene(controller, view);
   }
 
 }
