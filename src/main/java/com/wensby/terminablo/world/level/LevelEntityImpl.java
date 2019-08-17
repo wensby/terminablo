@@ -1,15 +1,17 @@
 package com.wensby.terminablo.world.level;
 
+import com.wensby.userinterface.TerminalCharacter;
+
 public class LevelEntityImpl implements LevelEntity {
 
-  private final CharSequence charSeq;
+  private final TerminalCharacter character;
 
-  public LevelEntityImpl(CharSequence charSeq) {
-    this.charSeq = charSeq;
+  public LevelEntityImpl(TerminalCharacter character) {
+    this.character = character;
   }
 
   @Override
-  public CharSequence getCharacter() {
-    return charSeq;
+  public TerminalCharacter getCharacter() {
+    return character;
   }
 }

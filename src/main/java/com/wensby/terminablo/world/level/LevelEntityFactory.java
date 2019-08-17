@@ -1,8 +1,10 @@
 package com.wensby.terminablo.world.level;
 
+import com.wensby.userinterface.ComplexTerminalCharacterImpl;
+
 public class LevelEntityFactory {
 
   public LevelEntity createWall() {
-    return new LevelEntityImpl("\uD83C\uDF33");
+    return new LevelEntityImpl(new ComplexTerminalCharacterImpl("\uD83C\uDF33"));
   }
 }
