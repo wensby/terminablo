@@ -29,7 +29,7 @@ public class LinuxTerminalVisualCanvas implements VisualCanvas {
   }
 
   public void renderFrame(TerminalFrame frame) {
-    if (previousFrame == null) {
+    if (previousFrame == null || !previousFrame.getSize().equals(frame.getSize())) {
       printStream.print(commandFactory.createClearScreenCommand().toRenderString());
     }
     var differingCharacters = characterDifferenceFactory.getDifference(previousFrame, frame);
