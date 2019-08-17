@@ -16,11 +16,13 @@ import java.time.Duration;
 public class LevelSceneController implements Controller {
 
   private final SceneStack sceneStack;
+  private final AgentController agentController;
   private final LevelSceneModel model;
 
   public LevelSceneController(SceneStack sceneStack,
-      LevelSceneModel model) {
+      AgentController agentController, LevelSceneModel model) {
     this.sceneStack = sceneStack;
+    this.agentController = agentController;
     this.model = model;
   }
 
@@ -31,7 +33,12 @@ public class LevelSceneController implements Controller {
     if (input.getKeyStrokes().contains(ESCAPE)) {
       sceneStack.pop();
     }
+    updateMonsters(elapsedTime);
     updateCharacterMovement(elapsedTime, input);
+  }
+
+  private void updateMonsters(Duration elapsedTime) {
+    model.getMonsters().forEach(agent -> agentController.update(agent, elapsedTime));
   }
 
   private void updateCharacterMovement(Duration elapsedTime, UserInput input) {

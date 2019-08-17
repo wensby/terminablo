@@ -18,6 +18,7 @@ import com.wensby.userinterface.TerminalLayerFactory;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedList;
 import java.util.Random;
 
 public class LevelSceneFactoryImpl implements LevelSceneFactory {
@@ -45,11 +46,12 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
     var level = levelFactory.createLevelFromResourceFile(funnylevel);
     level.putEntity(LevelLocation.of(1, 1), hero.getLevelEntity());
     var monsterCharacter = new ComplexTerminalCharacterImpl("\uD83D\uDC7E");
+    var monsters = new LinkedList<Agent>();
     for (int i = 0; i < 50; i++) {
-      Agent monster = new AgentBuilder().withLevelEntity(new LevelEntityImpl(monsterCharacter)).build();
-      level.putEntity(LevelLocation.of(new Random().nextInt(100), new Random().nextInt(100)), monster.getLevelEntity());
+      monsters.add(new AgentBuilder().withLevelEntity(new LevelEntityImpl(monsterCharacter)).build());
     }
-    var model = new LevelSceneModel(hero, level);
+    monsters.forEach(monster -> level.putEntity(LevelLocation.of(new Random().nextInt(100), new Random().nextInt(100)), monster.getLevelEntity()));
+    var model = new LevelSceneModel(hero, level, monsters);
     var partialBlockCharacterFactory = new PartialBlockCharacterFactoryImpl();
     OrbContentTerminalRenderer orbContentTerminalRenderer = new OrbContentTerminalRendererImpl(
         partialBlockCharacterFactory, layerFactory, characterFactory);
@@ -63,7 +65,8 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
     var levelSceneView = new TerminalView(layerFactory,
         levelSceneInterfaceRenderer,
         levelRenderer, model);
-    var levelSceneController = new LevelSceneController(sceneStack, model);
+    AgentController agentController = new AgentController(level);
+    var levelSceneController = new LevelSceneController(sceneStack, agentController, model);
     return new Scene(levelSceneController, levelSceneView);
   }
 
