@@ -7,6 +7,7 @@ import com.wensby.terminablo.world.level.LevelLocation;
 import com.wensby.userinterface.UserInput;
 
 import java.time.Duration;
+import java.util.Optional;
 
 import static com.wensby.terminablo.userinterface.Key.*;
 import static com.wensby.terminablo.userinterface.Key.ARROW_RIGHT;
@@ -30,7 +31,15 @@ public class PlayerController implements Controller {
 
   public void updateCharacterMovement(Duration elapsedTime, UserInput input) {
     final LevelEntity heroEntity = hero.getLevelEntity();
-    LevelLocation location = level.removeEntity(heroEntity).get();
+    var newLocation = getNextLocation(input);
+    if (level.entities(newLocation).size() == 0) {
+      level.removeEntity(heroEntity);
+      level.putEntity(newLocation, heroEntity);
+    }
+  }
+
+  private LevelLocation getNextLocation(UserInput input) {
+    LevelLocation location = level.locationOf(hero.getLevelEntity()).get();
     if (input.getKeyStrokes().contains(ARROW_UP)) {
       location = location.plus(LevelLocation.of(0, -1));
     }
@@ -43,6 +52,6 @@ public class PlayerController implements Controller {
     if (input.getKeyStrokes().contains(ARROW_RIGHT)) {
       location = location.plus(LevelLocation.of(1, 0));
     }
-    level.putEntity(location, heroEntity);
+    return location;
   }
 }
