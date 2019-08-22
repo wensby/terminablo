@@ -3,6 +3,7 @@ package com.wensby.terminablo.userinterface;
 import static java.util.Collections.unmodifiableList;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public enum Key {
@@ -69,7 +70,7 @@ public enum Key {
   private final Character character;
 
   Key(List<Integer> bytes, Character character) {
-    this.bytes = bytes;
+    this.bytes = Objects.requireNonNull(bytes);
     this.character = character;
   }
 
