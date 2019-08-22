@@ -19,9 +19,9 @@ class KeyParser {
   }
 
   Key parseKey() {
-    List<Key> candidates = getAllCandidates();
+    var candidates = getAllCandidates();
     validateCandidatePresent(candidates);
-    List<Key> greedyCandidates = filterGreedyCandidates(candidates);
+    var greedyCandidates = filterGreedyCandidates(candidates);
     validateUniqueGreedyCandidate(greedyCandidates);
     return greedyCandidates.iterator().next();
   }
@@ -39,7 +39,7 @@ class KeyParser {
   }
 
   private List<Key> filterGreedyCandidates(List<Key> candidates) {
-    int byteCount = getBiggestKeyByteCount(candidates)
+    var byteCount = getBiggestKeyByteCount(candidates)
         .orElseThrow(() -> new RuntimeException("Unexpected missing candidate."));
     return candidates.stream()
         .filter(key -> key.getBytes().size() == byteCount)
@@ -54,9 +54,9 @@ class KeyParser {
   }
 
   private boolean isPresentInBeginningOfBytes(Key key) {
-    List<Integer> keyBytes = key.getBytes();
-    int keyBytesCount = keyBytes.size();
-    List<Integer> truncatedList = truncateList(subjectBytes, keyBytesCount);
+    var keyBytes = key.getBytes();
+    var keyBytesCount = keyBytes.size();
+    var truncatedList = truncateList(subjectBytes, keyBytesCount);
     return truncatedList.equals(keyBytes);
   }
 
