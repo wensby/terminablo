@@ -18,11 +18,14 @@ public class LevelSceneController implements Controller {
   private final SceneStack sceneStack;
   private final AgentController agentController;
   private final LevelSceneModel model;
+  private final PlayerController playerController;
 
   public LevelSceneController(SceneStack sceneStack,
-      AgentController agentController, LevelSceneModel model) {
+      AgentController agentController, LevelSceneModel model,
+      PlayerController playerController) {
     this.sceneStack = sceneStack;
     this.agentController = agentController;
+    this.playerController = playerController;
     this.model = model;
   }
 
@@ -34,28 +37,10 @@ public class LevelSceneController implements Controller {
       sceneStack.pop();
     }
     updateMonsters(elapsedTime);
-    updateCharacterMovement(elapsedTime, input);
+    playerController.updateCharacterMovement(elapsedTime, input);
   }
 
   private void updateMonsters(Duration elapsedTime) {
     model.getMonsters().forEach(agent -> agentController.update(agent, elapsedTime));
-  }
-
-  private void updateCharacterMovement(Duration elapsedTime, UserInput input) {
-    final LevelEntity heroEntity = model.getHero().getLevelEntity();
-    LevelLocation location = model.getLevel().removeEntity(heroEntity).get();
-    if (input.getKeyStrokes().contains(ARROW_UP)) {
-      location = location.plus(LevelLocation.of(0, -1));
-    }
-    if (input.getKeyStrokes().contains(ARROW_DOWN)) {
-      location = location.plus(LevelLocation.of(0, 1));
-    }
-    if (input.getKeyStrokes().contains(ARROW_LEFT)) {
-      location = location.plus(LevelLocation.of(-1, 0));
-    }
-    if (input.getKeyStrokes().contains(ARROW_RIGHT)) {
-      location = location.plus(LevelLocation.of(1, 0));
-    }
-    model.getLevel().putEntity(location, heroEntity);
   }
 }

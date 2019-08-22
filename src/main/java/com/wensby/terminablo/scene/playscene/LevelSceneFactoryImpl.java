@@ -66,7 +66,8 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
         levelSceneInterfaceRenderer,
         levelRenderer, model);
     AgentController agentController = new AgentController(level);
-    var levelSceneController = new LevelSceneController(sceneStack, agentController, model);
+    var playerController = new PlayerController(hero, level);
+    var levelSceneController = new LevelSceneController(sceneStack, agentController, model, playerController);
     return new Scene(levelSceneController, levelSceneView);
   }
 
