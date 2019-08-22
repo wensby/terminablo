@@ -7,6 +7,4 @@ public interface UserInterface {
   UserInput pollUserInput();
 
   VisualCanvas getCanvas();
-
-  void release();
 }

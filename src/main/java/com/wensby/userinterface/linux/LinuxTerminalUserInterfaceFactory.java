@@ -3,6 +3,8 @@ package com.wensby.userinterface.linux;
 import com.wensby.terminablo.userinterface.UserInterfaceFactory;
 import com.wensby.userinterface.CharacterDifferenceFactory;
 
+import java.io.InputStream;
+
 public class LinuxTerminalUserInterfaceFactory implements UserInterfaceFactory {
 
   private static LinuxTerminalKeyboard terminalKeyboard;
@@ -22,15 +24,15 @@ public class LinuxTerminalUserInterfaceFactory implements UserInterfaceFactory {
     linuxTerminal.setTerminalRaw();
     linuxTerminal.showCursor(false);
     if (terminalKeyboard == null) {
-      terminalKeyboard = createLinuxTerminalKeyboard();
+      terminalKeyboard = createLinuxTerminalKeyboard(linuxTerminal.getInputStream());
     }
     LinuxTerminalFrameFactory frameFactory = new LinuxTerminalFrameFactory(linuxTerminal);
-    LinuxTerminalVisualCanvas canvas = new LinuxTerminalVisualCanvas(frameFactory, System.out,
+    LinuxTerminalVisualCanvas canvas = new LinuxTerminalVisualCanvas(frameFactory, linuxTerminal.getOutputStream(),
         commandFactory, characterDifferenceFactory);
-    return new LinuxTerminalUserInterface(linuxTerminal, terminalKeyboard, canvas);
+    return new LinuxTerminalUserInterface(terminalKeyboard, canvas);
   }
 
-  private LinuxTerminalKeyboard createLinuxTerminalKeyboard() {
-    return new LinuxTerminalKeyboard(System.in);
+  private LinuxTerminalKeyboard createLinuxTerminalKeyboard(InputStream in) {
+    return new LinuxTerminalKeyboard(in);
   }
 }

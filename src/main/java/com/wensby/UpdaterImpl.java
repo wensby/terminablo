@@ -2,7 +2,6 @@ package com.wensby;
 
 import static com.wensby.terminablo.userinterface.Key.END_OF_FILE;
 
-import com.wensby.terminablo.BenchmarkModel;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;

@@ -9,13 +9,10 @@ import java.util.List;
 
 public class LinuxTerminalUserInterface implements UserInterface {
 
-  private final LinuxTerminal linuxTerminal;
   private final LinuxTerminalKeyboard keyboard;
   private final LinuxTerminalVisualCanvas canvas;
 
-  public LinuxTerminalUserInterface(LinuxTerminal linuxTerminal, LinuxTerminalKeyboard keyboard,
-      LinuxTerminalVisualCanvas canvas) {
-    this.linuxTerminal = linuxTerminal;
+  public LinuxTerminalUserInterface(LinuxTerminalKeyboard keyboard, LinuxTerminalVisualCanvas canvas) {
     this.keyboard = keyboard;
     this.canvas = canvas;
   }
@@ -29,12 +26,5 @@ public class LinuxTerminalUserInterface implements UserInterface {
   @Override
   public VisualCanvas getCanvas() {
     return canvas;
-  }
-
-  @Override
-  public void release() {
-    linuxTerminal.moveCursor(0, 0);
-    linuxTerminal.setTerminalCooked();
-    linuxTerminal.showCursor(true);
   }
 }
