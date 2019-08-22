@@ -3,7 +3,6 @@ package com.wensby.userinterface;
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-import java.util.Objects;
 
 public class InterfaceRegion {
 

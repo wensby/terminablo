@@ -2,9 +2,9 @@ package com.wensby.terminablo.userinterface;
 
 import com.wensby.userinterface.UserInput;
 
-public interface UserInterface {
+public interface UserInterface2 {
 
   UserInput pollUserInput();
 
-  VisualCanvas getCanvas();
+  TerminalCanvas getCanvas();
 }

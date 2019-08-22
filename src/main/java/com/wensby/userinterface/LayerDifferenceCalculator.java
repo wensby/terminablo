@@ -4,11 +4,11 @@ import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 
 import java.util.*;
 
-public class CharacterDifferenceFactory {
+public class LayerDifferenceCalculator {
 
   private final TerminalCharacterFactory characterFactory;
 
-  public CharacterDifferenceFactory(TerminalCharacterFactory characterFactory) {
+  public LayerDifferenceCalculator(TerminalCharacterFactory characterFactory) {
     this.characterFactory = Objects.requireNonNull(characterFactory);
   }
 

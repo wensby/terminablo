@@ -4,7 +4,7 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
-import org.hamcrest.core.Is;
+
 import org.junit.Test;
 
 public class NumberedStringTest {

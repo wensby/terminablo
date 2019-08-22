@@ -2,7 +2,6 @@ package com.wensby.terminablo.scene.playscene;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Mockito.mock;
 
 import com.wensby.util.UnitInterval;
 import org.junit.Before;

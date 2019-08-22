@@ -6,7 +6,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LinuxTerminalCharacterFactory implements TerminalCharacterFactory {
+public class TerminalCharacterFactoryImpl implements TerminalCharacterFactory {
 
   private static final Map<Character, SimpleTerminalCharacter> simpleTerminalCharacterByCharacter = new HashMap<>();
 

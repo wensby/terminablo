@@ -3,7 +3,6 @@ package com.wensby.terminablo.scene.playscene;
 import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.world.level.Level;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class LevelSceneModel {

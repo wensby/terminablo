@@ -14,7 +14,7 @@ public class LinuxTerminalKeyboard implements Keyboard, AutoCloseable {
 
   private final InputStream inputStream;
 
-  LinuxTerminalKeyboard(InputStream inputStream) {
+  public LinuxTerminalKeyboard(InputStream inputStream) {
     this.inputStream = requireNonNull(inputStream);
   }
 

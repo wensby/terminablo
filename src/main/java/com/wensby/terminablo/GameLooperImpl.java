@@ -5,17 +5,18 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.Updater;
 import com.wensby.Updater.UpdateResult;
-import com.wensby.terminablo.userinterface.UserInterface;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 import java.time.Instant;
+
+import com.wensby.userinterface.linux.TerminalUserInterface;
 import org.apache.log4j.Logger;
 
 public class GameLooperImpl implements GameLooper {
 
   private static final Logger LOGGER = Logger.getLogger(GameLooperImpl.class);
 
-  private final UserInterface userInterface;
+  private final TerminalUserInterface userInterface;
   private final Updater updater;
   private final Renderer renderer;
   private final BenchmarkModel benchmarkModel;
@@ -27,7 +28,7 @@ public class GameLooperImpl implements GameLooper {
   private Duration latestTickDuration;
 
   GameLooperImpl(
-      UserInterface userInterface,
+      TerminalUserInterface userInterface,
       Updater updater,
       Renderer renderer,
       BenchmarkModel benchmarkModel,

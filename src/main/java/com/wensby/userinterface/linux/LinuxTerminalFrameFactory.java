@@ -1,21 +1,20 @@
 package com.wensby.userinterface.linux;
 
-import com.wensby.userinterface.TerminalCharacter;
-import com.wensby.userinterface.TerminalFrame;
-import com.wensby.userinterface.TerminalFrameImpl;
-import com.wensby.userinterface.TerminalLayerImpl;
+import com.wensby.userinterface.*;
 
 import java.time.Instant;
 
 public class LinuxTerminalFrameFactory {
 
   private final LinuxTerminal linuxTerminal;
+  private final TerminalLayerFactory layerFactory;
   private Instant cacheRefreshDeadline = Instant.now();
   private int linesCached = -1;
   private int columnsCached = -1;
 
-  public LinuxTerminalFrameFactory(LinuxTerminal linuxTerminal) {
+  public LinuxTerminalFrameFactory(LinuxTerminal linuxTerminal, TerminalLayerFactory layerFactory) {
     this.linuxTerminal = linuxTerminal;
+    this.layerFactory = layerFactory;
   }
 
   public TerminalFrame createFrame() {
@@ -23,7 +22,7 @@ public class LinuxTerminalFrameFactory {
       updateCache();
     }
     return new TerminalFrameImpl(
-        new TerminalLayerImpl(new TerminalCharacter[linesCached][columnsCached]));
+        layerFactory.createBlankLayer(InterfaceSize.of(columnsCached, linesCached)));
   }
 
   private void updateCache() {

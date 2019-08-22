@@ -13,7 +13,7 @@ import com.wensby.terminablo.scene.playscene.OrbContentTerminalRenderer;
 import com.wensby.terminablo.scene.playscene.TerminalOrbRenderer;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.linux.LinuxTerminalCharacterFactory;
+import com.wensby.userinterface.linux.TerminalCharacterFactoryImpl;
 import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.util.Fraction;
@@ -23,14 +23,14 @@ import org.junit.Test;
 public class TerminalOrbRendererTest {
 
   private TerminalLayerFactory layerFactory;
-  private LinuxTerminalCharacterFactory characterFactory;
+  private TerminalCharacterFactoryImpl characterFactory;
   private OrbContentTerminalRenderer contentRenderer;
   private TerminalOrbRenderer factory;
 
   @Before
   public void setUp() {
     layerFactory = mock(TerminalLayerFactory.class);
-    characterFactory = new LinuxTerminalCharacterFactory();
+    characterFactory = new TerminalCharacterFactoryImpl();
     contentRenderer = mock(OrbContentTerminalRenderer.class);
     factory = new TerminalOrbRenderer(layerFactory, characterFactory, contentRenderer);
   }

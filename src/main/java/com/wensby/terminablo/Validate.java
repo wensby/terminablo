@@ -2,8 +2,6 @@ package com.wensby.terminablo;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Objects;
-
 public class Validate {
 
   public static class Validator<T extends Number> {

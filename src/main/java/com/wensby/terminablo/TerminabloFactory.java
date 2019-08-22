@@ -9,7 +9,7 @@ import com.wensby.terminablo.scene.mainmenu.MainMenuControllerImpl;
 import com.wensby.terminablo.scene.mainmenu.MainMenuModelImpl;
 import com.wensby.terminablo.scene.playscene.LevelSceneFactory;
 import com.wensby.terminablo.scene.playscene.LevelSceneFactoryImpl;
-import com.wensby.userinterface.CharacterDifferenceFactory;
+import com.wensby.userinterface.LayerDifferenceCalculator;
 import com.wensby.userinterface.TerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.userinterface.TerminalLayerFactoryImpl;
@@ -18,13 +18,15 @@ import com.wensby.userinterface.linux.*;
 public class TerminabloFactory {
 
   public static GameLooper createTerminabloGameLooper(LinuxTerminal linuxTerminal, LinuxTerminalRenderCommandFactory commandFactory) {
-    var characterFactory = new LinuxTerminalCharacterFactory();
-    var characterDifferenceFactory = new CharacterDifferenceFactory(characterFactory);
-    var userInterfaceFactory = new LinuxTerminalUserInterfaceFactory(linuxTerminal, commandFactory, characterDifferenceFactory);
-    var userInterface = userInterfaceFactory.createUserInterface();
-    var sceneStack = new SceneStackImpl();
-    var canvas = (LinuxTerminalVisualCanvas) userInterface.getCanvas();
+    var characterFactory = new TerminalCharacterFactoryImpl();
+    var layerDifferenceCalculator = new LayerDifferenceCalculator(characterFactory);
     var layerFactory = new TerminalLayerFactoryImpl(characterFactory);
+    var frameFactory = new LinuxTerminalFrameFactory(linuxTerminal, layerFactory);
+    var terminalCanvas = new TerminalCanvasImpl(frameFactory, linuxTerminal.getOutputStream(), commandFactory, layerDifferenceCalculator);
+    var terminalKeyboard = new LinuxTerminalKeyboard(linuxTerminal.getInputStream());
+    var userInterface = new TerminalUserInterface(terminalKeyboard, terminalCanvas);
+    var sceneStack = new SceneStackImpl();
+    var canvas = userInterface.getCanvas();
     var levelSceneFactory = new LevelSceneFactoryImpl(characterFactory, layerFactory, sceneStack);
     var scene = createMainMenuScene(characterFactory, sceneStack, layerFactory, levelSceneFactory);
     sceneStack.push(scene);
