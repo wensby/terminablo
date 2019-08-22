@@ -7,10 +7,8 @@ import com.wensby.terminablo.world.level.LevelLocation;
 import com.wensby.userinterface.UserInput;
 
 import java.time.Duration;
-import java.util.Optional;
 
 import static com.wensby.terminablo.userinterface.Key.*;
-import static com.wensby.terminablo.userinterface.Key.ARROW_RIGHT;
 
 public class PlayerController implements Controller {
 
