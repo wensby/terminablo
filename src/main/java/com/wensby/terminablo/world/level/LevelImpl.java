@@ -16,6 +16,11 @@ public class LevelImpl implements Level {
   }
 
   @Override
+  public Map<LevelLocation, List<LevelEntity>> entities() {
+    return Map.copyOf(entitiesByLocation);
+  }
+
+  @Override
   public List<LevelEntity> entities(LevelLocation location) {
     return entitiesByLocation.getOrDefault(location, List.of());
   }

@@ -1,9 +1,12 @@
 package com.wensby.terminablo.world.level;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface Level {
+
+  Map<LevelLocation, List<LevelEntity>> entities();
 
   List<LevelEntity> entities(LevelLocation location);
 
