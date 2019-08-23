@@ -7,6 +7,8 @@ import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalLayer;
 import com.wensby.userinterface.TerminalLayerFactory;
 
+import java.util.Optional;
+
 public class TerminalLevelRenderer {
 
   private final TerminalLayerFactory layerFactory;
@@ -30,6 +32,8 @@ public class TerminalLevelRenderer {
         var levelLocation = LevelLocation.of(topLeftLevelLocation.getX() + x, topLeftLevelLocation.getY() + y);
         level.entities(levelLocation).stream()
             .map(entityRenderer::getTerminalCharacter)
+            .filter(Optional::isPresent)
+            .map(Optional::get)
             .forEach(character -> layer.put(character, layerPosition));
       }
     }

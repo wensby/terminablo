@@ -2,6 +2,8 @@ package com.wensby.terminablo.world.level;
 
 import com.wensby.userinterface.TerminalCharacter;
 
+import java.util.Optional;
+
 public class LevelEntityImpl implements LevelEntity {
 
   private final TerminalCharacter character;
@@ -11,7 +13,12 @@ public class LevelEntityImpl implements LevelEntity {
   }
 
   @Override
-  public TerminalCharacter getCharacter() {
-    return character;
+  public boolean isPassable() {
+    return false;
+  }
+
+  @Override
+  public Optional<TerminalCharacter> getCharacter() {
+    return Optional.of(character);
   }
 }

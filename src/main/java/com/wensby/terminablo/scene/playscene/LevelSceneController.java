@@ -12,15 +12,18 @@ public class LevelSceneController implements Controller {
   private final SceneStack sceneStack;
   private final AgentController agentController;
   private final LevelSceneModel model;
+  private final PlayerCombatController playerCombatController;
   private final PlayerMovementController playerMovementController;
 
   public LevelSceneController(SceneStack sceneStack,
       AgentController agentController, LevelSceneModel model,
-      PlayerMovementController playerMovementController) {
+      PlayerMovementController playerMovementController,
+      PlayerCombatController playerCombatController) {
     this.sceneStack = sceneStack;
     this.agentController = agentController;
     this.playerMovementController = playerMovementController;
     this.model = model;
+    this.playerCombatController = playerCombatController;
   }
 
   @Override
@@ -31,6 +34,7 @@ public class LevelSceneController implements Controller {
       sceneStack.pop();
     }
     updateMonsters(elapsedTime);
+    playerCombatController.update(elapsedTime, input);
     playerMovementController.update(elapsedTime, input);
   }
 

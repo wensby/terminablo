@@ -3,6 +3,7 @@ package com.wensby.terminablo.scene.playscene;
 import com.wensby.terminablo.userinterface.Key;
 import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.world.level.Level;
+import com.wensby.terminablo.world.level.LevelEntity;
 import com.wensby.terminablo.world.level.LevelLocation;
 import com.wensby.userinterface.UserInput;
 
@@ -107,7 +108,7 @@ public class PlayerMovementController implements Controller {
     var heroLevelLocation = level.locationOf(hero.getLevelEntity());
     if (heroLevelLocation.isPresent()) {
       var newLocation = heroLevelLocation.get().plus(delta);
-      if (level.entities(newLocation).size() == 0) {
+      if (level.entities(newLocation).stream().allMatch(LevelEntity::isPassable)) {
         var heroEntity = hero.getLevelEntity();
         level.removeEntity(heroEntity);
         level.putEntity(newLocation, heroEntity);

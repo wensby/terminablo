@@ -2,7 +2,11 @@ package com.wensby.terminablo.world.level;
 
 import com.wensby.userinterface.TerminalCharacter;
 
+import java.util.Optional;
+
 public interface LevelEntity {
 
-  TerminalCharacter getCharacter();
+  boolean isPassable();
+
+  Optional<TerminalCharacter> getCharacter();
 }
