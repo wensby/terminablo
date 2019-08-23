@@ -48,7 +48,10 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
     var monsterCharacter = new ComplexTerminalCharacterImpl("\uD83D\uDC7E");
     var monsters = new LinkedList<Agent>();
     for (int i = 0; i < 50; i++) {
-      monsters.add(new AgentBuilder().withLevelEntity(new LevelEntityImpl(monsterCharacter)).build());
+      monsters.add(new AgentBuilder()
+          .withName("monster")
+          .withLevelEntity(new LevelEntityImpl(monsterCharacter))
+          .build());
     }
     monsters.forEach(monster -> level.putEntity(LevelLocation.of(new Random().nextInt(100), new Random().nextInt(100)), monster.getLevelEntity()));
     var model = new LevelSceneModel(hero, level, monsters);

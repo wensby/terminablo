@@ -7,6 +7,12 @@ import com.wensby.userinterface.SimpleTerminalCharacterImpl;
 public class AgentBuilder {
 
   private LevelEntity levelEntity = new LevelEntityImpl(new SimpleTerminalCharacterImpl('.'));
+  private String name;
+
+  public AgentBuilder withName(String name) {
+    this.name = name;
+    return this;
+  }
 
   public AgentBuilder withLevelEntity(LevelEntity entity) {
     this.levelEntity = entity;
@@ -14,6 +20,6 @@ public class AgentBuilder {
   }
 
   public Agent build() {
-    return new StandardAgent(levelEntity);
+    return new StandardAgent(name, levelEntity);
   }
 }
