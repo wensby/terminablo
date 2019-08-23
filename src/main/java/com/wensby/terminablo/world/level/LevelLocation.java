@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class LevelLocation {
 
+  public static final LevelLocation ZERO = LevelLocation.of(0, 0);
+
   private final int x;
   private final int y;
 

@@ -37,7 +37,7 @@ public class LevelSceneController implements Controller {
       sceneStack.pop();
     }
     updateMonsters(elapsedTime);
-    playerController.updateCharacterMovement(elapsedTime, input);
+    playerController.update(elapsedTime, input);
   }
 
   private void updateMonsters(Duration elapsedTime) {
