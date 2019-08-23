@@ -12,7 +12,7 @@ import java.util.Set;
 
 import static com.wensby.terminablo.userinterface.Key.*;
 
-public class PlayerController implements Controller {
+public class PlayerMovementController implements Controller {
 
   private static final Set<Key> movementKeys = Set.of(ARROW_UP, ARROW_DOWN, ARROW_LEFT, ARROW_RIGHT);
 
@@ -26,7 +26,7 @@ public class PlayerController implements Controller {
   private boolean running;
   private AgentSpeed playerSpeed;
 
-  public PlayerController(Agent hero, Level level) {
+  public PlayerMovementController(Agent hero, Level level) {
     this.hero = hero;
     this.level = level;
   }

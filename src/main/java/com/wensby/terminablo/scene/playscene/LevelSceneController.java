@@ -1,14 +1,8 @@
 package com.wensby.terminablo.scene.playscene;
 
-import static com.wensby.terminablo.userinterface.Key.ARROW_DOWN;
-import static com.wensby.terminablo.userinterface.Key.ARROW_LEFT;
-import static com.wensby.terminablo.userinterface.Key.ARROW_RIGHT;
-import static com.wensby.terminablo.userinterface.Key.ARROW_UP;
 import static com.wensby.terminablo.userinterface.Key.ESCAPE;
 
 import com.wensby.terminablo.scene.SceneStack;
-import com.wensby.terminablo.world.level.LevelEntity;
-import com.wensby.terminablo.world.level.LevelLocation;
 import com.wensby.userinterface.UserInput;
 import java.math.BigDecimal;
 import java.time.Duration;
@@ -18,14 +12,14 @@ public class LevelSceneController implements Controller {
   private final SceneStack sceneStack;
   private final AgentController agentController;
   private final LevelSceneModel model;
-  private final PlayerController playerController;
+  private final PlayerMovementController playerMovementController;
 
   public LevelSceneController(SceneStack sceneStack,
       AgentController agentController, LevelSceneModel model,
-      PlayerController playerController) {
+      PlayerMovementController playerMovementController) {
     this.sceneStack = sceneStack;
     this.agentController = agentController;
-    this.playerController = playerController;
+    this.playerMovementController = playerMovementController;
     this.model = model;
   }
 
@@ -37,7 +31,7 @@ public class LevelSceneController implements Controller {
       sceneStack.pop();
     }
     updateMonsters(elapsedTime);
-    playerController.update(elapsedTime, input);
+    playerMovementController.update(elapsedTime, input);
   }
 
   private void updateMonsters(Duration elapsedTime) {
