@@ -4,10 +4,12 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.terminablo.LevelEntityRenderer;
 import com.wensby.terminablo.TerminalLevelRenderer;
+import com.wensby.terminablo.player.PlayerCharacter;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.world.AgentBuilder;
+import com.wensby.terminablo.world.AgentStats;
 import com.wensby.terminablo.world.level.LevelEntityFactory;
 import com.wensby.terminablo.world.level.LevelEntityImpl;
 import com.wensby.terminablo.world.level.LevelFactory;
@@ -39,12 +41,12 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
 
   @Override
   public Scene createLevelScene() {
-    var hero = new AgentBuilder().build();
+    var playerCharacter = new PlayerCharacter("hero", new AgentStats(), new LevelEntityImpl(characterFactory.createCharacter('o')));
     var entityFactory = new LevelEntityFactory();
     var levelFactory = new LevelFactory(entityFactory);
     final Path funnylevel = getResourceFilePath("funnylevel");
     var level = levelFactory.createLevelFromResourceFile(funnylevel);
-    level.putEntity(LevelLocation.of(1, 1), hero.getLevelEntity());
+    level.putEntity(LevelLocation.of(1, 1), playerCharacter.getLevelEntity());
     var monsterCharacter = new ComplexTerminalCharacterImpl("\uD83D\uDC7E");
     var monsters = new LinkedList<Agent>();
     for (int i = 0; i < 50; i++) {
@@ -54,7 +56,7 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
           .build());
     }
     monsters.forEach(monster -> level.putEntity(LevelLocation.of(new Random().nextInt(100), new Random().nextInt(100)), monster.getLevelEntity()));
-    var model = new LevelSceneModel(hero, level, monsters);
+    var model = new LevelSceneModel(playerCharacter, level, monsters);
     var partialBlockCharacterFactory = new PartialBlockCharacterFactoryImpl();
     OrbContentTerminalRenderer orbContentTerminalRenderer = new OrbContentTerminalRendererImpl(
         partialBlockCharacterFactory, layerFactory, characterFactory);
@@ -69,8 +71,8 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
         levelSceneInterfaceRenderer,
         levelRenderer, model);
     AgentController agentController = new AgentController(level);
-    var playerCombatController = new PlayerCombatController(hero, model);
-    var playerController = new PlayerMovementController(hero, level);
+    var playerCombatController = new PlayerCombatController(playerCharacter, model);
+    var playerController = new PlayerMovementController(playerCharacter, level);
     var levelSceneController = new LevelSceneController(sceneStack, agentController, model, playerController, playerCombatController);
     return new Scene(levelSceneController, levelSceneView);
   }

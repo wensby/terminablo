@@ -28,8 +28,8 @@ public class LevelSceneController implements Controller {
 
   @Override
   public void update(Duration elapsedTime, UserInput input) {
-    BigDecimal plus = model.getHero().getStats().getLife().add(BigDecimal.TEN);
-    model.getHero().getStats().setLife(plus);
+    BigDecimal plus = model.getCharacter().getStats().getLife().add(BigDecimal.TEN);
+    model.getCharacter().getStats().setLife(plus);
     if (input.getKeyStrokes().contains(ESCAPE)) {
       sceneStack.pop();
     }
