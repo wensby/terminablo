@@ -17,7 +17,7 @@ import com.wensby.userinterface.linux.*;
 
 public class TerminabloFactory {
 
-  public TerminalApplication createTerminablo(TerminalApplicationBuilder applicationBuilder) {
+  public TerminalApplication createTerminablo(TerminalApplicationBuilder builder) {
     var characterFactory = new TerminalCharacterFactoryImpl();
     var layerFactory = new TerminalLayerFactoryImpl(characterFactory);
     var sceneStack = new SceneStackImpl();
@@ -26,7 +26,7 @@ public class TerminabloFactory {
     sceneStack.push(scene);
     var terminabloUpdater = new TerminabloUpdater(sceneStack);
     var terminabloRenderer = new TerminabloApplicationRenderer(sceneStack);
-    return applicationBuilder
+    return builder
         .withCharacterFactory(characterFactory)
         .withLayerFactory(layerFactory)
         .withUpdater(terminabloUpdater)
