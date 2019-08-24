@@ -5,9 +5,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.Updater.UpdateResult;
 import com.wensby.terminablo.BenchmarkModel;
-import com.wensby.terminablo.BenchmarkViewImpl;
-import com.wensby.userinterface.TerminalCharacterFactory;
-import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 import java.time.Instant;
@@ -31,21 +28,15 @@ public class TerminalApplication {
   private Duration latestTickDuration;
 
   TerminalApplication(
-      TerminalCharacterFactory characterFactory,
-      TerminalLayerFactory layerFactory,
       TerminalUserInterface userInterface,
       Updater updater,
-      FrameRenderer frameRenderer,
       BenchmarkModel benchmarkModel,
-      int targetTicksPerSecond) {
+      int targetTicksPerSecond, Renderer renderer) {
     this.userInterface = requireNonNull(userInterface);
     this.updater = requireNonNull(updater);
     this.benchmarkModel = requireNonNull(benchmarkModel);
     this.targetTicksPerSecond = targetTicksPerSecond;
-
-    var canvas = userInterface.getCanvas();
-    var benchmarkView = new BenchmarkViewImpl(layerFactory, characterFactory, benchmarkModel);
-    this.renderer = new Renderer(canvas, benchmarkModel, benchmarkView, frameRenderer);
+    this.renderer = renderer;
   }
 
   public void run() {

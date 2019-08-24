@@ -1,6 +1,7 @@
 package com.wensby.application;
 
 import com.wensby.terminablo.BenchmarkModel;
+import com.wensby.terminablo.BenchmarkViewImpl;
 import com.wensby.userinterface.TerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.userinterface.linux.TerminalUserInterface;
@@ -51,6 +52,9 @@ public class TerminalApplicationBuilder {
   }
 
   public TerminalApplication build() {
-    return new TerminalApplication(characterFactory, layerFactory, userInterface, updater, renderer, benchmarkModel, ticksPerSecond);
+    var canvas = userInterface.getCanvas();
+    var benchmarkView = new BenchmarkViewImpl(layerFactory, characterFactory, benchmarkModel);
+    var renderer = new Renderer(canvas, benchmarkModel, benchmarkView, this.renderer);
+    return new TerminalApplication(userInterface, updater, benchmarkModel, ticksPerSecond, renderer);
   }
 }
