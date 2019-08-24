@@ -6,6 +6,6 @@ import java.time.Duration;
 
 public interface ApplicationUpdater {
 
-  UpdateResult update(Duration elapsedTime, UserInput userInput);
+  UpdateResult updateApplication(Duration elapsedTime, UserInput userInput);
 
 }

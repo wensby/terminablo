@@ -16,7 +16,7 @@ public class TerminabloUpdater implements ApplicationUpdater {
   }
 
   @Override
-  public UpdateResult update(Duration elapsedTime, UserInput userInput) {
+  public UpdateResult updateApplication(Duration elapsedTime, UserInput userInput) {
     sceneStack.getTop().update(elapsedTime, userInput);
     return UpdateResult.CONTINUE;
   }

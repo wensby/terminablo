@@ -21,7 +21,7 @@ class Updater {
       return UpdateResult.FINAL_UPDATE;
     } else {
       benchmarkController.update(elapsedTime, userInput);
-      return updater.update(elapsedTime, userInput);
+      return updater.updateApplication(elapsedTime, userInput);
     }
   }
 
