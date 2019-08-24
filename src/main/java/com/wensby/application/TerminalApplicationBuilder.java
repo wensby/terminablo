@@ -5,15 +5,23 @@ import com.wensby.userinterface.TerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.userinterface.linux.*;
 
+import java.util.Objects;
+
 public class TerminalApplicationBuilder {
+
+  private final LinuxTerminal linuxTerminal;
+  private final LinuxTerminalRenderCommandFactory commandFactory;
 
   private ApplicationUpdater applicationUpdater;
   private ApplicationRenderer renderer;
   private int ticksPerSecond;
   private TerminalLayerFactory layerFactory;
   private TerminalCharacterFactory characterFactory;
-  private LinuxTerminal linuxTerminal;
-  private LinuxTerminalRenderCommandFactory commandFactory;
+
+  public TerminalApplicationBuilder(LinuxTerminal terminal, LinuxTerminalRenderCommandFactory commandFactory) {
+    linuxTerminal = Objects.requireNonNull(terminal);
+    this.commandFactory = Objects.requireNonNull(commandFactory);
+  }
 
   public TerminalApplicationBuilder withUpdater(ApplicationUpdater updater) {
     this.applicationUpdater = updater;
@@ -35,18 +43,8 @@ public class TerminalApplicationBuilder {
     return this;
   }
 
-  public TerminalApplicationBuilder withLinuxTerminal(LinuxTerminal terminal) {
-    this.linuxTerminal = terminal;
-    return this;
-  }
-
   public TerminalApplicationBuilder withCharacterFactory(TerminalCharacterFactory characterFactory) {
     this.characterFactory = characterFactory;
-    return this;
-  }
-
-  public TerminalApplicationBuilder withCommandFactory(LinuxTerminalRenderCommandFactory commandFactory) {
-    this.commandFactory = commandFactory;
     return this;
   }
 
