@@ -1,10 +1,8 @@
 package com.wensby.application;
 
-import static com.wensby.application.Updater.UpdateResult.FINAL_UPDATE;
+import static com.wensby.application.UpdateResult.FINAL_UPDATE;
 import static java.util.Objects.requireNonNull;
 
-import com.wensby.application.Updater.UpdateResult;
-import com.wensby.terminablo.BenchmarkModel;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 import java.time.Instant;

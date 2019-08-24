@@ -1,8 +1,6 @@
-package com.wensby.terminablo;
+package com.wensby.application;
 
-import com.wensby.application.BenchmarkRendererImpl;
 import com.wensby.userinterface.*;
-import com.wensby.userinterface.linux.TerminalCharacterFactoryImpl;
 import com.wensby.util.BenchmarkView;
 
 public class BenchmarkViewImpl implements BenchmarkView {
