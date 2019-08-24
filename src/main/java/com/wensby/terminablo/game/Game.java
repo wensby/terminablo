@@ -1,4 +1,4 @@
-package com.wensby.terminablo;
+package com.wensby.terminablo.game;
 
 import com.wensby.terminablo.player.PlayerCharacter;
 
