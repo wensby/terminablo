@@ -17,7 +17,15 @@ import com.wensby.userinterface.linux.*;
 
 public class TerminabloFactory {
 
-  public static TerminalApplication createTerminablo(LinuxTerminal linuxTerminal, LinuxTerminalRenderCommandFactory commandFactory) {
+  private final LinuxTerminal linuxTerminal;
+  private final LinuxTerminalRenderCommandFactory commandFactory;
+
+  public TerminabloFactory(LinuxTerminal terminal, LinuxTerminalRenderCommandFactory commandFactory) {
+    this.linuxTerminal = terminal;
+    this.commandFactory = commandFactory;
+  }
+
+  public TerminalApplication createTerminablo() {
     var characterFactory = new TerminalCharacterFactoryImpl();
     var layerFactory = new TerminalLayerFactoryImpl(characterFactory);
     var sceneStack = new SceneStackImpl();
@@ -25,14 +33,14 @@ public class TerminabloFactory {
     var scene = createMainMenuScene(characterFactory, sceneStack, layerFactory, levelSceneFactory);
     sceneStack.push(scene);
     var terminabloUpdater = new TerminabloUpdater(sceneStack);
-    var frameRenderer = new TerminabloApplicationRenderer(sceneStack);
+    var terminabloRenderer = new TerminabloApplicationRenderer(sceneStack);
     return new TerminalApplicationBuilder()
         .withCommandFactory(commandFactory)
         .withCharacterFactory(characterFactory)
         .withLayerFactory(layerFactory)
         .withLinuxTerminal(linuxTerminal)
         .withUpdater(terminabloUpdater)
-        .withRenderer(frameRenderer)
+        .withRenderer(terminabloRenderer)
         .withTargetTicksPerSecond(15)
         .build();
   }

@@ -14,7 +14,7 @@ public class Terminablo {
     var bashCommandExecutor = new BashCommandExecutor();
     var commandFactory = new LinuxTerminalRenderCommandFactory();
     var linuxTerminal = new LinuxTerminal(in, out, bashCommandExecutor, commandFactory);
-    var terminablo = TerminabloFactory.createTerminablo(linuxTerminal, commandFactory);
+    var terminablo = new TerminabloFactory(linuxTerminal, commandFactory).createTerminablo();
     new TerminalApplicationRunner(linuxTerminal, terminablo).start();
   }
 
