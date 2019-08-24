@@ -1,6 +1,6 @@
 package com.wensby.terminablo;
 
-import com.wensby.application.TerminalApplication;
+import com.wensby.application.TerminalApplicationRunner;
 import com.wensby.userinterface.BashCommandExecutor;
 import com.wensby.userinterface.linux.LinuxTerminal;
 import com.wensby.userinterface.linux.LinuxTerminalRenderCommandFactory;
@@ -15,7 +15,7 @@ public class Terminablo {
     var commandFactory = new LinuxTerminalRenderCommandFactory();
     var linuxTerminal = new LinuxTerminal(in, out, bashCommandExecutor, commandFactory);
     var looper = TerminabloFactory.createTerminabloGameLooper(linuxTerminal, commandFactory);
-    new TerminalApplication(linuxTerminal, looper).start();
+    new TerminalApplicationRunner(linuxTerminal, looper).start();
   }
 
 }

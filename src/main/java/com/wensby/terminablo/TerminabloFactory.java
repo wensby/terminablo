@@ -1,7 +1,7 @@
 package com.wensby.terminablo;
 
-import com.wensby.application.GameLooper;
-import com.wensby.application.GameLooperBuilder;
+import com.wensby.application.TerminalApplicationBuilder;
+import com.wensby.application.TerminalApplication;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.scene.SceneStackImpl;
@@ -18,7 +18,7 @@ import com.wensby.userinterface.linux.*;
 
 public class TerminabloFactory {
 
-  public static GameLooper createTerminabloGameLooper(LinuxTerminal linuxTerminal, LinuxTerminalRenderCommandFactory commandFactory) {
+  public static TerminalApplication createTerminabloGameLooper(LinuxTerminal linuxTerminal, LinuxTerminalRenderCommandFactory commandFactory) {
     var characterFactory = new TerminalCharacterFactoryImpl();
     var layerDifferenceCalculator = new LayerDifferenceCalculator(characterFactory);
     var layerFactory = new TerminalLayerFactoryImpl(characterFactory);
@@ -27,19 +27,19 @@ public class TerminabloFactory {
     var terminalKeyboard = new LinuxTerminalKeyboard(linuxTerminal.getInputStream());
     var userInterface = new TerminalUserInterface(terminalKeyboard, terminalCanvas);
     var sceneStack = new SceneStackImpl();
-    var canvas = userInterface.getCanvas();
     var levelSceneFactory = new LevelSceneFactoryImpl(characterFactory, layerFactory, sceneStack);
     var scene = createMainMenuScene(characterFactory, sceneStack, layerFactory, levelSceneFactory);
     sceneStack.push(scene);
     var benchmarkModel = new BenchmarkModelImpl();
     var benchmarkController = new BenchmarkControllerImpl(benchmarkModel);
     var sceneStackTicker = new UpdaterImpl(sceneStack, benchmarkController);
-    var view = new BenchmarkViewImpl(layerFactory, characterFactory, benchmarkModel);
-    var renderer = new RendererImpl(canvas, sceneStack, benchmarkModel, view);
-    return new GameLooperBuilder()
+    var frameRenderer = new TerminabloFrameRenderer(sceneStack);
+    return new TerminalApplicationBuilder()
+        .withCharacterFactory(characterFactory)
+        .withLayerFactory(layerFactory)
         .withUpdater(sceneStackTicker)
         .withTerminalUserInterface(userInterface)
-        .withRenderer(renderer)
+        .withRenderer(frameRenderer)
         .withBenchmarkModel(benchmarkModel)
         .withTargetTicksPerSecond(15)
         .build();
