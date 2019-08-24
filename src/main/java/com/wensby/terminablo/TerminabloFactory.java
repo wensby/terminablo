@@ -25,7 +25,7 @@ public class TerminabloFactory {
     this.commandFactory = commandFactory;
   }
 
-  public TerminalApplication createTerminablo() {
+  public TerminalApplication createTerminablo(TerminalApplicationBuilder applicationBuilder) {
     var characterFactory = new TerminalCharacterFactoryImpl();
     var layerFactory = new TerminalLayerFactoryImpl(characterFactory);
     var sceneStack = new SceneStackImpl();
@@ -34,7 +34,7 @@ public class TerminabloFactory {
     sceneStack.push(scene);
     var terminabloUpdater = new TerminabloUpdater(sceneStack);
     var terminabloRenderer = new TerminabloApplicationRenderer(sceneStack);
-    return new TerminalApplicationBuilder()
+    return applicationBuilder
         .withCommandFactory(commandFactory)
         .withCharacterFactory(characterFactory)
         .withLayerFactory(layerFactory)

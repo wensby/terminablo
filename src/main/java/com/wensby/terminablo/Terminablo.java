@@ -1,5 +1,6 @@
 package com.wensby.terminablo;
 
+import com.wensby.application.TerminalApplicationBuilder;
 import com.wensby.application.TerminalApplicationRunner;
 import com.wensby.userinterface.BashCommandExecutor;
 import com.wensby.userinterface.linux.LinuxTerminal;
@@ -14,7 +15,8 @@ public class Terminablo {
     var bashCommandExecutor = new BashCommandExecutor();
     var commandFactory = new LinuxTerminalRenderCommandFactory();
     var linuxTerminal = new LinuxTerminal(in, out, bashCommandExecutor, commandFactory);
-    var terminablo = new TerminabloFactory(linuxTerminal, commandFactory).createTerminablo();
+    var applicationBuilder = new TerminalApplicationBuilder();
+    var terminablo = new TerminabloFactory(linuxTerminal, commandFactory).createTerminablo(applicationBuilder);
     new TerminalApplicationRunner(linuxTerminal, terminablo).start();
   }
 
