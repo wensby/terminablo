@@ -36,8 +36,8 @@ public class TerminabloFactory {
     var view = new BenchmarkViewImpl(layerFactory, characterFactory, benchmarkModel);
     var renderer = new RendererImpl(canvas, sceneStack, benchmarkModel, view);
     return new GameLooperBuilder()
-        .withTickable(sceneStackTicker)
-        .withUserInterface(userInterface)
+        .withUpdater(sceneStackTicker)
+        .withTerminalUserInterface(userInterface)
         .withRenderer(renderer)
         .withBenchmarkModel(benchmarkModel)
         .withTargetTicksPerSecond(15)
