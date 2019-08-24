@@ -18,7 +18,7 @@ import com.wensby.userinterface.linux.*;
 
 public class TerminabloFactory {
 
-  public static TerminalApplication createTerminabloGameLooper(LinuxTerminal linuxTerminal, LinuxTerminalRenderCommandFactory commandFactory) {
+  public static TerminalApplication createTerminablo(LinuxTerminal linuxTerminal, LinuxTerminalRenderCommandFactory commandFactory) {
     var characterFactory = new TerminalCharacterFactoryImpl();
     var layerDifferenceCalculator = new LayerDifferenceCalculator(characterFactory);
     var layerFactory = new TerminalLayerFactoryImpl(characterFactory);
