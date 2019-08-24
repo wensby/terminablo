@@ -1,7 +1,9 @@
-package com.wensby;
+package com.wensby.terminablo;
 
 import static com.wensby.terminablo.userinterface.Key.END_OF_FILE;
 
+import com.wensby.terminalapp.BenchmarkController;
+import com.wensby.terminalapp.Updater;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;

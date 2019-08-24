@@ -1,7 +1,7 @@
 package com.wensby.terminablo;
 
-import com.wensby.Benchmark;
-import com.wensby.BenchmarkImpl;
+import com.wensby.terminalapp.Benchmark;
+import com.wensby.terminalapp.BenchmarkImpl;
 import java.time.Duration;
 
 public class BenchmarkModelImpl implements BenchmarkModel {

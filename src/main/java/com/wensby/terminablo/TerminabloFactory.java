@@ -1,6 +1,7 @@
 package com.wensby.terminablo;
 
-import com.wensby.UpdaterImpl;
+import com.wensby.terminalapp.GameLooper;
+import com.wensby.terminalapp.GameLooperBuilder;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.scene.SceneStackImpl;

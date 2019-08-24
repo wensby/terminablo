@@ -1,6 +1,6 @@
 package com.wensby.terminablo;
 
-import com.wensby.BenchmarkRendererImpl;
+import com.wensby.terminalapp.BenchmarkRendererImpl;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.linux.TerminalCharacterFactoryImpl;
 import com.wensby.userinterface.TerminalLayer;

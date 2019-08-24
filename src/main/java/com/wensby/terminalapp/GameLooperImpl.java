@@ -1,10 +1,11 @@
-package com.wensby.terminablo;
+package com.wensby.terminalapp;
 
-import static com.wensby.Updater.UpdateResult.FINAL_UPDATE;
+import static com.wensby.terminalapp.Updater.UpdateResult.FINAL_UPDATE;
 import static java.util.Objects.requireNonNull;
 
-import com.wensby.Updater;
-import com.wensby.Updater.UpdateResult;
+import com.wensby.terminalapp.Updater.UpdateResult;
+import com.wensby.terminablo.BenchmarkModel;
+import com.wensby.terminablo.Renderer;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 import java.time.Instant;
@@ -18,7 +19,7 @@ public class GameLooperImpl implements GameLooper {
 
   private final TerminalUserInterface userInterface;
   private final Updater updater;
-  private final Renderer renderer;
+  private final com.wensby.terminablo.Renderer renderer;
   private final BenchmarkModel benchmarkModel;
   private final int targetTicksPerSecond;
 

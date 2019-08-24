@@ -1,4 +1,4 @@
-package com.wensby;
+package com.wensby.terminalapp;
 
 import static java.util.Objects.requireNonNull;
 

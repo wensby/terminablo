@@ -1,13 +1,14 @@
-package com.wensby.terminablo;
+package com.wensby.terminalapp;
 
-import com.wensby.Updater;
+import com.wensby.terminablo.BenchmarkModel;
+import com.wensby.terminablo.Renderer;
 import com.wensby.userinterface.linux.TerminalUserInterface;
 
 public class GameLooperBuilder {
 
   private Updater updater;
   private TerminalUserInterface userInterface;
-  private Renderer renderer;
+  private com.wensby.terminablo.Renderer renderer;
   private BenchmarkModel benchmarkModel;
   private int ticksPerSecond;
 
@@ -36,7 +37,7 @@ public class GameLooperBuilder {
     return this;
   }
 
-  GameLooper build() {
+  public GameLooper build() {
     return new GameLooperImpl(userInterface, updater, renderer, benchmarkModel, ticksPerSecond);
   }
 }

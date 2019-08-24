@@ -1,8 +1,9 @@
-package com.wensby;
+package com.wensby.terminalapp;
 
 import static com.wensby.terminablo.userinterface.component.InterfaceLocation.atOrigin;
 import static java.util.Objects.requireNonNull;
 
+import com.wensby.LayerWriterImpl;
 import com.wensby.userinterface.InterfaceSize;
 import com.wensby.userinterface.TerminalCharacterFactory;
 import com.wensby.userinterface.TerminalLayer;

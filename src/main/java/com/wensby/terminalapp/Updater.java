@@ -1,4 +1,4 @@
-package com.wensby;
+package com.wensby.terminalapp;
 
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;

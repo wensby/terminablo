@@ -1,4 +1,4 @@
-package com.wensby.terminablo;
+package com.wensby.terminalapp;
 
 public interface GameLooper {
 
