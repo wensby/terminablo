@@ -1,4 +1,4 @@
-package com.wensby.terminalapp;
+package com.wensby.application;
 
 import static com.wensby.terminablo.userinterface.component.InterfaceLocation.atOrigin;
 import static java.util.Objects.requireNonNull;

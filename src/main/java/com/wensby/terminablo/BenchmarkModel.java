@@ -1,6 +1,6 @@
 package com.wensby.terminablo;
 
-import com.wensby.terminalapp.Benchmark;
+import com.wensby.application.Benchmark;
 import java.time.Duration;
 
 public interface BenchmarkModel {

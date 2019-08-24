@@ -1,4 +1,4 @@
-package com.wensby.terminalapp;
+package com.wensby.application;
 
 import com.wensby.userinterface.linux.LinuxTerminal;
 import org.apache.log4j.Logger;

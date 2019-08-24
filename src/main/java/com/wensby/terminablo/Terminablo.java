@@ -1,6 +1,6 @@
 package com.wensby.terminablo;
 
-import com.wensby.terminalapp.TerminalApplication;
+import com.wensby.application.TerminalApplication;
 import com.wensby.userinterface.BashCommandExecutor;
 import com.wensby.userinterface.linux.LinuxTerminal;
 import com.wensby.userinterface.linux.LinuxTerminalRenderCommandFactory;

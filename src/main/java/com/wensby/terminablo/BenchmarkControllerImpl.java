@@ -1,6 +1,6 @@
 package com.wensby.terminablo;
 
-import com.wensby.terminalapp.BenchmarkController;
+import com.wensby.application.BenchmarkController;
 import com.wensby.terminablo.userinterface.Key;
 import com.wensby.userinterface.UserInput;
 import java.time.Duration;
