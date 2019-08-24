@@ -1,4 +1,4 @@
-package com.wensby;
+package com.wensby.userinterface;
 
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 
