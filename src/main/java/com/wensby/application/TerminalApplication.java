@@ -37,7 +37,7 @@ public class TerminalApplication {
     this.renderer = renderer;
   }
 
-  public void run() {
+  void run() {
     Logger.getLogger(getClass()).debug("Running Game Loop");
     while (isRunning()) {
       tick();
