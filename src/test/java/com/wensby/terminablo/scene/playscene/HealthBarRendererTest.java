@@ -20,8 +20,8 @@ public class HealthBarRendererTest {
 
     var render = renderer.render(InterfaceSize.of(1, 3));
 
-    assertThat(render.getCharacter(InterfaceLocation.of(0, 0)), is(characterFactory.createCharacter('A', WHITE, RED)));
-    assertThat(render.getCharacter(InterfaceLocation.of(0, 1)), is(characterFactory.createCharacter('B')));
-    assertThat(render.getCharacter(InterfaceLocation.of(0, 2)), is(characterFactory.createCharacter('C')));
+    assertThat(render.getCharacter(InterfaceLocation.at(0, 0)), is(characterFactory.createCharacter('A', WHITE, RED)));
+    assertThat(render.getCharacter(InterfaceLocation.at(0, 1)), is(characterFactory.createCharacter('B')));
+    assertThat(render.getCharacter(InterfaceLocation.at(0, 2)), is(characterFactory.createCharacter('C')));
   }
 }

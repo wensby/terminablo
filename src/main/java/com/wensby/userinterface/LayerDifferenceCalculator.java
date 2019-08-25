@@ -13,14 +13,14 @@ public class LayerDifferenceCalculator {
   }
 
   /**
-   * @return a list of positioned characters, sorted by column and row.
+   * @return a list at positioned characters, sorted by column and row.
    */
   public List<PositionedTerminalCharacter> getDifference(TerminalLayer a, TerminalLayer b) {
     var difference = new ArrayList<PositionedTerminalCharacter>();
 
     for (int row = 0; row < b.getSize().getHeight(); row++) {
       for (int column = 0; column < b.getSize().getWidth(); column++) {
-        var location = InterfaceLocation.of(column, row);
+        var location = InterfaceLocation.at(column, row);
         var differingCharacter = getDifferingCharacter(a, b, location);
         if (differingCharacter != null) {
           difference.add(new PositionedTerminalCharacter(location, differingCharacter));

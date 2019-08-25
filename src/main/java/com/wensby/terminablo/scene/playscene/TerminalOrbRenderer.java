@@ -48,7 +48,7 @@ public class TerminalOrbRenderer {
     fillInBorder(layer);
     var orbContentSize = size.minus(InterfaceSize.of(2, 2));
     var orbContent = orbContentTerminalRenderer.render(orb, orbContentSize);
-    layer.put(orbContent, InterfaceLocation.of(1, 1));
+    layer.put(orbContent, InterfaceLocation.at(1, 1));
     fillInValue(layer, orb);
     return layer;
   }

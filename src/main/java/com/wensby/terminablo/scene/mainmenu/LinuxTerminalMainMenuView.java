@@ -37,7 +37,7 @@ public class LinuxTerminalMainMenuView implements MainMenuView {
         menuItem.append("> ");
       }
       menuItem.append(menuItems.get(i));
-      writer.write(menuItem.toString(), InterfaceLocation.of(0, i));
+      writer.write(menuItem.toString(), InterfaceLocation.at(0, i));
     }
 
     return layer;

@@ -40,21 +40,21 @@ public class HealthBarRenderer implements Renderer {
   private void renderHealthSection(TerminalLayer layer) {
     var height = layer.getSize().getHeight();
     if (height > 0) {
-      layer.put(characterFactory.createCharacter(name.charAt(0), Color.WHITE, Color.RED), InterfaceLocation.of(0, 0));
+      layer.put(characterFactory.createCharacter(name.charAt(0), Color.WHITE, Color.RED), InterfaceLocation.at(0, 0));
     }
   }
 
   private void renderTypeSection(TerminalLayer layer) {
     var height = layer.getSize().getHeight();
     if (height > 1) {
-      layer.put(characterFactory.createCharacter(type.charAt(0)), InterfaceLocation.of(0, 1));
+      layer.put(characterFactory.createCharacter(type.charAt(0)), InterfaceLocation.at(0, 1));
     }
   }
 
   private void renderSubtypeSection(TerminalLayer layer) {
     var height = layer.getSize().getHeight();
     if (height > 2) {
-      layer.put(characterFactory.createCharacter(subType.charAt(0)), InterfaceLocation.of(0, 2));
+      layer.put(characterFactory.createCharacter(subType.charAt(0)), InterfaceLocation.at(0, 2));
     }
   }
 }

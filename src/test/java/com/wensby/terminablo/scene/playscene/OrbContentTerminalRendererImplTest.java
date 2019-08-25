@@ -50,7 +50,7 @@ public class OrbContentTerminalRendererImplTest {
 
     var result = renderer.render(orb, size);
 
-    verify(layer).put(colorLayer, InterfaceLocation.of(0, 0));
+    verify(layer).put(colorLayer, InterfaceLocation.at(0, 0));
     verifyNoMoreInteractions(layer);
     assertThat(result, is(layer));
   }
@@ -88,7 +88,7 @@ public class OrbContentTerminalRendererImplTest {
 
     var result = renderer.render(orb, size);
 
-    verify(layer).put(terminalCharacter, InterfaceLocation.of(0, 0));
+    verify(layer).put(terminalCharacter, InterfaceLocation.at(0, 0));
     verifyNoMoreInteractions(layer);
     assertThat(result, is(layer));
   }

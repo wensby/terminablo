@@ -32,7 +32,7 @@ public class Renderer {
       var layer = benchmarkView.render(frame.getSize());
       frame.put(layer, atOrigin());
     }
-    LOGGER.debug("Rendering frame of size " + frame.getSize());
+    LOGGER.debug("Rendering frame at size " + frame.getSize());
     canvas.renderFrame(frame);
   }
 }

@@ -31,7 +31,7 @@ public class TerminalLayerFactoryImpl implements TerminalLayerFactory {
 
   private void paintLayerRow(TerminalLayer layer, int row, TerminalCharacter character) {
     for (int column = 0; column < layer.getSize().getWidth(); column++) {
-      var position = InterfaceLocation.of(column, row);
+      var position = InterfaceLocation.at(column, row);
       layer.put(character, position);
     }
   }

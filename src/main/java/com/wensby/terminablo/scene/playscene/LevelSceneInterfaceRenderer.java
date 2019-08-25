@@ -37,14 +37,14 @@ public class LevelSceneInterfaceRenderer {
   private void renderHealthBar(Agent agent, TerminalLayer layer) {
     var healthBarRenderer = new HealthBarRenderer(terminalLayerFactory, terminalCharacterFactory, agent.getName(), 1, " ", " ");
     var render = healthBarRenderer.render(InterfaceSize.of(1, 1));
-    layer.put(render, InterfaceLocation.of((layer.getSize().getWidth() / 2) - 1, 1));
+    layer.put(render, InterfaceLocation.at((layer.getSize().getWidth() / 2) - 1, 1));
   }
 
   private void renderHero(Agent hero, TerminalLayer layer) {
     InterfaceSize layerSize = layer.getSize();
     int midColumn = layerSize.getWidth() / 2;
     int midRow = layerSize.getHeight() / 2;
-    InterfaceLocation layerMidpoint = InterfaceLocation.of(midColumn, midRow);
+    InterfaceLocation layerMidpoint = InterfaceLocation.at(midColumn, midRow);
     TerminalCharacter character;
     if (hero.getStats().getLife().compareTo(BigDecimal.ZERO) == 0) {
       character = terminalCharacterFactory.createCharacter("\uD83D\uDC80");
@@ -61,11 +61,11 @@ public class LevelSceneInterfaceRenderer {
     var healthOrb = new DefaultOrb("HP", Color.RED, new Fraction(hero.getStats().getLife(), hero.getStats().getMaxLife()));
     var healthOrbRepresentation = orbRenderer.render(healthOrb, orbSize);
     int top = layer.getSize().getHeight() - orbSize.getHeight();
-    var healthOrbPosition = InterfaceLocation.of(0, top);
+    var healthOrbPosition = InterfaceLocation.at(0, top);
     layer.put(healthOrbRepresentation, healthOrbPosition);
     var manaOrb = new DefaultOrb("MP", Color.BLUE, new Fraction(BigDecimal.TEN, new BigDecimal(100)));
     var manaOrbRepresentation = orbRenderer.render(manaOrb, orbSize);
-    var manaOrbPosition = InterfaceLocation.of(layer.getSize().getWidth() - orbSize.getWidth(), top);
+    var manaOrbPosition = InterfaceLocation.at(layer.getSize().getWidth() - orbSize.getWidth(), top);
     layer.put(manaOrbRepresentation, manaOrbPosition);
   }
 

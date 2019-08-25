@@ -44,7 +44,7 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
     if (fullRows > 0) {
       var fullColorLayerSize = InterfaceSize.of(size.getWidth(), fullRows);
       var fullColorLayer = layerFactory.createColoredLayer(fullColorLayerSize, color);
-      var topOffset = InterfaceLocation.of(0, size.getHeight() - fullRows);
+      var topOffset = InterfaceLocation.at(0, size.getHeight() - fullRows);
       layer.put(fullColorLayer, topOffset);
     }
 
@@ -54,7 +54,7 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
       var surfaceRow = size.getHeight() - fullRows - 1;
       var surfaceCharacter = characterFactory.createCharacter(character, color, null);
       for (int x = 0; x < size.getWidth(); x++) {
-        var position = InterfaceLocation.of(x, surfaceRow);
+        var position = InterfaceLocation.at(x, surfaceRow);
         layer.put(surfaceCharacter, position);
       }
     }

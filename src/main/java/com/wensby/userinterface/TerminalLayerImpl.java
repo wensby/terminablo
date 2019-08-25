@@ -27,7 +27,7 @@ public class TerminalLayerImpl implements TerminalLayer {
     var size = layer.getSize();
     for (int row = 0; row < size.getHeight(); row++) {
       for (int column = 0; column < size.getWidth(); column++) {
-        var originLocation = InterfaceLocation.of(column, row);
+        var originLocation = InterfaceLocation.at(column, row);
         var character = layer.getCharacter(originLocation);
         if (character != null) {
           var destinationPosition = originLocation.plus(location);

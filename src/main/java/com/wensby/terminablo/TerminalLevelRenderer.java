@@ -22,13 +22,13 @@ public class TerminalLevelRenderer {
 
   public TerminalLayer render(Level level, LevelLocation location, InterfaceSize size) {
     var layer = layerFactory.createBlankLayer(size);
-    var interfaceCenter = InterfaceLocation.of(size.getWidth() / 2, size.getHeight() / 2);
+    var interfaceCenter = InterfaceLocation.at(size.getWidth() / 2, size.getHeight() / 2);
     var topLeftInterfacePosition = topLeftInterfacePosition(interfaceCenter);
     var topLeftLevelLocation = topLeftLevelLocation(topLeftInterfacePosition, location, interfaceCenter);
 
     for (int y = 0; y < size.getHeight(); y++) {
       for (int x = 0; x < size.getWidth() / 2; x++) {
-        var layerPosition = topLeftInterfacePosition.plus(InterfaceLocation.of(x * 2, y));
+        var layerPosition = topLeftInterfacePosition.plus(InterfaceLocation.at(x * 2, y));
         var levelLocation = LevelLocation.of(topLeftLevelLocation.getX() + x, topLeftLevelLocation.getY() + y);
         level.entities(levelLocation).stream()
             .map(entityRenderer::getTerminalCharacter)
@@ -41,7 +41,7 @@ public class TerminalLevelRenderer {
   }
 
   private InterfaceLocation topLeftInterfacePosition(InterfaceLocation center) {
-    return InterfaceLocation.of(center.getColumn() % 2, 0);
+    return InterfaceLocation.at(center.getColumn() % 2, 0);
   }
 
   private LevelLocation topLeftLevelLocation(InterfaceLocation topLeftInterfacePosition,

@@ -4,7 +4,7 @@ import static java.util.Objects.hash;
 
 public class InterfaceLocation {
 
-  private static final InterfaceLocation ORIGIN = of(0, 0);
+  private static final InterfaceLocation ORIGIN = at(0, 0);
 
   private final int row;
   private final int column;
@@ -14,7 +14,7 @@ public class InterfaceLocation {
     this.column = column;
   }
 
-  public static InterfaceLocation of(int column, int row) {
+  public static InterfaceLocation at(int column, int row) {
     return new InterfaceLocation(column, row);
   }
 

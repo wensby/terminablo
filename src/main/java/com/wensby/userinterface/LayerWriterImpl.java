@@ -22,7 +22,7 @@ public class LayerWriterImpl implements LayerWriter {
     var column = location.getColumn();
     boolean put = true;
     for (int i = 0; put && i < text.length(); i++) {
-      var characterLocation = InterfaceLocation.of(column, row);
+      var characterLocation = InterfaceLocation.at(column, row);
       var character = text.charAt(i);
       if (character != '\n') {
         var terminalCharacter = characterFactory.createCharacter(character);
