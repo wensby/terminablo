@@ -1,26 +1,26 @@
 package com.wensby.application;
 
-import com.wensby.userinterface.LayerDifferenceCalculator;
-import com.wensby.userinterface.TerminalCharacterFactory;
-import com.wensby.userinterface.TerminalLayerFactory;
 import com.wensby.userinterface.linux.*;
+import com.wensby.util.BenchmarkView;
 
 import java.util.Objects;
 
 public class TerminalApplicationBuilder {
 
-  private final LinuxTerminal linuxTerminal;
-  private final LinuxTerminalRenderCommandFactory commandFactory;
+  private final TerminalUserInterface userInterface;
+  private final BenchmarkModel benchmarkModel;
+  private final BenchmarkView benchmarkView;
+  private final BenchmarkController benchmarkController;
 
   private ApplicationUpdater applicationUpdater;
-  private ApplicationRenderer renderer;
+  private ApplicationRenderer applicationRenderer;
   private int ticksPerSecond;
-  private TerminalLayerFactory layerFactory;
-  private TerminalCharacterFactory characterFactory;
 
-  TerminalApplicationBuilder(LinuxTerminal terminal, LinuxTerminalRenderCommandFactory commandFactory) {
-    linuxTerminal = Objects.requireNonNull(terminal);
-    this.commandFactory = Objects.requireNonNull(commandFactory);
+  TerminalApplicationBuilder(TerminalUserInterface userInterface, BenchmarkModel benchmarkModel, BenchmarkView benchmarkView, BenchmarkController benchmarkController) {
+    this.userInterface = Objects.requireNonNull(userInterface);
+    this.benchmarkModel = Objects.requireNonNull(benchmarkModel);
+    this.benchmarkView = Objects.requireNonNull(benchmarkView);
+    this.benchmarkController = Objects.requireNonNull(benchmarkController);
   }
 
   public TerminalApplicationBuilder withUpdater(ApplicationUpdater updater) {
@@ -29,7 +29,7 @@ public class TerminalApplicationBuilder {
   }
 
   public TerminalApplicationBuilder withRenderer(ApplicationRenderer renderer) {
-    this.renderer = renderer;
+    this.applicationRenderer = renderer;
     return this;
   }
 
@@ -38,27 +38,9 @@ public class TerminalApplicationBuilder {
     return this;
   }
 
-  public TerminalApplicationBuilder withLayerFactory(TerminalLayerFactory layerFactory) {
-    this.layerFactory = layerFactory;
-    return this;
-  }
-
-  public TerminalApplicationBuilder withCharacterFactory(TerminalCharacterFactory characterFactory) {
-    this.characterFactory = characterFactory;
-    return this;
-  }
-
   public TerminalApplication build() {
-    var layerDifferenceCalculator = new LayerDifferenceCalculator(characterFactory);
-    var frameFactory = new LinuxTerminalFrameFactory(linuxTerminal, layerFactory);
-    var terminalCanvas = new TerminalCanvasImpl(frameFactory, linuxTerminal.getOutputStream(), commandFactory, layerDifferenceCalculator);
-    var terminalKeyboard = new LinuxTerminalKeyboard(linuxTerminal.getInputStream());
-    var userInterface = new TerminalUserInterface(terminalKeyboard, terminalCanvas);
     var canvas = userInterface.getCanvas();
-    var benchmarkModel = new BenchmarkModelImpl();
-    var benchmarkView = new BenchmarkViewImpl(layerFactory, characterFactory, benchmarkModel);
-    var renderer = new Renderer(canvas, benchmarkModel, benchmarkView, this.renderer);
-    var benchmarkController = new BenchmarkControllerImpl(benchmarkModel);
+    var renderer = new Renderer(canvas, benchmarkModel, benchmarkView, this.applicationRenderer);
     var updater = new Updater(applicationUpdater, benchmarkController);
     return new TerminalApplication(userInterface, updater, benchmarkModel, ticksPerSecond, renderer);
   }
