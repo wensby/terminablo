@@ -18,7 +18,7 @@ public class TerminalApplicationBuilder {
   private TerminalLayerFactory layerFactory;
   private TerminalCharacterFactory characterFactory;
 
-  public TerminalApplicationBuilder(LinuxTerminal terminal, LinuxTerminalRenderCommandFactory commandFactory) {
+  TerminalApplicationBuilder(LinuxTerminal terminal, LinuxTerminalRenderCommandFactory commandFactory) {
     linuxTerminal = Objects.requireNonNull(terminal);
     this.commandFactory = Objects.requireNonNull(commandFactory);
   }
