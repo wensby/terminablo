@@ -40,7 +40,9 @@ public class HealthBarRenderer implements Renderer {
   private void renderHealthSection(TerminalLayer layer) {
     var height = layer.getSize().getHeight();
     if (height > 0) {
-      layer.put(characterFactory.createCharacter(name.charAt(0), Color.WHITE, Color.RED), InterfaceLocation.at(0, 0));
+      for (int i = 0; i < name.length(); i++) {
+        layer.put(characterFactory.createCharacter(name.charAt(i), Color.WHITE, Color.RED), InterfaceLocation.at(i, 0));
+      }
     }
   }
 
