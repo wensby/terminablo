@@ -58,7 +58,7 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
     monsters.forEach(monster -> level.putEntity(LevelLocation.of(new Random().nextInt(100), new Random().nextInt(100)), monster.getLevelEntity()));
     var model = new LevelSceneModel(playerCharacter, level, monsters);
     var partialBlockCharacterFactory = new PartialBlockCharacterFactoryImpl();
-    OrbContentTerminalRenderer orbContentTerminalRenderer = new OrbContentTerminalRendererImpl(
+    var orbContentTerminalRenderer = new OrbContentTerminalRendererImpl(
         partialBlockCharacterFactory, layerFactory, characterFactory);
     var orbTerminalRepresentationFactory = new TerminalOrbRenderer(layerFactory,
         characterFactory,
@@ -70,7 +70,7 @@ public class LevelSceneFactoryImpl implements LevelSceneFactory {
     var levelSceneView = new TerminalView(layerFactory,
         levelSceneInterfaceRenderer,
         levelRenderer, model);
-    AgentController agentController = new AgentController(level);
+    var agentController = new AgentController(level);
     var playerCombatController = new PlayerCombatController(playerCharacter, model);
     var playerController = new PlayerMovementController(playerCharacter, level);
     var levelSceneController = new LevelSceneController(sceneStack, agentController, model, playerController, playerCombatController);
