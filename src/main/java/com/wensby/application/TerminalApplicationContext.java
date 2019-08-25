@@ -8,18 +8,20 @@ import static java.lang.System.out;
 
 public class TerminalApplicationContext {
 
-  private final LinuxTerminal terminal;
+  private static final TerminalApplicationContext SINGLETON = new TerminalApplicationContext();
+
   private final TerminalCharacterFactory characterFactory;
   private final TerminalLayerFactoryImpl layerFactory;
   private final BenchmarkModelImpl benchmarkModel;
   private final TerminalUserInterface userInterface;
   private final BenchmarkViewImpl benchmarkView;
   private final BenchmarkControllerImpl benchmarkController;
+  private final TerminalApplicationRunner terminalApplicationRunner;
 
-  public TerminalApplicationContext() {
+  private TerminalApplicationContext() {
     var commandFactory = new LinuxTerminalRenderCommandFactory();
     var bashCommandExecutor = new BashCommandExecutor();
-    terminal = new LinuxTerminal(in, out, bashCommandExecutor, commandFactory);
+    var terminal = new LinuxTerminal(in, out, bashCommandExecutor, commandFactory);
     characterFactory = new TerminalCharacterFactoryImpl();
     layerFactory = new TerminalLayerFactoryImpl(characterFactory);
     var layerDifferenceCalculator = new LayerDifferenceCalculator(characterFactory);
@@ -31,6 +33,11 @@ public class TerminalApplicationContext {
     benchmarkModel = new BenchmarkModelImpl();
     benchmarkView = new BenchmarkViewImpl(layerFactory, characterFactory, benchmarkModel);
     benchmarkController = new BenchmarkControllerImpl(this.benchmarkModel);
+    terminalApplicationRunner = new TerminalApplicationRunner(terminal);
+  }
+
+  public static TerminalApplicationContext getContext() {
+    return SINGLETON;
   }
 
   public TerminalApplicationBuilder getTerminalApplicationBuilder() {
@@ -46,7 +53,10 @@ public class TerminalApplicationContext {
     return layerFactory;
   }
 
-  public void run(TerminalApplication terminablo) {
-    new TerminalApplicationRunner(terminal, terminablo).start();
+  public void run(TerminalApplication application) {
+    if (terminalApplicationRunner.isRunning()) {
+      throw new RuntimeException("Terminal application context already running application");
+    }
+    terminalApplicationRunner.run(application);
   }
 }

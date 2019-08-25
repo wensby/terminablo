@@ -9,21 +9,23 @@ public class TerminalApplicationRunner {
   public static final Logger LOGGER = Logger.getLogger(TerminalApplicationRunner.class);
 
   private final LinuxTerminal linuxTerminal;
-  private final TerminalApplication application;
 
-  public TerminalApplicationRunner(LinuxTerminal linuxTerminal, TerminalApplication application) {
+  private boolean running;
+
+  TerminalApplicationRunner(LinuxTerminal linuxTerminal) {
     this.linuxTerminal = linuxTerminal;
-    this.application = application;
   }
 
-  public void start() {
+  void run(TerminalApplication application) {
     try {
+      running = true;
       setUpTerminal();
       application.run();
     } catch (Throwable e) {
       LOGGER.fatal("Terminal application crashed.", e);
     } finally {
       releaseTerminal();
+      running = false;
     }
   }
 
@@ -36,5 +38,9 @@ public class TerminalApplicationRunner {
     linuxTerminal.moveCursor(0, 0);
     linuxTerminal.setTerminalCooked();
     linuxTerminal.showCursor(true);
+  }
+
+  public boolean isRunning() {
+    return running;
   }
 }
