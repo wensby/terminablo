@@ -26,11 +26,18 @@ public class LevelSceneInterfaceRenderer {
     this.terminalCharacterFactory = terminalCharacterFactory;
   }
 
-  public TerminalLayer render(Agent hero, InterfaceSize size) {
+  public TerminalLayer render(Agent hero, InterfaceSize size, LevelSceneModel model) {
     TerminalLayer layer = terminalLayerFactory.createBlankLayer(size);
     renderHero(hero, layer);
     renderOrbs(hero, layer);
+    model.getCurrentTarget().ifPresent(agent -> renderHealthBar(agent, layer));
     return layer;
+  }
+
+  private void renderHealthBar(Agent agent, TerminalLayer layer) {
+    var healthBarRenderer = new HealthBarRenderer(terminalLayerFactory, terminalCharacterFactory, agent.getName(), 1, " ", " ");
+    var render = healthBarRenderer.render(InterfaceSize.of(1, 1));
+    layer.put(render, InterfaceLocation.of((layer.getSize().getWidth() / 2) - 1, 1));
   }
 
   private void renderHero(Agent hero, TerminalLayer layer) {

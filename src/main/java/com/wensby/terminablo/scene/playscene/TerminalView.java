@@ -32,7 +32,7 @@ public class TerminalView implements View {
     var hero = model.getCharacter();
     var heroLocation = level.locationOf(hero.getLevelEntity()).orElseThrow();
     var layerLevel = terminalLevelRenderer.render(level, heroLocation, size);
-    var layerInterface = levelSceneInterfaceRenderer.render(hero, size);
+    var layerInterface = levelSceneInterfaceRenderer.render(hero, size, model);
     layerLevel.put(layerInterface, atOrigin());
     return layerLevel;
   }

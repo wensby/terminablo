@@ -23,11 +23,25 @@ public class PlayerCombatController implements Controller {
   public void update(Duration elapsedTime, UserInput input) {
     if (input.getKeyStrokes().contains(Key.SPACE)) {
       model.getLevel().locationOf(hero.getLevelEntity())
-          .map(this::nearestMonsterLocation)
+          .map(this::nearestMonster)
           .filter(Optional::isPresent)
           .map(Optional::get)
-          .ifPresent(levelLocation -> model.getLevel().putEntity(levelLocation, new DamageEntity()));
+          .ifPresent(agent -> {
+            model.setCurrentTarget(agent);
+            model.getLevel().putEntity(model.getLevel().locationOf(agent.getLevelEntity()).get(), new DamageEntity());
+          });
     }
+  }
+
+  private Optional<Agent> nearestMonster(LevelLocation location) {
+    return model.getMonsters().stream()
+        .filter(agent -> model.getLevel().locationOf(agent.getLevelEntity()).isPresent())
+        .min(Comparator.comparingInt(a -> getAgentDistance(location, a)));
+  }
+
+  private int getAgentDistance(LevelLocation location, Agent a) {
+    var levelLocation = model.getLevel().locationOf(a.getLevelEntity());
+    return getDistance(location, levelLocation.get());
   }
 
   private Optional<LevelLocation> nearestMonsterLocation(LevelLocation location) {
