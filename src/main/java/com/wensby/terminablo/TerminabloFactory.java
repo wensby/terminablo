@@ -17,14 +17,14 @@ public class TerminabloFactory {
 
   public TerminalApplication createTerminablo(TerminalApplicationContext context) {
     var characterFactory = context.getCharacterFactory();
-    var layerFactory = context.getTerminalLayerFactory();
+    var layerFactory = context.getLayerFactory();
     var sceneStack = new SceneStackImpl();
     var levelSceneFactory = new LevelSceneFactoryImpl(characterFactory, layerFactory, sceneStack);
     var scene = createMainMenuScene(characterFactory, sceneStack, layerFactory, levelSceneFactory);
     sceneStack.push(scene);
     var terminabloUpdater = new TerminabloUpdater(sceneStack);
     var terminabloRenderer = new TerminabloApplicationRenderer(sceneStack);
-    return context.getTerminalApplicationBuilder()
+    return context.getApplicationBuilder()
         .withUpdater(terminabloUpdater)
         .withRenderer(terminabloRenderer)
         .withTargetTicksPerSecond(15)

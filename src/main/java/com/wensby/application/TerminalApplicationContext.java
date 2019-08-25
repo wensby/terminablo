@@ -40,7 +40,7 @@ public class TerminalApplicationContext {
     return SINGLETON;
   }
 
-  public TerminalApplicationBuilder getTerminalApplicationBuilder() {
+  public TerminalApplicationBuilder getApplicationBuilder() {
     return new TerminalApplicationBuilder(
         userInterface, benchmarkModel, benchmarkView, benchmarkController);
   }
@@ -49,7 +49,7 @@ public class TerminalApplicationContext {
     return characterFactory;
   }
 
-  public TerminalLayerFactory getTerminalLayerFactory() {
+  public TerminalLayerFactory getLayerFactory() {
     return layerFactory;
   }
 
