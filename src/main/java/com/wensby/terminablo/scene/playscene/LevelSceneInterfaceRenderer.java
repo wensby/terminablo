@@ -36,8 +36,8 @@ public class LevelSceneInterfaceRenderer {
 
   private void renderHealthBar(Agent agent, TerminalLayer layer) {
     var healthBarRenderer = new HealthBarRenderer(terminalLayerFactory, terminalCharacterFactory, agent.getName(), 1, " ", " ");
-    var render = healthBarRenderer.render(InterfaceSize.of(1, 1));
-    layer.put(render, InterfaceLocation.at((layer.getSize().getWidth() / 2) - 1, 1));
+    var render = healthBarRenderer.render(InterfaceSize.of(agent.getName().length(), 3));
+    layer.put(render, InterfaceLocation.at((layer.getSize().getWidth() / 2) - (agent.getName().length() / 2), 1));
   }
 
   private void renderHero(Agent hero, TerminalLayer layer) {
