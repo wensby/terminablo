@@ -20,7 +20,7 @@ public class BenchmarkViewImpl implements BenchmarkView {
   @Override
   public TerminalLayer render(InterfaceSize size) {
     final var benchmark = benchmarkModel.getBenchmark();
-    final var renderer = new BenchmarkRendererImpl(layerFactory, characterFactory, benchmark);
+    final var renderer = new BenchmarkRenderer(layerFactory, characterFactory, benchmark);
     return renderer.render(size);
   }
 }
