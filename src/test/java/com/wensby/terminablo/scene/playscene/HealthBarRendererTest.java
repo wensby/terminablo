@@ -1,9 +1,9 @@
 package com.wensby.terminablo.scene.playscene;
 
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.TerminalLayerFactoryImpl;
-import com.wensby.userinterface.linux.TerminalCharacterFactoryImpl;
+import com.wensby.application.userinterface.InterfaceSize;
+import com.wensby.application.userinterface.TerminalLayerFactoryImpl;
+import com.wensby.application.userinterface.TerminalCharacterFactoryImpl;
 import org.junit.Test;
 
 import static java.awt.Color.*;

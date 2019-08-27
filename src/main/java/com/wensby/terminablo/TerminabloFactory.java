@@ -10,8 +10,8 @@ import com.wensby.terminablo.scene.mainmenu.MainMenuControllerImpl;
 import com.wensby.terminablo.scene.mainmenu.MainMenuModelImpl;
 import com.wensby.terminablo.scene.playscene.LevelSceneFactory;
 import com.wensby.terminablo.scene.playscene.LevelSceneFactoryImpl;
-import com.wensby.userinterface.TerminalCharacterFactory;
-import com.wensby.userinterface.TerminalLayerFactory;
+import com.wensby.application.userinterface.TerminalCharacterFactory;
+import com.wensby.application.userinterface.TerminalLayerFactory;
 
 public class TerminabloFactory {
 

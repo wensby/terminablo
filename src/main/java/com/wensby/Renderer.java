@@ -1,7 +1,7 @@
 package com.wensby;
 
-import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.TerminalLayer;
+import com.wensby.application.userinterface.InterfaceSize;
+import com.wensby.application.userinterface.TerminalLayer;
 
 public interface Renderer {
 

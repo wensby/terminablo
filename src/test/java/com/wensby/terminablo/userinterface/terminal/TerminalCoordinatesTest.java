@@ -3,7 +3,7 @@ package com.wensby.terminablo.userinterface.terminal;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-import com.wensby.userinterface.TerminalCoordinates;
+import com.wensby.application.userinterface.TerminalCoordinates;
 import org.junit.Test;
 
 public class TerminalCoordinatesTest {

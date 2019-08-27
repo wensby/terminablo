@@ -1,6 +1,6 @@
 package com.wensby.terminablo.userinterface;
 
-import com.wensby.userinterface.TerminalFrame;
+import com.wensby.application.userinterface.TerminalFrame;
 
 public interface TerminalCanvas {
 

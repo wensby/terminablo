@@ -4,10 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.userinterface.LayerWriterImpl;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.TerminalCharacterFactory;
-import com.wensby.userinterface.TerminalLayer;
-import com.wensby.userinterface.TerminalLayerFactory;
+import com.wensby.application.userinterface.InterfaceSize;
+import com.wensby.application.userinterface.TerminalCharacterFactory;
+import com.wensby.application.userinterface.TerminalLayer;
+import com.wensby.application.userinterface.TerminalLayerFactory;
 
 public class LinuxTerminalMainMenuView implements MainMenuView {
 

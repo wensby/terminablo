@@ -1,14 +1,14 @@
 package com.wensby.application;
 
-import static com.wensby.application.UpdateResult.FINAL_UPDATE;
-import static java.util.Objects.requireNonNull;
+import com.wensby.application.userinterface.TerminalUserInterface;
+import com.wensby.application.userinterface.UserInput;
+import org.apache.log4j.Logger;
 
-import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 import java.time.Instant;
 
-import com.wensby.userinterface.linux.TerminalUserInterface;
-import org.apache.log4j.Logger;
+import static com.wensby.application.UpdateResult.FINAL_UPDATE;
+import static java.util.Objects.requireNonNull;
 
 public class TerminalApplication {
 

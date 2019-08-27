@@ -2,6 +2,8 @@ package com.wensby.userinterface;
 
 import static java.util.Objects.requireNonNull;
 
+import com.wensby.application.userinterface.TerminalCharacterFactory;
+import com.wensby.application.userinterface.TerminalLayer;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 
 public class LayerWriterImpl implements LayerWriter {

@@ -2,8 +2,8 @@ package com.wensby.terminablo;
 
 import com.wensby.application.ApplicationRenderer;
 import com.wensby.terminablo.scene.SceneStack;
-import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.TerminalLayer;
+import com.wensby.application.userinterface.InterfaceSize;
+import com.wensby.application.userinterface.TerminalLayer;
 
 import java.util.Objects;
 

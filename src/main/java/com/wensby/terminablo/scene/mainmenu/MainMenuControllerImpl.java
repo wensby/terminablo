@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.scene.playscene.LevelSceneFactory;
-import com.wensby.userinterface.UserInput;
+import com.wensby.application.userinterface.UserInput;
 import java.time.Duration;
 
 public class MainMenuControllerImpl implements MainMenuController {

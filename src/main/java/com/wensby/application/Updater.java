@@ -1,10 +1,11 @@
 package com.wensby.application;
 
-import static com.wensby.terminablo.userinterface.Key.END_OF_FILE;
+import com.wensby.application.userinterface.UserInput;
 
-import com.wensby.userinterface.UserInput;
 import java.time.Duration;
 import java.util.Objects;
+
+import static com.wensby.terminablo.userinterface.Key.END_OF_FILE;
 
 class Updater {
 

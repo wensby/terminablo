@@ -1,7 +1,6 @@
 package com.wensby.application;
 
-import com.wensby.userinterface.*;
-import com.wensby.userinterface.linux.*;
+import com.wensby.application.userinterface.*;
 
 import static java.lang.System.in;
 import static java.lang.System.out;
@@ -25,7 +24,7 @@ public class TerminalApplicationContext {
     characterFactory = new TerminalCharacterFactoryImpl();
     layerFactory = new TerminalLayerFactoryImpl(characterFactory);
     var layerDifferenceCalculator = new LayerDifferenceCalculator(characterFactory);
-    var frameFactory = new LinuxTerminalFrameFactory(terminal, layerFactory);
+    var frameFactory = new TerminalFrameFactory(terminal, layerFactory);
     var terminalCanvas = new TerminalCanvasImpl(
         frameFactory, terminal.getOutputStream(), commandFactory, layerDifferenceCalculator);
     var terminalKeyboard = new LinuxTerminalKeyboard(terminal.getInputStream());

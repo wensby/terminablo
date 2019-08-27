@@ -3,7 +3,7 @@ package com.wensby.terminablo.scene.playscene;
 import com.wensby.terminablo.userinterface.Key;
 import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.world.level.LevelLocation;
-import com.wensby.userinterface.UserInput;
+import com.wensby.application.userinterface.UserInput;
 
 import java.time.Duration;
 import java.util.Comparator;

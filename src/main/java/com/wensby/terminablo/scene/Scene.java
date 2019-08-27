@@ -1,9 +1,9 @@
 package com.wensby.terminablo.scene;
 
 import com.wensby.terminablo.scene.playscene.Controller;
-import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.TerminalLayer;
-import com.wensby.userinterface.UserInput;
+import com.wensby.application.userinterface.InterfaceSize;
+import com.wensby.application.userinterface.TerminalLayer;
+import com.wensby.application.userinterface.UserInput;
 import java.time.Duration;
 
 public class Scene {

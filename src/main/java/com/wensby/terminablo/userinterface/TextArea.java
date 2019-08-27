@@ -2,7 +2,7 @@ package com.wensby.terminablo.userinterface;
 
 import com.wensby.terminablo.userinterface.component.Component;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-import com.wensby.userinterface.InterfaceSize;
+import com.wensby.application.userinterface.InterfaceSize;
 
 public class TextArea implements Component {
 

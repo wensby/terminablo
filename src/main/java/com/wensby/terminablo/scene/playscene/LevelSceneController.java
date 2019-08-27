@@ -3,7 +3,7 @@ package com.wensby.terminablo.scene.playscene;
 import static com.wensby.terminablo.userinterface.Key.ESCAPE;
 
 import com.wensby.terminablo.scene.SceneStack;
-import com.wensby.userinterface.UserInput;
+import com.wensby.application.userinterface.UserInput;
 import java.math.BigDecimal;
 import java.time.Duration;
 

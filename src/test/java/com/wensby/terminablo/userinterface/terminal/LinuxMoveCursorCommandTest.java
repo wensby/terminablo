@@ -3,9 +3,9 @@ package com.wensby.terminablo.userinterface.terminal;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-import com.wensby.userinterface.linux.LinuxMoveCursorCommand;
-import com.wensby.userinterface.TerminalCoordinates;
-import com.wensby.userinterface.TerminalRenderCommand;
+import com.wensby.application.userinterface.LinuxMoveCursorCommand;
+import com.wensby.application.userinterface.TerminalCoordinates;
+import com.wensby.application.userinterface.TerminalRenderCommand;
 import org.junit.Test;
 
 public class LinuxMoveCursorCommandTest {

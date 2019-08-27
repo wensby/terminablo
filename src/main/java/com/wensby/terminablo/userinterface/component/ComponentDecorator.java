@@ -1,6 +1,6 @@
 package com.wensby.terminablo.userinterface.component;
 
-import com.wensby.userinterface.InterfaceSize;
+import com.wensby.application.userinterface.InterfaceSize;
 
 public abstract class ComponentDecorator implements Component {
 

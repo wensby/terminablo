@@ -1,6 +1,6 @@
 package com.wensby.terminablo.scene.playscene;
 
-import com.wensby.userinterface.UserInput;
+import com.wensby.application.userinterface.UserInput;
 
 import java.time.Duration;
 

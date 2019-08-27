@@ -3,9 +3,9 @@ package com.wensby.terminablo;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.terminablo.world.level.Level;
 import com.wensby.terminablo.world.level.LevelLocation;
-import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.TerminalLayer;
-import com.wensby.userinterface.TerminalLayerFactory;
+import com.wensby.application.userinterface.InterfaceSize;
+import com.wensby.application.userinterface.TerminalLayer;
+import com.wensby.application.userinterface.TerminalLayerFactory;
 
 import java.util.Optional;
 

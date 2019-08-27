@@ -4,9 +4,9 @@ import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at
 
 import com.wensby.terminablo.TerminalLevelRenderer;
 import com.wensby.terminablo.scene.View;
-import com.wensby.userinterface.InterfaceSize;
-import com.wensby.userinterface.TerminalLayer;
-import com.wensby.userinterface.TerminalLayerFactory;
+import com.wensby.application.userinterface.InterfaceSize;
+import com.wensby.application.userinterface.TerminalLayer;
+import com.wensby.application.userinterface.TerminalLayerFactory;
 
 public class TerminalView implements View {
 

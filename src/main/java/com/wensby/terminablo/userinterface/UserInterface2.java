@@ -1,6 +1,6 @@
 package com.wensby.terminablo.userinterface;
 
-import com.wensby.userinterface.UserInput;
+import com.wensby.application.userinterface.UserInput;
 
 public interface UserInterface2 {
 

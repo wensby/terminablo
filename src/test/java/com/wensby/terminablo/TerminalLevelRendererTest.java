@@ -4,10 +4,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.wensby.application.userinterface.*;
 import com.wensby.terminablo.world.level.LevelEntityFactory;
 import com.wensby.terminablo.world.level.LevelFactory;
 import com.wensby.terminablo.world.level.LevelLocation;
-import com.wensby.userinterface.*;
 import org.junit.Before;
 import org.junit.Test;
 

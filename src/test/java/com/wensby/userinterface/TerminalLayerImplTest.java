@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.wensby.application.userinterface.TerminalCharacter;
+import com.wensby.application.userinterface.TerminalLayerImpl;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import org.junit.Test;
 

@@ -1,7 +1,7 @@
 package com.wensby.terminablo;
 
 import com.wensby.terminablo.world.level.LevelEntity;
-import com.wensby.userinterface.TerminalCharacter;
+import com.wensby.application.userinterface.TerminalCharacter;
 
 import java.util.Optional;
 

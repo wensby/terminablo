@@ -3,7 +3,7 @@ package com.wensby.terminablo;
 import com.wensby.application.ApplicationUpdater;
 import com.wensby.application.UpdateResult;
 import com.wensby.terminablo.scene.SceneStack;
-import com.wensby.userinterface.UserInput;
+import com.wensby.application.userinterface.UserInput;
 
 import java.time.Duration;
 

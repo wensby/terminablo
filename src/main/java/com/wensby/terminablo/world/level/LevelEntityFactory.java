@@ -1,6 +1,6 @@
 package com.wensby.terminablo.world.level;
 
-import com.wensby.userinterface.ComplexTerminalCharacterImpl;
+import com.wensby.application.userinterface.ComplexTerminalCharacterImpl;
 
 public class LevelEntityFactory {
 
