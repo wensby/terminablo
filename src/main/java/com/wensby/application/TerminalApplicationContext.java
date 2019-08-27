@@ -15,7 +15,7 @@ public class TerminalApplicationContext {
   private final BenchmarkModelImpl benchmarkModel;
   private final TerminalUserInterface userInterface;
   private final BenchmarkViewImpl benchmarkView;
-  private final BenchmarkControllerImpl benchmarkController;
+  private final BenchmarkController benchmarkController;
   private final TerminalApplicationRunner terminalApplicationRunner;
 
   private TerminalApplicationContext() {
@@ -32,7 +32,7 @@ public class TerminalApplicationContext {
     userInterface = new TerminalUserInterface(terminalKeyboard, terminalCanvas);
     benchmarkModel = new BenchmarkModelImpl();
     benchmarkView = new BenchmarkViewImpl(layerFactory, characterFactory, benchmarkModel);
-    benchmarkController = new BenchmarkControllerImpl(this.benchmarkModel);
+    benchmarkController = new BenchmarkController(this.benchmarkModel);
     terminalApplicationRunner = new TerminalApplicationRunner(terminal);
   }
 
