@@ -27,7 +27,7 @@ public class TerminabloFactory {
     return context.getApplicationBuilder()
         .withUpdater(terminabloUpdater)
         .withRenderer(terminabloRenderer)
-        .withTargetTicksPerSecond(10)
+        .withTargetTicksPerSecond(30)
         .build();
   }
 
