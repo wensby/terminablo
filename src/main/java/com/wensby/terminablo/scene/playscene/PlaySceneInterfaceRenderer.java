@@ -11,13 +11,13 @@ import com.wensby.util.Fraction;
 import java.awt.Color;
 import java.math.BigDecimal;
 
-public class LevelSceneInterfaceRenderer {
+public class PlaySceneInterfaceRenderer {
 
   private final TerminalOrbRenderer orbRenderer;
   private final TerminalLayerFactory terminalLayerFactory;
   private final TerminalCharacterFactory terminalCharacterFactory;
 
-  public LevelSceneInterfaceRenderer(
+  public PlaySceneInterfaceRenderer(
       TerminalOrbRenderer orbRenderer,
       TerminalLayerFactory terminalLayerFactory,
       final TerminalCharacterFactory terminalCharacterFactory) {
@@ -26,7 +26,7 @@ public class LevelSceneInterfaceRenderer {
     this.terminalCharacterFactory = terminalCharacterFactory;
   }
 
-  public TerminalLayer render(Agent hero, InterfaceSize size, LevelSceneModel model) {
+  public TerminalLayer render(Agent hero, InterfaceSize size, PlaySceneModel model) {
     TerminalLayer layer = terminalLayerFactory.createBlankLayer(size);
     renderHero(hero, layer);
     renderOrbs(hero, layer);

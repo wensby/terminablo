@@ -12,9 +12,9 @@ import java.util.Optional;
 public class PlayerCombatController implements Controller {
 
   private final Agent hero;
-  private final LevelSceneModel model;
+  private final PlaySceneModel model;
 
-  public PlayerCombatController(Agent hero, LevelSceneModel model) {
+  public PlayerCombatController(Agent hero, PlaySceneModel model) {
     this.hero = hero;
     this.model = model;
   }

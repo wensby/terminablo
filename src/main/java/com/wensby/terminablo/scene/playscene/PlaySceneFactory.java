@@ -2,7 +2,7 @@ package com.wensby.terminablo.scene.playscene;
 
 import com.wensby.terminablo.scene.Scene;
 
-public interface LevelSceneFactory {
+public interface PlaySceneFactory {
 
-  Scene createLevelScene();
+  Scene createPlayScene();
 }

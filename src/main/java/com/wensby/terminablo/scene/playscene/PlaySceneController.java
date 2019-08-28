@@ -7,16 +7,16 @@ import com.wensby.application.userinterface.UserInput;
 import java.math.BigDecimal;
 import java.time.Duration;
 
-public class LevelSceneController implements Controller {
+public class PlaySceneController implements Controller {
 
   private final SceneStack sceneStack;
   private final AgentController agentController;
-  private final LevelSceneModel model;
+  private final PlaySceneModel model;
   private final PlayerCombatController playerCombatController;
   private final PlayerMovementController playerMovementController;
 
-  public LevelSceneController(SceneStack sceneStack,
-      AgentController agentController, LevelSceneModel model,
+  public PlaySceneController(SceneStack sceneStack,
+      AgentController agentController, PlaySceneModel model,
       PlayerMovementController playerMovementController,
       PlayerCombatController playerCombatController) {
     this.sceneStack = sceneStack;

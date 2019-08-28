@@ -8,20 +8,20 @@ import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.application.userinterface.TerminalLayer;
 import com.wensby.application.userinterface.TerminalLayerFactory;
 
-public class TerminalView implements View {
+public class PlaySceneView implements View {
 
   private final TerminalLayerFactory layerFactory;
-  private final LevelSceneInterfaceRenderer levelSceneInterfaceRenderer;
+  private final PlaySceneInterfaceRenderer playSceneInterfaceRenderer;
   private final TerminalLevelRenderer terminalLevelRenderer;
-  private final LevelSceneModel model;
+  private final PlaySceneModel model;
 
-  public TerminalView(
+  public PlaySceneView(
       TerminalLayerFactory layerFactory,
-      LevelSceneInterfaceRenderer levelSceneInterfaceRenderer,
+      PlaySceneInterfaceRenderer playSceneInterfaceRenderer,
       TerminalLevelRenderer terminalLevelRenderer,
-      LevelSceneModel model) {
+      PlaySceneModel model) {
     this.layerFactory = layerFactory;
-    this.levelSceneInterfaceRenderer = levelSceneInterfaceRenderer;
+    this.playSceneInterfaceRenderer = playSceneInterfaceRenderer;
     this.terminalLevelRenderer = terminalLevelRenderer;
     this.model = model;
   }
@@ -32,7 +32,7 @@ public class TerminalView implements View {
     var hero = model.getCharacter();
     var heroLocation = level.locationOf(hero.getLevelEntity()).orElseThrow();
     var layerLevel = terminalLevelRenderer.render(level, heroLocation, size);
-    var layerInterface = levelSceneInterfaceRenderer.render(hero, size, model);
+    var layerInterface = playSceneInterfaceRenderer.render(hero, size, model);
     layerLevel.put(layerInterface, atOrigin());
     return layerLevel;
   }

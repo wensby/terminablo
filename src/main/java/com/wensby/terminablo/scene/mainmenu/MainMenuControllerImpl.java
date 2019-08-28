@@ -4,7 +4,7 @@ import static com.wensby.terminablo.userinterface.Key.*;
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.terminablo.scene.SceneStack;
-import com.wensby.terminablo.scene.playscene.LevelSceneFactory;
+import com.wensby.terminablo.scene.playscene.PlaySceneFactory;
 import com.wensby.application.userinterface.UserInput;
 import java.time.Duration;
 
@@ -12,16 +12,16 @@ public class MainMenuControllerImpl implements MainMenuController {
 
   private final MainMenuModel model;
   private final SceneStack sceneStack;
-  private final LevelSceneFactory levelSceneFactory;
+  private final PlaySceneFactory playSceneFactory;
 
   public MainMenuControllerImpl(
       MainMenuModel model,
       SceneStack sceneStack,
-      LevelSceneFactory levelSceneFactory
+      PlaySceneFactory playSceneFactory
   ) {
     this.model = requireNonNull(model);
     this.sceneStack = sceneStack;
-    this.levelSceneFactory = requireNonNull(levelSceneFactory);
+    this.playSceneFactory = requireNonNull(playSceneFactory);
   }
 
   @Override
@@ -35,7 +35,7 @@ public class MainMenuControllerImpl implements MainMenuController {
     }
     if (input.getKeyStrokes().contains(CARRIAGE_RETURN)) {
       if (model.getSelectedMenuItemIndex() == 1) {
-        var levelScene = levelSceneFactory.createLevelScene();
+        var levelScene = playSceneFactory.createPlayScene();
         sceneStack.push(levelScene);
       }
       else if (model.getSelectedMenuItemIndex() == i-1) {
