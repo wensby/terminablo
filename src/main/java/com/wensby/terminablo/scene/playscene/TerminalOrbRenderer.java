@@ -55,20 +55,19 @@ public class TerminalOrbRenderer {
 
   private void fillInBorder(TerminalLayer layer) {
     if (isBordered(layer.getSize())) {
-      var characters = layer.getCharacters();
       var height = layer.getSize().getHeight();
       var width = layer.getSize().getWidth();
       for (int i = 1; i < width - 1; i++) {
-        characters[0][i] = characterFactory.createCharacter('─');
+        layer.put(characterFactory.createCharacter('─'), InterfaceLocation.at(i, 0));
       }
-      characters[0][0] = characterFactory.createCharacter('╭');
-      characters[0][width - 1] = characterFactory.createCharacter('╮');
+      layer.put(characterFactory.createCharacter('╭'), InterfaceLocation.at(0, 0));
+      layer.put(characterFactory.createCharacter('╮'), InterfaceLocation.at(width - 1, 0));
       for (int i = 1; i < height - 1; i++) {
-        characters[i][0] = characterFactory.createCharacter('│');
-        characters[i][width - 1] = characterFactory.createCharacter('│');
+        layer.put(characterFactory.createCharacter('│'), InterfaceLocation.at(0, i));
+        layer.put(characterFactory.createCharacter('│'), InterfaceLocation.at(width - 1, i));
       }
-      characters[height - 1][0] = characterFactory.createCharacter('╰');
-      characters[height - 1][width - 1] = characterFactory.createCharacter('╯');
+      layer.put(characterFactory.createCharacter('╰'), InterfaceLocation.at(0, height - 1));
+      layer.put(characterFactory.createCharacter('╯'), InterfaceLocation.at(width - 1, height - 1));
     }
   }
 
@@ -84,8 +83,7 @@ public class TerminalOrbRenderer {
       s = s.length() > 6 ? s.substring(0, 6) : s;
       var start = (width - s.length()) / 2;
       for (int i = 0; i < s.length(); i++) {
-        layer.getCharacters()[height - 1][i + start] = characterFactory
-            .createCharacter(s.charAt(i));
+        layer.put(characterFactory.createCharacter(s.charAt(i)), InterfaceLocation.at(i + start, height - 1));
       }
     }
   }

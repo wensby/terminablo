@@ -28,13 +28,13 @@ public class TerminalFrameImpl implements TerminalFrame {
   }
 
   @Override
-  public void put(TerminalLayer layer, InterfaceLocation interfacePosition) {
-    this.layer.put(layer, interfacePosition);
+  public void put(TerminalLayer layer, InterfaceLocation location) {
+    this.layer.put(layer, location);
   }
 
   @Override
-  public boolean put(TerminalCharacter character, InterfaceLocation position) {
-    return layer.put(character, position);
+  public boolean put(TerminalCharacter character, InterfaceLocation location) {
+    return layer.put(character, location);
   }
 
   @Override

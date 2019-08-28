@@ -16,8 +16,7 @@ public class TerminalLayerFactoryImpl implements TerminalLayerFactory {
 
   @Override
   public TerminalLayer createBlankLayer(InterfaceSize size) {
-    TerminalCharacter[][] characters = new TerminalCharacter[size.getHeight()][size.getWidth()];
-    return new TwoDimensionalCharacterArrayLayer(characters);
+    return new SparseLayer(size);
   }
 
   @Override

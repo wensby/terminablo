@@ -12,9 +12,9 @@ public interface TerminalLayer {
 
   InterfaceSize getSize();
 
-  void put(TerminalLayer layer, InterfaceLocation interfacePosition);
+  void put(TerminalLayer layer, InterfaceLocation location);
 
-  boolean put(TerminalCharacter character, InterfaceLocation position);
+  boolean put(TerminalCharacter character, InterfaceLocation location);
 
   TerminalCharacter getCharacter(InterfaceLocation position);
 }
