@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface TerminalLayer {
 
-  TerminalCharacter[][] getCharacters();
-
   List<PositionedTerminalCharacter> getPositionedCharacters();
 
   InterfaceSize getSize();

@@ -17,11 +17,6 @@ public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
   }
 
   @Override
-  public TerminalCharacter[][] getCharacters() {
-    return characters.clone();
-  }
-
-  @Override
   public List<PositionedTerminalCharacter> getPositionedCharacters() {
     var positionedCharacters = new ArrayList<PositionedTerminalCharacter>();
     for (int row = 0; row < characters.length; row++) {

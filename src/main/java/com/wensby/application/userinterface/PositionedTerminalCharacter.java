@@ -21,4 +21,18 @@ public class PositionedTerminalCharacter {
   public TerminalCharacter getCharacter() {
     return character;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    PositionedTerminalCharacter that = (PositionedTerminalCharacter) o;
+    return Objects.equals(location, that.location) &&
+        Objects.equals(character, that.character);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(location, character);
+  }
 }

@@ -5,10 +5,13 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.wensby.application.userinterface.PositionedTerminalCharacter;
 import com.wensby.application.userinterface.TerminalCharacter;
 import com.wensby.application.userinterface.TwoDimensionalCharacterArrayLayer;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import org.junit.Test;
+
+import java.util.List;
 
 public class TerminalLayerImplTest {
 
@@ -23,7 +26,8 @@ public class TerminalLayerImplTest {
     var put = layer.put(character, location);
 
     assertThat(put, is(true));
-    assertThat(layer.getCharacters()[0][0], is(character));
+    assertThat(layer.getPositionedCharacters(), is(List.of(
+        new PositionedTerminalCharacter(InterfaceLocation.at(0, 0), character))));
   }
 
   @Test

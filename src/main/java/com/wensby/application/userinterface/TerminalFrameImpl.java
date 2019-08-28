@@ -13,11 +13,6 @@ public class TerminalFrameImpl implements TerminalFrame {
   }
 
   @Override
-  public TerminalCharacter[][] getCharacters() {
-    return layer.getCharacters();
-  }
-
-  @Override
   public List<PositionedTerminalCharacter> getPositionedCharacters() {
     return layer.getPositionedCharacters();
   }

@@ -17,22 +17,6 @@ public class SparseLayer implements TerminalLayer {
   }
 
   @Override
-  public TerminalCharacter[][] getCharacters() {
-    var characters = new TerminalCharacter[size.getHeight()][size.getWidth()];
-    columnCharactersByRow.values().forEach(row -> putRow(row, characters));
-    return characters;
-  }
-
-  private void putRow(Map<Integer, PositionedTerminalCharacter> row, TerminalCharacter[][] characters) {
-    row.values().forEach(character -> putCharacter(character, characters));
-  }
-
-  private void putCharacter(PositionedTerminalCharacter character, TerminalCharacter[][] characters) {
-    var location = character.getLocation();
-    characters[location.getRow()][location.getColumn()] = character.getCharacter();
-  }
-
-  @Override
   public List<PositionedTerminalCharacter> getPositionedCharacters() {
     return columnCharactersByRow.values().stream()
         .map(Map::values)
