@@ -5,6 +5,7 @@ import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.world.level.Level;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class PlaySceneModel {
@@ -16,7 +17,7 @@ public class PlaySceneModel {
   private Agent currentTarget;
 
   public PlaySceneModel(PlayerCharacter character, Level level, List<Agent> monsters) {
-    this.character = character;
+    this.character = Objects.requireNonNull(character);
     this.level = level;
     this.monsters = monsters;
   }
