@@ -1,6 +1,5 @@
 package com.wensby.application;
 
-import com.wensby.application.Benchmark;
 import java.time.Duration;
 
 public interface BenchmarkModel {
