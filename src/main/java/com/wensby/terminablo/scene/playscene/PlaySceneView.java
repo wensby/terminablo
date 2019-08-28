@@ -10,17 +10,14 @@ import com.wensby.application.userinterface.TerminalLayerFactory;
 
 public class PlaySceneView implements View {
 
-  private final TerminalLayerFactory layerFactory;
   private final PlaySceneInterfaceRenderer playSceneInterfaceRenderer;
   private final TerminalLevelRenderer terminalLevelRenderer;
   private final PlaySceneModel model;
 
   public PlaySceneView(
-      TerminalLayerFactory layerFactory,
       PlaySceneInterfaceRenderer playSceneInterfaceRenderer,
       TerminalLevelRenderer terminalLevelRenderer,
       PlaySceneModel model) {
-    this.layerFactory = layerFactory;
     this.playSceneInterfaceRenderer = playSceneInterfaceRenderer;
     this.terminalLevelRenderer = terminalLevelRenderer;
     this.model = model;

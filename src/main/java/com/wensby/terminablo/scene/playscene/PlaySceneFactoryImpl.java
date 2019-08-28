@@ -67,9 +67,7 @@ public class PlaySceneFactoryImpl implements PlaySceneFactory {
         orbTerminalRepresentationFactory, layerFactory, characterFactory);
     var levelEntityRenderer = new LevelEntityRenderer();
     var levelRenderer = new TerminalLevelRenderer(layerFactory, levelEntityRenderer);
-    var levelSceneView = new PlaySceneView(layerFactory,
-        levelSceneInterfaceRenderer,
-        levelRenderer, model);
+    var levelSceneView = new PlaySceneView(levelSceneInterfaceRenderer, levelRenderer, model);
     var agentController = new AgentController(level);
     var playerCombatController = new PlayerCombatController(playerCharacter, model);
     var playerController = new PlayerMovementController(playerCharacter, level);
