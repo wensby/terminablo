@@ -25,6 +25,13 @@ public class LinuxTerminalRenderCommandBuilder {
     }
   }
 
+  public void printCharacter(PositionedTerminalCharacter character) {
+    var location = character.getLocation();
+    var terminalCharacter = character.getCharacter();
+    moveCursor(TerminalCoordinates.of(location.getRow(), location.getColumn()));
+    printCharacter(terminalCharacter);
+  }
+
   public void printCharacter(TerminalCharacter character) {
     if (character instanceof SimpleTerminalCharacter) {
       printSimpleTerminalCharacter((SimpleTerminalCharacter) character);

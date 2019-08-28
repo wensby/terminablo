@@ -11,13 +11,20 @@ public class LinuxTerminalRenderCommandFactory implements TerminalRenderCommandF
     }
     else {
       var commandBuilder = new LinuxTerminalRenderCommandBuilder();
-      for (var positionedCharacter : characters) {
-        var location = positionedCharacter.getLocation();
-        var terminalCharacter = positionedCharacter.getCharacter();
-        commandBuilder.moveCursor(TerminalCoordinates.of(location.getRow(), location.getColumn()));
-        commandBuilder.printCharacter(terminalCharacter);
-      }
+      characters.stream().sorted(this::compareLocation).forEach(commandBuilder::printCharacter);
       return commandBuilder.build();
+    }
+  }
+
+  private int compareLocation(PositionedTerminalCharacter a, PositionedTerminalCharacter b) {
+    var aLocation = a.getLocation();
+    var bLocation = b.getLocation();
+    int rowComparison = aLocation.getRow() - bLocation.getRow();
+    if (rowComparison == 0) {
+      return aLocation.getColumn() - bLocation.getColumn();
+    }
+    else {
+      return rowComparison;
     }
   }
 
