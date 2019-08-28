@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.userinterface.*;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-import com.wensby.util.UnitInterval;
+import com.wensby.terminablo.util.UnitInterval;
 import java.math.BigDecimal;
 import org.apache.log4j.Logger;
 

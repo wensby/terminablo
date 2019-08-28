@@ -1,4 +1,4 @@
-package com.wensby.util;
+package com.wensby.terminablo.util;
 
 import static java.math.BigDecimal.ONE;
 import static java.math.RoundingMode.HALF_UP;

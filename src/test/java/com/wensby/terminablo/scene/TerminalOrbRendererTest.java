@@ -16,7 +16,7 @@ import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.application.userinterface.TerminalCharacterFactoryImpl;
 import com.wensby.application.userinterface.TerminalLayer;
 import com.wensby.application.userinterface.TerminalLayerFactory;
-import com.wensby.util.Fraction;
+import com.wensby.terminablo.util.Fraction;
 import org.junit.Before;
 import org.junit.Test;
 

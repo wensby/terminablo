@@ -2,8 +2,8 @@ package com.wensby.application;
 
 import com.wensby.application.userinterface.*;
 import com.wensby.terminablo.scene.playscene.PartialBlockCharacterFactoryImpl;
-import com.wensby.userinterface.LayerWriterImpl;
-import com.wensby.util.UnitInterval;
+import com.wensby.terminablo.userinterface.LayerWriterImpl;
+import com.wensby.terminablo.util.UnitInterval;
 
 import java.awt.*;
 

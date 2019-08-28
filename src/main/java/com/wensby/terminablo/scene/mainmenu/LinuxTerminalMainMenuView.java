@@ -2,7 +2,7 @@ package com.wensby.terminablo.scene.mainmenu;
 
 import static java.util.Objects.requireNonNull;
 
-import com.wensby.userinterface.LayerWriterImpl;
+import com.wensby.terminablo.userinterface.LayerWriterImpl;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.application.userinterface.TerminalCharacterFactory;

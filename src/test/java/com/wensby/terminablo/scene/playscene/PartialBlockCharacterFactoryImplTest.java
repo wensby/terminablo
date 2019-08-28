@@ -3,7 +3,7 @@ package com.wensby.terminablo.scene.playscene;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-import com.wensby.util.UnitInterval;
+import com.wensby.terminablo.util.UnitInterval;
 import org.junit.Before;
 import org.junit.Test;
 

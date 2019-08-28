@@ -1,7 +1,7 @@
 package com.wensby.application;
 
 import com.wensby.application.userinterface.TerminalUserInterface;
-import com.wensby.util.BenchmarkView;
+import com.wensby.application.userinterface.BenchmarkView;
 
 import java.util.Objects;
 

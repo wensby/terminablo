@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.terminablo.userinterface.TerminalCanvas;
-import com.wensby.util.BenchmarkView;
+import com.wensby.application.userinterface.BenchmarkView;
 import org.apache.log4j.Logger;
 
 public class Renderer {

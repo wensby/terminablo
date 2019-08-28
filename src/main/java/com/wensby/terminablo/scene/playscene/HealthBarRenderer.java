@@ -1,6 +1,5 @@
 package com.wensby.terminablo.scene.playscene;
 
-import com.wensby.Renderer;
 import com.wensby.application.userinterface.*;
 import com.wensby.terminablo.Validate;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
@@ -8,7 +7,7 @@ import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import java.awt.*;
 import java.util.Objects;
 
-public class HealthBarRenderer implements Renderer {
+public class HealthBarRenderer {
 
   public static final int ROWS = 3;
   private final TerminalLayerFactory layerFactory;
@@ -28,7 +27,6 @@ public class HealthBarRenderer implements Renderer {
     this.subType = subType;
   }
 
-  @Override
   public TerminalLayer render(InterfaceSize size) {
     var layer = layerFactory.createBlankLayer(size);
     renderHealthSection(layer);

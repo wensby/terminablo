@@ -4,7 +4,7 @@ import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.application.userinterface.TerminalLayer;
 import com.wensby.application.userinterface.TerminalLayerFactory;
-import com.wensby.util.BenchmarkView;
+import com.wensby.application.userinterface.BenchmarkView;
 
 public class BenchmarkViewImpl implements BenchmarkView {
 

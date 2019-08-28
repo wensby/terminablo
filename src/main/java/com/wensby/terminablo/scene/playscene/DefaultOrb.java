@@ -2,7 +2,7 @@ package com.wensby.terminablo.scene.playscene;
 
 import static java.util.Objects.requireNonNull;
 
-import com.wensby.util.Fraction;
+import com.wensby.terminablo.util.Fraction;
 import java.awt.Color;
 import java.util.Objects;
 import java.util.StringJoiner;

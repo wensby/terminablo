@@ -1,6 +1,6 @@
 package com.wensby.terminablo.scene.playscene;
 
-import com.wensby.util.UnitInterval;
+import com.wensby.terminablo.util.UnitInterval;
 
 public interface PartialBlockCharacterFactory {
 

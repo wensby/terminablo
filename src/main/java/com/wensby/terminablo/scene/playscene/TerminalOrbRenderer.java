@@ -7,7 +7,7 @@ import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.application.userinterface.TerminalLayer;
 import com.wensby.application.userinterface.TerminalLayerFactory;
-import com.wensby.userinterface.smartstring.NumberedString;
+import com.wensby.terminablo.userinterface.smartstring.NumberedString;
 import org.apache.log4j.Logger;
 
 public class TerminalOrbRenderer {

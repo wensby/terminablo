@@ -1,6 +1,6 @@
 package com.wensby.terminablo.scene.playscene;
 
-import com.wensby.util.Fraction;
+import com.wensby.terminablo.util.Fraction;
 import java.awt.Color;
 
 public interface Orb {

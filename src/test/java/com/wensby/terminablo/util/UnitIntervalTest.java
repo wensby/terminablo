@@ -1,4 +1,4 @@
-package com.wensby.util;
+package com.wensby.terminablo.util;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;

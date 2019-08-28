@@ -1,4 +1,4 @@
-package com.wensby.userinterface.smartstring;
+package com.wensby.terminablo.userinterface.smartstring;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;

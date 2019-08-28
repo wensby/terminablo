@@ -1,4 +1,4 @@
-package com.wensby.userinterface.smartstring;
+package com.wensby.terminablo.userinterface.smartstring;
 
 import static java.math.BigDecimal.ONE;
 import static java.util.stream.Collectors.toList;

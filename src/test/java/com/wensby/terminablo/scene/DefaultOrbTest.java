@@ -8,7 +8,7 @@ import static org.junit.Assert.assertThat;
 
 import com.wensby.terminablo.scene.playscene.DefaultOrb;
 import com.wensby.terminablo.scene.playscene.Orb;
-import com.wensby.util.Fraction;
+import com.wensby.terminablo.util.Fraction;
 import org.junit.Test;
 
 public class DefaultOrbTest {

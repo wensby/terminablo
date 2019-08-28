@@ -7,7 +7,7 @@ import com.wensby.application.userinterface.TerminalCharacter;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.application.userinterface.TerminalLayer;
 import com.wensby.application.userinterface.TerminalLayerFactory;
-import com.wensby.util.Fraction;
+import com.wensby.terminablo.util.Fraction;
 import java.awt.Color;
 import java.math.BigDecimal;
 

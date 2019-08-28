@@ -1,4 +1,4 @@
-package com.wensby.util;
+package com.wensby.terminablo.util;
 
 import static com.wensby.terminablo.Validate.requireUnitInterval;
 import static java.lang.Math.max;
