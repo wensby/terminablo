@@ -43,7 +43,7 @@ public class BenchmarkRenderer {
 
   private void renderGraph(InterfaceSize size, TerminalLayer layer) {
     var latestTickTimes = benchmark.getLatestTickTimes();
-    for (int col = 0; col < size.getWidth() && col < latestTickTimes.size(); col++) {
+    for (int col = 0; col - 1 < size.getWidth() && col < latestTickTimes.size(); col++) {
       var unit = UnitInterval.truncate((double) latestTickTimes.get(col).toMillis() / 30d);
       layer.put(createCharacter(unit), at(size.getWidth() - col, 0));
     }
@@ -51,7 +51,7 @@ public class BenchmarkRenderer {
 
   private TerminalCharacter createCharacter(UnitInterval unit) {
     if (unit.toIntRoundedDown(9) == 9) {
-      return characterFactory.createCharacter(' ', Color.RED, null);
+      return characterFactory.createCharacter(' ', null, Color.RED);
     }
     else {
       var partialBlockCharacter = this.partialBlockCharacterFactory.getPartialBlockCharacter(unit);
