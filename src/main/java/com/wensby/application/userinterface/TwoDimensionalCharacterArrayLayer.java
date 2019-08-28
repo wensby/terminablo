@@ -2,7 +2,11 @@ package com.wensby.application.userinterface;
 
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at;
 
 public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
 
@@ -18,6 +22,20 @@ public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
   }
 
   @Override
+  public List<PositionedTerminalCharacter> getPositionedCharacters() {
+    var positionedCharacters = new ArrayList<PositionedTerminalCharacter>();
+    for (int row = 0; row < characters.length; row++) {
+      for (int column = 0; column < characters[0].length; column++) {
+        var character = characters[row][column];
+        if (character != null) {
+          positionedCharacters.add(new PositionedTerminalCharacter(at(column, row), character));
+        }
+      }
+    }
+    return positionedCharacters;
+  }
+
+  @Override
   public InterfaceSize getSize() {
     return InterfaceSize.of(characters[0].length, characters.length);
   }
@@ -27,7 +45,7 @@ public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
     var size = layer.getSize();
     for (int row = 0; row < size.getHeight(); row++) {
       for (int column = 0; column < size.getWidth(); column++) {
-        var originLocation = InterfaceLocation.at(column, row);
+        var originLocation = at(column, row);
         var character = layer.getCharacter(originLocation);
         if (character != null) {
           var destinationPosition = originLocation.plus(location);

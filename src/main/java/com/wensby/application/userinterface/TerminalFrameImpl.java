@@ -2,6 +2,8 @@ package com.wensby.application.userinterface;
 
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 
+import java.util.List;
+
 public class TerminalFrameImpl implements TerminalFrame {
 
   private final TerminalLayer layer;
@@ -13,6 +15,11 @@ public class TerminalFrameImpl implements TerminalFrame {
   @Override
   public TerminalCharacter[][] getCharacters() {
     return layer.getCharacters();
+  }
+
+  @Override
+  public List<PositionedTerminalCharacter> getPositionedCharacters() {
+    return layer.getPositionedCharacters();
   }
 
   @Override
