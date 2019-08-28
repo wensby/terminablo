@@ -14,9 +14,9 @@ public class LayerDifferenceCalculator {
   private final TerminalLayer next;
 
   private List<PositionedTerminalCharacter> prevCharacters;
-  private Map<InterfaceLocation, PositionedTerminalCharacter> prevCharactersByLocaction;
+  private Map<InterfaceLocation, PositionedTerminalCharacter> prevCharactersByLocation;
   private List<PositionedTerminalCharacter> nextCharacters;
-  private Map<InterfaceLocation, PositionedTerminalCharacter> nextCharactersByLocaction;
+  private Map<InterfaceLocation, PositionedTerminalCharacter> nextCharactersByLocation;
 
   LayerDifferenceCalculator(TerminalCharacterFactory characterFactory, TerminalLayer prev, TerminalLayer next) {
     this.characterFactory = Objects.requireNonNull(characterFactory);
@@ -33,9 +33,9 @@ public class LayerDifferenceCalculator {
     }
     else {
       prevCharacters = prev.getPositionedCharacters();
-      prevCharactersByLocaction = getCharacterByLocation(prevCharacters);
+      prevCharactersByLocation = getCharacterByLocation(prevCharacters);
       nextCharacters = next.getPositionedCharacters();
-      nextCharactersByLocaction = getCharacterByLocation(nextCharacters);
+      nextCharactersByLocation = getCharacterByLocation(nextCharacters);
       return getChangedLocations().stream()
           .map(this::getDifference)
           .collect(toList());
@@ -47,7 +47,7 @@ public class LayerDifferenceCalculator {
         .filter(prevCharacters::contains)
         .map(PositionedTerminalCharacter::getLocation)
         .collect(toList());
-    return Stream.of(prevCharactersByLocaction, nextCharactersByLocaction)
+    return Stream.of(prevCharactersByLocation, nextCharactersByLocation)
         .map(Map::keySet)
         .flatMap(Set::stream)
         .filter(location -> !unchangedLocations.contains(location))
@@ -58,17 +58,17 @@ public class LayerDifferenceCalculator {
 
   private boolean isPrecedingNextCharacterShort(InterfaceLocation location) {
     var precedingLocation = location.plus(InterfaceLocation.at(-1, 0));
-    var precedingNextCharacter = nextCharactersByLocaction.getOrDefault(precedingLocation, null);
+    var precedingNextCharacter = nextCharactersByLocation.getOrDefault(precedingLocation, null);
     return precedingNextCharacter == null || precedingNextCharacter.getCharacter().getRenderLength() <= 1;
   }
 
   private PositionedTerminalCharacter getDifference(InterfaceLocation location) {
-    if (prevCharactersByLocaction.containsKey(location)) {
-      if (nextCharactersByLocaction.containsKey(location)) {
-        return nextCharactersByLocaction.get(location);
+    if (prevCharactersByLocation.containsKey(location)) {
+      if (nextCharactersByLocation.containsKey(location)) {
+        return nextCharactersByLocation.get(location);
       }
       else {
-        if (prevCharactersByLocaction.get(location).getCharacter().getRenderLength() > 1 && !isSucceedingNextCharacterPresent(location)) {
+        if (prevCharactersByLocation.get(location).getCharacter().getRenderLength() > 1 && !isSucceedingNextCharacterPresent(location)) {
           return new PositionedTerminalCharacter(location, characterFactory.createCharacter("  "));
         }
         else {
@@ -77,7 +77,7 @@ public class LayerDifferenceCalculator {
       }
     }
     else {
-      return nextCharactersByLocaction.get(location);
+      return nextCharactersByLocation.get(location);
     }
   }
 
@@ -86,7 +86,7 @@ public class LayerDifferenceCalculator {
   }
 
   private Optional<PositionedTerminalCharacter> findNextCharacter(InterfaceLocation location) {
-    return Optional.ofNullable(nextCharactersByLocaction.getOrDefault(location, null));
+    return Optional.ofNullable(nextCharactersByLocation.getOrDefault(location, null));
   }
 
   private Map<InterfaceLocation, PositionedTerminalCharacter> getCharacterByLocation(List<PositionedTerminalCharacter> characters) {
