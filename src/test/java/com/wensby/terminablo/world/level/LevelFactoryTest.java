@@ -26,7 +26,7 @@ public class LevelFactoryTest {
     when(levelEntityFactory.createWall()).thenReturn(wallEntity);
     var levelFactory = new LevelFactory(levelEntityFactory);
 
-    var level = levelFactory.createFactoryFromString(
+    var level = levelFactory.createLevelFromString(
         "###\n" +
         "# #\n" +
         "###");

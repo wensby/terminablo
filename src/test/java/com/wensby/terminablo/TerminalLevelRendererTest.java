@@ -34,7 +34,7 @@ public class TerminalLevelRendererTest {
     when(entityRenderer.getTerminalCharacter(any())).thenReturn(Optional.of(new SimpleTerminalCharacterImpl('#')));
     var renderer = new TerminalLevelRenderer(layerFactory, entityRenderer);
     when(layerFactory.createBlankLayer(interfaceSize)).thenReturn(new TwoDimensionalCharacterArrayLayer(new TerminalCharacter[5][5]));
-    var level = levelFactory.createFactoryFromString("###\n# #\n###");
+    var level = levelFactory.createLevelFromString("###\n# #\n###");
     renderer.render(level, LevelLocation.of(1, 1), interfaceSize);
   }
 }

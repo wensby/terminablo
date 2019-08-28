@@ -17,7 +17,7 @@ public class LevelFactory {
   
   public Level createLevelFromResourceFile(Path resourcePath) {
     final String mapString = readString(resourcePath);
-    return createFactoryFromString(mapString);
+    return createLevelFromString(mapString);
   }
 
   private String readString(Path filepath) {
@@ -28,7 +28,7 @@ public class LevelFactory {
     }
   }
 
-  public Level createFactoryFromString(String stringRepresentation) {
+  public Level createLevelFromString(String stringRepresentation) {
     var lines = stringRepresentation.split("\n");
     var y = 0;
     var entities = new HashMap<LevelLocation, Set<LevelEntity>>();
