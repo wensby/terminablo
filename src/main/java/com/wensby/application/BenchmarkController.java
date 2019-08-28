@@ -1,7 +1,7 @@
 package com.wensby.application;
 
 import com.wensby.application.userinterface.UserInput;
-import com.wensby.terminablo.userinterface.Key;
+import com.wensby.application.userinterface.Key;
 
 import java.time.Duration;
 

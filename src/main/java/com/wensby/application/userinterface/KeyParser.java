@@ -1,4 +1,4 @@
-package com.wensby.terminablo.userinterface;
+package com.wensby.application.userinterface;
 
 import static com.wensby.terminablo.ListUtil.truncateList;
 import static java.util.stream.Collectors.toList;

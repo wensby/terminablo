@@ -1,4 +1,4 @@
-package com.wensby.terminablo.userinterface;
+package com.wensby.application.userinterface;
 
 import java.util.List;
 

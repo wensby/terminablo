@@ -1,6 +1,6 @@
 package com.wensby.terminablo.scene.playscene;
 
-import com.wensby.terminablo.userinterface.Key;
+import com.wensby.application.userinterface.Key;
 import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.world.level.Level;
 import com.wensby.terminablo.world.level.LevelEntity;
@@ -11,7 +11,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 
-import static com.wensby.terminablo.userinterface.Key.*;
+import static com.wensby.application.userinterface.Key.*;
 
 public class PlayerMovementController implements Controller {
 

@@ -5,7 +5,7 @@ import com.wensby.application.userinterface.UserInput;
 import java.time.Duration;
 import java.util.Objects;
 
-import static com.wensby.terminablo.userinterface.Key.END_OF_FILE;
+import static com.wensby.application.userinterface.Key.END_OF_FILE;
 
 class Updater {
 

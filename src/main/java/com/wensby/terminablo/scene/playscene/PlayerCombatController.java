@@ -1,6 +1,6 @@
 package com.wensby.terminablo.scene.playscene;
 
-import com.wensby.terminablo.userinterface.Key;
+import com.wensby.application.userinterface.Key;
 import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.world.level.LevelLocation;
 import com.wensby.application.userinterface.UserInput;

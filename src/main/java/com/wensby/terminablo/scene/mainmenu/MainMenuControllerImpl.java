@@ -1,6 +1,6 @@
 package com.wensby.terminablo.scene.mainmenu;
 
-import static com.wensby.terminablo.userinterface.Key.*;
+import static com.wensby.application.userinterface.Key.*;
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.terminablo.scene.SceneStack;

@@ -1,8 +1,6 @@
 package com.wensby.application.userinterface;
 
 import com.wensby.terminablo.ListUtil;
-import com.wensby.terminablo.userinterface.Key;
-import com.wensby.terminablo.userinterface.Keyboard;
 
 import java.io.IOException;
 import java.io.InputStream;

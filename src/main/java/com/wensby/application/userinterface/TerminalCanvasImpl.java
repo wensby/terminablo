@@ -1,7 +1,5 @@
 package com.wensby.application.userinterface;
 
-import com.wensby.terminablo.userinterface.TerminalCanvas;
-
 import java.io.PrintStream;
 
 public class TerminalCanvasImpl implements TerminalCanvas {

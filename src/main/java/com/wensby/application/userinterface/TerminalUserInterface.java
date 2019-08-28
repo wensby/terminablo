@@ -1,9 +1,5 @@
 package com.wensby.application.userinterface;
 
-import com.wensby.terminablo.userinterface.Key;
-import com.wensby.terminablo.userinterface.Keyboard;
-import com.wensby.terminablo.userinterface.TerminalCanvas;
-
 import java.util.List;
 
 public class TerminalUserInterface {

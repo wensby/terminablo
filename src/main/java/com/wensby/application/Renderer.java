@@ -5,7 +5,7 @@ import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.terminablo.userinterface.TerminalCanvas;
+import com.wensby.application.userinterface.TerminalCanvas;
 import com.wensby.application.userinterface.BenchmarkView;
 import org.apache.log4j.Logger;
 

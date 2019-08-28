@@ -1,10 +1,10 @@
-package com.wensby.terminablo.userinterface;
+package com.wensby.application.userinterface;
 
 import org.junit.Test;
 
 import java.util.List;
 
-import static com.wensby.terminablo.userinterface.Key.*;
+import static com.wensby.application.userinterface.Key.*;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
