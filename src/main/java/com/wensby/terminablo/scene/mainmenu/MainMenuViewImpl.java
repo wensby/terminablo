@@ -30,14 +30,17 @@ public class MainMenuViewImpl implements MainMenuView {
     var layer = layerFactory.createBlankLayer(size);
 
     var menuItems = model.getMenuItems();
+    var expectedWidth = menuItems.stream().mapToInt(String::length).max().orElse(0);
+    var expectedHeight = menuItems.size();
     var writer = new LayerWriterImpl(characterFactory, layer);
+    var at = InterfaceLocation.at((size.getWidth() / 2) - (expectedWidth / 2), (size.getHeight() / 2) - (expectedHeight / 2));
     for (int i = 0; i < menuItems.size(); i++) {
       var menuItem = new StringBuilder();
       if (model.getSelectedMenuItemIndex() == i) {
         menuItem.append("> ");
       }
       menuItem.append(menuItems.get(i));
-      writer.write(menuItem.toString(), InterfaceLocation.at(0, i));
+      writer.write(menuItem.toString(), at.plus(InterfaceLocation.at(0, i)));
     }
 
     return layer;
