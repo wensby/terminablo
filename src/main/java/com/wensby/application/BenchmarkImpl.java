@@ -3,17 +3,18 @@ package com.wensby.application;
 import static java.util.Objects.requireNonNull;
 
 import java.time.Duration;
+import java.util.List;
 
 public class BenchmarkImpl implements Benchmark {
 
   private final Duration lastUpdateTime;
   private final Duration lastRenderTime;
-  private final Duration lastTickTime;
+  private final List<Duration> latestTickTimes;
 
-  public BenchmarkImpl(Duration lastUpdateTime, Duration lastRenderTime, Duration lastTickTime) {
+  public BenchmarkImpl(Duration lastUpdateTime, Duration lastRenderTime, List<Duration> latestTickTimes) {
     this.lastUpdateTime = requireNonNull(lastUpdateTime);
     this.lastRenderTime = requireNonNull(lastRenderTime);
-    this.lastTickTime = requireNonNull(lastTickTime);
+    this.latestTickTimes = requireNonNull(latestTickTimes);
   }
 
   @Override
@@ -28,6 +29,11 @@ public class BenchmarkImpl implements Benchmark {
 
   @Override
   public Duration getLastTickTime() {
-    return lastTickTime;
+    return latestTickTimes.get(0);
+  }
+
+  @Override
+  public List<Duration> getLatestTickTimes() {
+    return latestTickTimes;
   }
 }

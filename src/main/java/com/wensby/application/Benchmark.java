@@ -1,6 +1,7 @@
 package com.wensby.application;
 
 import java.time.Duration;
+import java.util.List;
 
 public interface Benchmark {
 
@@ -9,4 +10,6 @@ public interface Benchmark {
   Duration getLastRenderTime();
 
   Duration getLastTickTime();
+
+  List<Duration> getLatestTickTimes();
 }

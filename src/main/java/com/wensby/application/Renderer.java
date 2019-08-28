@@ -1,8 +1,10 @@
 package com.wensby.application;
 
+import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at;
 import static com.wensby.terminablo.userinterface.component.InterfaceLocation.atOrigin;
 import static java.util.Objects.requireNonNull;
 
+import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.terminablo.userinterface.TerminalCanvas;
 import com.wensby.util.BenchmarkView;
 import org.apache.log4j.Logger;
@@ -27,10 +29,14 @@ public class Renderer {
 
   public void render() {
     var frame = canvas.createFrame();
-    frame.put(applicationRenderer.renderFrame(frame.getSize()), atOrigin());
     if (benchmarkModel.isDisplayed()) {
-      var layer = benchmarkView.render(frame.getSize());
-      frame.put(layer, atOrigin());
+      var benchmarkLayer = benchmarkView.render(frame.getSize());
+      frame.put(benchmarkLayer, atOrigin());
+      var benchmarkLayerHeight = benchmarkLayer.getSize().getHeight();
+      frame.put(applicationRenderer.renderFrame(frame.getSize().minus(InterfaceSize.of(0, benchmarkLayerHeight))), at(0, benchmarkLayerHeight));
+    }
+    else {
+      frame.put(applicationRenderer.renderFrame(frame.getSize()), atOrigin());
     }
     LOGGER.debug("Rendering frame at size " + frame.getSize());
     canvas.renderFrame(frame);
