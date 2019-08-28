@@ -55,7 +55,7 @@ public class BenchmarkRenderer {
     }
     else {
       var partialBlockCharacter = this.partialBlockCharacterFactory.getPartialBlockCharacter(unit);
-      return characterFactory.createCharacter(partialBlockCharacter, new CharacterDecoration(null, Color.WHITE));
+      return characterFactory.createCharacter(partialBlockCharacter);
     }
   }
 }
