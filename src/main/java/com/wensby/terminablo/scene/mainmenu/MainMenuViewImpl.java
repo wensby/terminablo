@@ -9,13 +9,13 @@ import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.application.userinterface.TerminalLayer;
 import com.wensby.application.userinterface.TerminalLayerFactory;
 
-public class LinuxTerminalMainMenuView implements MainMenuView {
+public class MainMenuViewImpl implements MainMenuView {
 
   private final MainMenuModel model;
   private final TerminalLayerFactory layerFactory;
   private final TerminalCharacterFactory characterFactory;
 
-  public LinuxTerminalMainMenuView(
+  public MainMenuViewImpl(
       MainMenuModel model,
       TerminalLayerFactory layerFactory,
       TerminalCharacterFactory characterFactory

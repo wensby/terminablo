@@ -5,7 +5,7 @@ import com.wensby.application.TerminalApplicationContext;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.scene.SceneStackImpl;
-import com.wensby.terminablo.scene.mainmenu.LinuxTerminalMainMenuView;
+import com.wensby.terminablo.scene.mainmenu.MainMenuViewImpl;
 import com.wensby.terminablo.scene.mainmenu.MainMenuControllerImpl;
 import com.wensby.terminablo.scene.mainmenu.MainMenuModelImpl;
 import com.wensby.terminablo.scene.playscene.PlaySceneFactory;
@@ -38,7 +38,7 @@ public class TerminabloFactory {
       PlaySceneFactory playSceneFactory
   ) {
     var model = new MainMenuModelImpl();
-    var view = new LinuxTerminalMainMenuView(model, layerFactory, characterFactory);
+    var view = new MainMenuViewImpl(model, layerFactory, characterFactory);
     var controller = new MainMenuControllerImpl(model, sceneStack, playSceneFactory);
     return new Scene(controller, view);
   }
