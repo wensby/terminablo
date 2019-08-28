@@ -3,11 +3,8 @@ package com.wensby.terminablo.scene.playscene;
 import static java.math.BigDecimal.ONE;
 import static java.util.Objects.requireNonNull;
 
+import com.wensby.application.userinterface.*;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalCharacterFactory;
-import com.wensby.application.userinterface.TerminalLayer;
-import com.wensby.application.userinterface.TerminalLayerFactory;
 import com.wensby.util.UnitInterval;
 import java.math.BigDecimal;
 import org.apache.log4j.Logger;
@@ -52,7 +49,7 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
       var surfaceRowPercent = rowsPercent.divideAndRemainder(ONE)[1].floatValue();
       var character = partialBlockFactory.getPartialBlockCharacter(UnitInterval.of(surfaceRowPercent));
       var surfaceRow = size.getHeight() - fullRows - 1;
-      var surfaceCharacter = characterFactory.createCharacter(character, color, null);
+      var surfaceCharacter = characterFactory.createCharacter(character, new CharacterDecoration(null, color));
       for (int x = 0; x < size.getWidth(); x++) {
         var position = InterfaceLocation.at(x, surfaceRow);
         layer.put(surfaceCharacter, position);

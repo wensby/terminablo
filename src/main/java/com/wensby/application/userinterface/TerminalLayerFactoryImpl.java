@@ -22,7 +22,7 @@ public class TerminalLayerFactoryImpl implements TerminalLayerFactory {
   @Override
   public TerminalLayer createColoredLayer(InterfaceSize size, Color color) {
     var layer = createBlankLayer(size);
-    var character = characterFactory.createCharacter(' ', null, color);
+    var character = characterFactory.createCharacter(' ', new CharacterDecoration(color, null));
     for (int row = 0; row < size.getHeight(); row++) {
       paintLayerRow(layer, row, character);
     }

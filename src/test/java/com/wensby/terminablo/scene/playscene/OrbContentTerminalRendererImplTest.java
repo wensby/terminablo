@@ -5,6 +5,7 @@ import static java.math.BigDecimal.TEN;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -65,7 +66,7 @@ public class OrbContentTerminalRendererImplTest {
     when(orb.getColor()).thenReturn(color);
     when(orb.getValues()).thenReturn(new Fraction(TEN, TEN));
     when(layerFactory.createBlankLayer(size)).thenReturn(layer);
-    when(characterFactory.createCharacter(' ', null, color)).thenReturn(character);
+    when(characterFactory.createCharacter(eq(' '), any())).thenReturn(character);
 
     var result = renderer.render(orb, size);
 
@@ -84,7 +85,7 @@ public class OrbContentTerminalRendererImplTest {
     when(orb.getColor()).thenReturn(color);
     when(orb.getValues()).thenReturn(new Fraction(ONE, TEN));
     when(partialBlockFactory.getPartialBlockCharacter(any())).thenReturn(character);
-    when(characterFactory.createCharacter(character, color, null)).thenReturn(terminalCharacter);
+    when(characterFactory.createCharacter(eq(character), any())).thenReturn(terminalCharacter);
 
     var result = renderer.render(orb, size);
 

@@ -15,10 +15,8 @@ public class TerminalCharacterFactoryImpl implements TerminalCharacterFactory {
   }
 
   @Override
-  public TerminalCharacter createCharacter(char character, Color foregroundColor,
-      Color backgroundColor) {
-    return new ComplexTerminalCharacterImpl(String.valueOf(character),
-        new CharacterDecoration(backgroundColor, foregroundColor));
+  public TerminalCharacter createCharacter(char character, CharacterDecoration decoration) {
+    return new ComplexTerminalCharacterImpl(String.valueOf(character), decoration);
   }
 
   @Override

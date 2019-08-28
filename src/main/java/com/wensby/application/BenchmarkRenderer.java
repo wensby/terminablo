@@ -51,11 +51,11 @@ public class BenchmarkRenderer {
 
   private TerminalCharacter createCharacter(UnitInterval unit) {
     if (unit.toIntRoundedDown(9) == 9) {
-      return characterFactory.createCharacter(' ', null, Color.RED);
+      return characterFactory.createCharacter(' ', new CharacterDecoration(Color.RED, null));
     }
     else {
       var partialBlockCharacter = this.partialBlockCharacterFactory.getPartialBlockCharacter(unit);
-      return characterFactory.createCharacter(partialBlockCharacter, Color.WHITE, null);
+      return characterFactory.createCharacter(partialBlockCharacter, new CharacterDecoration(null, Color.WHITE));
     }
   }
 }

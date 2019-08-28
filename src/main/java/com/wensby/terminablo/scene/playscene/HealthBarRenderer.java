@@ -1,10 +1,7 @@
 package com.wensby.terminablo.scene.playscene;
 
 import com.wensby.Renderer;
-import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalCharacterFactory;
-import com.wensby.application.userinterface.TerminalLayer;
-import com.wensby.application.userinterface.TerminalLayerFactory;
+import com.wensby.application.userinterface.*;
 import com.wensby.terminablo.Validate;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 
@@ -43,8 +40,9 @@ public class HealthBarRenderer implements Renderer {
   private void renderHealthSection(TerminalLayer layer) {
     var height = layer.getSize().getHeight();
     if (height > 0) {
+      var decoration = new CharacterDecoration(Color.RED, Color.WHITE);
       for (int i = 0; i < name.length(); i++) {
-        layer.put(characterFactory.createCharacter(name.charAt(i), Color.WHITE, Color.RED), InterfaceLocation.at(i, 0));
+        layer.put(characterFactory.createCharacter(name.charAt(i), decoration), InterfaceLocation.at(i, 0));
       }
     }
   }
