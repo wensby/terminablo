@@ -4,11 +4,11 @@ import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 
 import java.util.Optional;
 
-public class TerminalLayerImpl implements TerminalLayer {
+public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
 
   private final TerminalCharacter[][] characters;
 
-  public TerminalLayerImpl(TerminalCharacter[][] characters) {
+  public TwoDimensionalCharacterArrayLayer(TerminalCharacter[][] characters) {
     this.characters = characters.clone();
   }
 
