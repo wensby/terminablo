@@ -3,43 +3,65 @@ package com.wensby.application.userinterface;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 
 import java.util.*;
+import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.*;
 
 public class LayerDifferenceCalculator {
 
   private final TerminalCharacterFactory characterFactory;
+  private final TerminalLayer prev;
+  private final TerminalLayer next;
 
-  public LayerDifferenceCalculator(TerminalCharacterFactory characterFactory) {
+  private List<PositionedTerminalCharacter> prevCharacters;
+  private Map<InterfaceLocation, PositionedTerminalCharacter> prevCharactersByLocaction;
+  private List<PositionedTerminalCharacter> nextCharacters;
+  private Map<InterfaceLocation, PositionedTerminalCharacter> nextCharactersByLocaction;
+
+  LayerDifferenceCalculator(TerminalCharacterFactory characterFactory, TerminalLayer prev, TerminalLayer next) {
     this.characterFactory = Objects.requireNonNull(characterFactory);
+    this.prev = prev; // can be null
+    this.next = Objects.requireNonNull(next);
   }
 
   /**
    * @return a list at positioned characters, sorted by column and row.
    */
-  public List<PositionedTerminalCharacter> getDifference(TerminalLayer prev, TerminalLayer next) {
+  public List<PositionedTerminalCharacter> getDifference() {
     if (prev == null) {
       return next.getPositionedCharacters();
     }
     else {
-      var prevCharacters = prev.getPositionedCharacters();
-      var prevCharactersByLoc = getCharacterByLocationMap(prevCharacters);
-      var nextCharacters = next.getPositionedCharacters();
-      var nextCharactersByLoc = getCharacterByLocationMap(nextCharacters);
-      return getChangedLocations(prevCharactersByLoc, nextCharactersByLoc, nextCharacters, prevCharacters).parallelStream()
-          .map(a -> getDifferenceCharacter(prevCharactersByLoc, nextCharactersByLoc, a))
+      prevCharacters = prev.getPositionedCharacters();
+      prevCharactersByLocaction = getCharacterByLocation(prevCharacters);
+      nextCharacters = next.getPositionedCharacters();
+      nextCharactersByLocaction = getCharacterByLocation(nextCharacters);
+      return getChangedLocations().stream()
+          .map(this::getDifference)
           .collect(toList());
     }
   }
 
-  private PositionedTerminalCharacter getDifferenceCharacter(Map<InterfaceLocation, PositionedTerminalCharacter> prevCharactersByLoc, Map<InterfaceLocation, PositionedTerminalCharacter> nextCharactersByLoc, InterfaceLocation location) {
-    if (prevCharactersByLoc.containsKey(location)) {
-      if (nextCharactersByLoc.containsKey(location)) {
-        return nextCharactersByLoc.get(location);
+  private Set<InterfaceLocation> getChangedLocations() {
+    var unchangedLocations = nextCharacters.stream()
+        .filter(prevCharacters::contains)
+        .map(PositionedTerminalCharacter::getLocation)
+        .collect(toList());
+    return Stream.of(prevCharactersByLocaction, nextCharactersByLocaction)
+        .map(Map::keySet)
+        .flatMap(Set::stream)
+        .filter(location -> !unchangedLocations.contains(location))
+        .collect(toSet());
+
+  }
+
+  private PositionedTerminalCharacter getDifference(InterfaceLocation location) {
+    if (prevCharactersByLocaction.containsKey(location)) {
+      if (nextCharactersByLocaction.containsKey(location)) {
+        return nextCharactersByLocaction.get(location);
       }
       else {
-        if (prevCharactersByLoc.get(location).getCharacter().getRenderLength() > 1) {
+        if (prevCharactersByLocaction.get(location).getCharacter().getRenderLength() > 1) {
           return new PositionedTerminalCharacter(location, characterFactory.createCharacter("  "));
         }
         else {
@@ -48,24 +70,12 @@ public class LayerDifferenceCalculator {
       }
     }
     else {
-      return nextCharactersByLoc.get(location);
+      return nextCharactersByLocaction.get(location);
     }
   }
 
-  private HashSet<InterfaceLocation> getChangedLocations(Map<InterfaceLocation, PositionedTerminalCharacter> prevCharactersByLoc, Map<InterfaceLocation, PositionedTerminalCharacter> nextCharactersByLoc, List<PositionedTerminalCharacter> nextCharacters, List<PositionedTerminalCharacter> prevCharacters) {
-    var changedLocations = new HashSet<InterfaceLocation>();
-    changedLocations.addAll(prevCharactersByLoc.keySet());
-    changedLocations.addAll(nextCharactersByLoc.keySet());
-    var unchangedLocations = nextCharacters.parallelStream()
-        .filter(prevCharacters::contains)
-        .map(PositionedTerminalCharacter::getLocation)
-        .collect(toList());
-    changedLocations.removeAll(unchangedLocations);
-    return changedLocations;
+  private Map<InterfaceLocation, PositionedTerminalCharacter> getCharacterByLocation(List<PositionedTerminalCharacter> characters) {
+    return characters.stream()
+        .collect(toMap(PositionedTerminalCharacter::getLocation, c -> c));
   }
-
-  private Map<InterfaceLocation, PositionedTerminalCharacter> getCharacterByLocationMap(List<PositionedTerminalCharacter> positionedCharacters) {
-    return positionedCharacters.parallelStream().collect(toMap(PositionedTerminalCharacter::getLocation, c -> c));
-  }
-
 }

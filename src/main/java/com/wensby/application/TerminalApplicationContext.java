@@ -23,7 +23,7 @@ public class TerminalApplicationContext {
     var terminal = new LinuxTerminal(in, out, bashCommandExecutor, commandFactory);
     characterFactory = new TerminalCharacterFactoryImpl();
     layerFactory = new TerminalLayerFactoryImpl(characterFactory);
-    var layerDifferenceCalculator = new LayerDifferenceCalculator(characterFactory);
+    var layerDifferenceCalculator = new LayerDifferenceCalculatorFactory(characterFactory);
     var frameFactory = new TerminalFrameFactory(terminal, layerFactory);
     var terminalCanvas = new TerminalCanvasImpl(
         frameFactory, terminal.getOutputStream(), commandFactory, layerDifferenceCalculator);
