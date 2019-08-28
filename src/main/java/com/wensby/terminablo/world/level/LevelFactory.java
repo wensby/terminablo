@@ -5,10 +5,7 @@ import static java.util.stream.Collectors.joining;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class LevelFactory {
 
@@ -34,15 +31,13 @@ public class LevelFactory {
   public Level createFactoryFromString(String stringRepresentation) {
     var lines = stringRepresentation.split("\n");
     var y = 0;
-    var entities = new HashMap<LevelLocation, List<LevelEntity>>();
+    var entities = new HashMap<LevelLocation, Set<LevelEntity>>();
     for (var line : lines) {
       for (int x = 0; x < line.length(); x++) {
         var entity = parseEntity(line.charAt(x));
         if (entity.isPresent()) {
           var location = LevelLocation.of(x, y);
-          entities
-              .computeIfAbsent(location, levelLocation -> new ArrayList<>());
-          entities.get(location).add(entity.get());
+          entities.computeIfAbsent(location, levelLocation -> new HashSet<>()).add(entity.get());
         }
       }
       y++;

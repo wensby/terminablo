@@ -1,14 +1,14 @@
 package com.wensby.terminablo.world.level;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public interface Level {
 
-  Map<LevelLocation, List<LevelEntity>> entities();
+  Map<LevelLocation, Set<LevelEntity>> entities();
 
-  List<LevelEntity> entities(LevelLocation location);
+  Set<LevelEntity> entities(LevelLocation location);
 
   Optional<LevelLocation> locationOf(LevelEntity levelEntity);
 

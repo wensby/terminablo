@@ -1,61 +1,53 @@
 package com.wensby.terminablo.world.level;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
+import java.util.*;
 
 public class LevelImpl implements Level {
 
-  private final Map<LevelLocation, List<LevelEntity>> entitiesByLocation;
+  private final Map<LevelLocation, Set<LevelEntity>> entitiesByLocation;
+  private final Map<LevelEntity, LevelLocation> locationByEntity;
 
-  public LevelImpl(Map<LevelLocation, List<LevelEntity>> entitiesByLocation) {
+  public LevelImpl(Map<LevelLocation, Set<LevelEntity>> entitiesByLocation) {
     this.entitiesByLocation = new HashMap<>(entitiesByLocation);
+    this.locationByEntity = new HashMap<>();
+    for (var entry : entitiesByLocation.entrySet()) {
+      var location = entry.getKey();
+      for (var entity : entry.getValue()) {
+        this.locationByEntity.put(entity, location);
+      }
+    }
   }
 
   @Override
-  public Map<LevelLocation, List<LevelEntity>> entities() {
+  public Map<LevelLocation, Set<LevelEntity>> entities() {
     return Map.copyOf(entitiesByLocation);
   }
 
   @Override
-  public List<LevelEntity> entities(LevelLocation location) {
-    return entitiesByLocation.getOrDefault(location, List.of());
+  public Set<LevelEntity> entities(LevelLocation location) {
+    return entitiesByLocation.getOrDefault(location, Set.of());
   }
 
   @Override
   public Optional<LevelLocation> locationOf(LevelEntity entity) {
-    return entryOfEntity(entity)
-        .map(Entry::getKey);
-  }
-
-  private Optional<Entry<LevelLocation, List<LevelEntity>>> entryOfEntity(LevelEntity entity) {
-    return entitiesByLocation.entrySet().parallelStream()
-        .filter(entry -> containsEntity(entry, entity))
-        .findAny();
+    return Optional.ofNullable(locationByEntity.getOrDefault(entity, null));
   }
 
   @Override
   public void putEntity(LevelLocation location, LevelEntity entity) {
-    entitiesByLocation.computeIfAbsent(location, levelLocation -> new ArrayList<>());
-    entitiesByLocation.get(location).add(entity);
+    entitiesByLocation.computeIfAbsent(location, levelLocation -> new HashSet<>()).add(entity);
+    locationByEntity.put(entity, location);
   }
 
   @Override
   public Optional<LevelLocation> removeEntity(LevelEntity entity) {
-    final var levelLocationListEntry = entryOfEntity(
-        entity);
-    if (levelLocationListEntry.isPresent()) {
-      levelLocationListEntry.get().getValue().remove(entity);
-      return Optional.of(levelLocationListEntry.get().getKey());
+    var location = locationOf(entity);
+    if (location.isPresent()) {
+      locationByEntity.remove(entity);
+      entitiesByLocation.get(location.get()).remove(entity);
+      return location;
     }
     return Optional.empty();
   }
 
-  private boolean containsEntity(Entry<LevelLocation, List<LevelEntity>> entry,
-      LevelEntity entity) {
-    return entry.getValue().parallelStream().anyMatch(entity::equals);
-  }
 }
