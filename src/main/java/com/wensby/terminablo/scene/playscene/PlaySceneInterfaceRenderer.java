@@ -63,7 +63,7 @@ public class PlaySceneInterfaceRenderer {
     int top = layer.getSize().getHeight() - orbSize.getHeight();
     var healthOrbPosition = InterfaceLocation.at(0, top);
     layer.put(healthOrbRepresentation, healthOrbPosition);
-    var manaOrb = new DefaultOrb("MP", Color.BLUE, new Fraction(BigDecimal.TEN, new BigDecimal(100)));
+    var manaOrb = new DefaultOrb("MP", Color.BLUE, new Fraction(hero.getStats().getMana(), hero.getStats().getMaxMana()));
     var manaOrbRepresentation = orbRenderer.render(manaOrb, orbSize);
     var manaOrbPosition = InterfaceLocation.at(layer.getSize().getWidth() - orbSize.getWidth(), top);
     layer.put(manaOrbRepresentation, manaOrbPosition);

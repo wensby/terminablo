@@ -28,8 +28,8 @@ public class PlaySceneController implements Controller {
 
   @Override
   public void update(Duration elapsedTime, UserInput input) {
-    BigDecimal plus = model.getCharacter().getStats().getLife().add(BigDecimal.TEN);
-    model.getCharacter().getStats().setLife(plus);
+    BigDecimal plus = model.getCharacter().getStats().getMana().add(new BigDecimal(elapsedTime.toMillis()));
+    model.getCharacter().getStats().setMana(plus);
     if (input.getKeyStrokes().contains(ESCAPE)) {
       sceneStack.pop();
     }
