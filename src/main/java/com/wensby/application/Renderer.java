@@ -39,6 +39,7 @@ public class Renderer {
       frame.put(applicationRenderer.renderFrame(frame.getSize()), atOrigin());
     }
     LOGGER.debug("Rendering frame at size " + frame.getSize());
-    canvas.renderFrame(frame);
+    var renderResult = canvas.renderFrame(frame);
+    benchmarkModel.setLastRenderStringLength(renderResult.getRenderStringLength());
   }
 }

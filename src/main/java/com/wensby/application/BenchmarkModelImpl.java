@@ -10,6 +10,7 @@ public class BenchmarkModelImpl implements BenchmarkModel {
   private Duration lastUpdateTime = Duration.ZERO;
   private Duration lastRenderTime = Duration.ZERO;
   private List<Duration> latestTickTimes = new LinkedList<>(List.of(Duration.ZERO));
+  private int lastRenderStringLength;
 
   @Override
   public boolean isDisplayed() {
@@ -40,7 +41,12 @@ public class BenchmarkModelImpl implements BenchmarkModel {
   }
 
   @Override
+  public void setLastRenderStringLength(int renderStringLength) {
+    lastRenderStringLength = renderStringLength;
+  }
+
+  @Override
   public Benchmark getBenchmark() {
-    return new BenchmarkImpl(lastUpdateTime, lastRenderTime, latestTickTimes);
+    return new BenchmarkImpl(lastUpdateTime, lastRenderTime, latestTickTimes, lastRenderStringLength);
   }
 }

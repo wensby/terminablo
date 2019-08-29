@@ -26,7 +26,7 @@ public class TerminalCanvasImpl implements TerminalCanvas {
   }
 
   @Override
-  public void renderFrame(TerminalFrame frame) {
+  public CanvasRenderResult renderFrame(TerminalFrame frame) {
     if (previousFrame == null || !previousFrame.getSize().equals(frame.getSize())) {
       printStream.print(commandFactory.createClearScreenCommand().toRenderString());
       previousFrame = null;
@@ -34,9 +34,11 @@ public class TerminalCanvasImpl implements TerminalCanvas {
     var differenceCalculator = differenceCalculatorFactory.createLayerDifferenceCalculator(previousFrame, frame);
     var differingCharacters = differenceCalculator.getDifference();
     var command = commandFactory.createCommand(differingCharacters);
-    printStream.print(command.toRenderString());
+    var commandRenderString = command.toRenderString();
+    printStream.print(commandRenderString);
     printStream.flush();
     previousFrame = frame;
+    return new CanvasRenderResult(commandRenderString.length());
   }
 
 }

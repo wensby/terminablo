@@ -12,4 +12,6 @@ public interface Benchmark {
   Duration getLastTickTime();
 
   List<Duration> getLatestTickTimes();
+
+  int getLastRenderStringLength();
 }

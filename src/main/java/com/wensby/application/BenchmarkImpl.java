@@ -10,11 +10,13 @@ public class BenchmarkImpl implements Benchmark {
   private final Duration lastUpdateTime;
   private final Duration lastRenderTime;
   private final List<Duration> latestTickTimes;
+  private final int lastRenderStringLength;
 
-  public BenchmarkImpl(Duration lastUpdateTime, Duration lastRenderTime, List<Duration> latestTickTimes) {
+  public BenchmarkImpl(Duration lastUpdateTime, Duration lastRenderTime, List<Duration> latestTickTimes, int lastRenderStringLength) {
     this.lastUpdateTime = requireNonNull(lastUpdateTime);
     this.lastRenderTime = requireNonNull(lastRenderTime);
     this.latestTickTimes = requireNonNull(latestTickTimes);
+    this.lastRenderStringLength = lastRenderStringLength;
   }
 
   @Override
@@ -35,5 +37,10 @@ public class BenchmarkImpl implements Benchmark {
   @Override
   public List<Duration> getLatestTickTimes() {
     return latestTickTimes;
+  }
+
+  @Override
+  public int getLastRenderStringLength() {
+    return lastRenderStringLength;
   }
 }

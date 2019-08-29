@@ -4,5 +4,5 @@ public interface TerminalCanvas {
 
   TerminalFrame createFrame();
 
-  void renderFrame(TerminalFrame frame);
+  CanvasRenderResult renderFrame(TerminalFrame frame);
 }
