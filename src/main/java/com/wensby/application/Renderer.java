@@ -7,6 +7,8 @@ import static java.util.Objects.requireNonNull;
 import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.application.userinterface.TerminalCanvas;
 import com.wensby.application.userinterface.BenchmarkView;
+import com.wensby.application.userinterface.TerminalFrame;
+import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import org.apache.log4j.Logger;
 
 public class Renderer {
@@ -33,13 +35,17 @@ public class Renderer {
       var benchmarkLayer = benchmarkView.render(frame.getSize());
       frame.put(benchmarkLayer, atOrigin());
       var benchmarkLayerHeight = benchmarkLayer.getSize().getHeight();
-      frame.put(applicationRenderer.renderFrame(frame.getSize().minus(InterfaceSize.of(0, benchmarkLayerHeight))), at(0, benchmarkLayerHeight));
+      renderApplication(frame, at(0, benchmarkLayerHeight));
     }
     else {
-      frame.put(applicationRenderer.renderFrame(frame.getSize()), atOrigin());
+      renderApplication(frame, atOrigin());
     }
     LOGGER.debug("Rendering frame at size " + frame.getSize());
     var renderResult = canvas.renderFrame(frame);
     benchmarkModel.setLastRenderStringLength(renderResult.getRenderStringLength());
+  }
+
+  private void renderApplication(TerminalFrame frame, InterfaceLocation topLeft) {
+    frame.put(applicationRenderer.renderFrame(frame.getSize().minus(InterfaceSize.of(0, topLeft.getRow()))), topLeft);
   }
 }
