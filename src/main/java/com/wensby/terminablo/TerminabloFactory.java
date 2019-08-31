@@ -2,6 +2,7 @@ package com.wensby.terminablo;
 
 import com.wensby.application.TerminalApplication;
 import com.wensby.application.TerminalApplicationContext;
+import com.wensby.application.userinterface.UserInput;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.scene.SceneStackImpl;
@@ -11,6 +12,9 @@ import com.wensby.terminablo.scene.mainmenu.MainMenuModelImpl;
 import com.wensby.terminablo.scene.playscene.PlaySceneFactory;
 import com.wensby.terminablo.scene.playscene.PlaySceneFactoryImpl;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
+import com.wensby.terminablo.scene.testscene.TestSceneView;
+
+import java.time.Duration;
 
 public class TerminabloFactory {
 
@@ -19,6 +23,7 @@ public class TerminabloFactory {
     var sceneStack = new SceneStackImpl();
     var levelSceneFactory = new PlaySceneFactoryImpl(characterFactory, sceneStack);
     var scene = createMainMenuScene(characterFactory, sceneStack, levelSceneFactory);
+    var testScene = new Scene((Duration elapsedTime, UserInput input) -> {}, new TestSceneView(characterFactory));
     sceneStack.push(scene);
     var terminabloUpdater = new TerminabloUpdater(sceneStack);
     var terminabloRenderer = new TerminabloApplicationRenderer(sceneStack);
