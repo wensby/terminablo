@@ -6,6 +6,8 @@ import static java.util.Objects.requireNonNull;
 import com.wensby.application.userinterface.*;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.terminablo.util.UnitInterval;
+
+import java.awt.*;
 import java.math.BigDecimal;
 import org.apache.log4j.Logger;
 
@@ -14,48 +16,56 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
   private static final Logger LOGGER = Logger.getLogger(OrbContentTerminalRendererImpl.class);
 
   private final PartialBlockCharacterFactory partialBlockFactory;
-  private final TerminalLayerFactory layerFactory;
   private final TerminalCharacterFactory characterFactory;
 
   public OrbContentTerminalRendererImpl(
       PartialBlockCharacterFactory partialBlockFactory,
-      TerminalLayerFactory layerFactory,
       TerminalCharacterFactory characterFactory
   ) {
     this.partialBlockFactory = requireNonNull(partialBlockFactory);
-    this.layerFactory = requireNonNull(layerFactory);
     this.characterFactory = requireNonNull(characterFactory);
   }
 
   @Override
-  public TerminalLayer render(Orb orb, InterfaceSize size) {
-    LOGGER.debug("Render orb content: " + orb + ", " + size);
-    var layer = layerFactory.createBlankLayer(size);
+  public void render(Orb orb, TerminalLayerPainter painter) {
+    LOGGER.debug("Render orb content: " + orb + ", " + painter.getAvailableSize());
     var color = orb.getColor();
-    var rows = size.getHeight();
+    var rows = painter.getAvailableSize().getHeight();
     var percent = orb.getValues().toUnitInterval();
     var rowsPercent = BigDecimal.valueOf(rows).multiply(percent);
     var fullRows = rowsPercent.intValue();
     LOGGER.debug("Rendered full rows: " + fullRows);
 
     if (fullRows > 0) {
-      var fullColorLayerSize = InterfaceSize.of(size.getWidth(), fullRows);
-      var fullColorLayer = layerFactory.createColoredLayer(fullColorLayerSize, color);
-      var topOffset = InterfaceLocation.at(0, size.getHeight() - fullRows);
-      layer.put(fullColorLayer, topOffset);
+      var location = InterfaceLocation.at(0, painter.getAvailableSize().getHeight() - fullRows);
+      var size = InterfaceSize.of(painter.getAvailableSize().getWidth(), fullRows);
+      var fullContentSubsectionPainter = painter.createSubsectionPainter(location, size);
+      renderFullRows(fullContentSubsectionPainter, color);
     }
 
-    if (fullRows != size.getHeight()) {
+    if (fullRows != painter.getAvailableSize().getHeight()) {
       var surfaceRowPercent = rowsPercent.divideAndRemainder(ONE)[1].floatValue();
       var character = partialBlockFactory.getPartialBlockCharacter(UnitInterval.of(surfaceRowPercent));
-      var surfaceRow = size.getHeight() - fullRows - 1;
+      var surfaceRow = painter.getAvailableSize().getHeight() - fullRows - 1;
       var surfaceCharacter = characterFactory.createCharacter(character, new CharacterDecoration(null, color));
-      for (int x = 0; x < size.getWidth(); x++) {
+      for (int x = 0; x < painter.getAvailableSize().getWidth(); x++) {
         var position = InterfaceLocation.at(x, surfaceRow);
-        layer.put(surfaceCharacter, position);
+        painter.put(surfaceCharacter, position);
       }
     }
+  }
 
-    return layer;
+  private void renderFullRows(TerminalLayerPainter painter, Color color) {
+    var character = characterFactory.createCharacter(' ', new CharacterDecoration(color, null));
+    for (int row = 0; row < painter.getAvailableSize().getHeight(); row++) {
+      paintLayerRow(painter, row, character);
+    }
+  }
+
+  private void paintLayerRow(TerminalLayerPainter painter, int row, TerminalCharacter character) {
+    for (int column = 0; column < painter.getAvailableSize().getWidth(); column++) {
+      var position = InterfaceLocation.at(column, row);
+      painter.put(character, position);
+    }
   }
 }

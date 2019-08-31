@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at;
+import static com.wensby.terminablo.userinterface.component.InterfaceLocation.atOrigin;
 
 public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
 
@@ -105,5 +106,10 @@ public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
   @Override
   public TerminalCharacter getCharacter(InterfaceLocation interfacePosition) {
     return characters[interfacePosition.getRow()][interfacePosition.getColumn()];
+  }
+
+  @Override
+  public TerminalLayerPainter getPainter() {
+    return new TerminalLayerSectionPainter(this, new TerminalLayerSection(atOrigin(), getSize()));
   }
 }

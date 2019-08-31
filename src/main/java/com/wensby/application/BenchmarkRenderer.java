@@ -12,41 +12,33 @@ import static java.util.Objects.requireNonNull;
 
 public class BenchmarkRenderer {
 
-  private final TerminalLayerFactory layerFactory;
   private final TerminalCharacterFactory characterFactory;
   private final Benchmark benchmark;
   private final PartialBlockCharacterFactoryImpl partialBlockCharacterFactory = new PartialBlockCharacterFactoryImpl();
 
-  public BenchmarkRenderer(
-      TerminalLayerFactory layerFactory,
-      TerminalCharacterFactory characterFactory,
-      Benchmark benchmark
-  ) {
-    this.layerFactory = requireNonNull(layerFactory);
+  public BenchmarkRenderer(TerminalCharacterFactory characterFactory, Benchmark benchmark) {
     this.characterFactory = requireNonNull(characterFactory);
     this.benchmark = requireNonNull(benchmark);
   }
 
-  public TerminalLayer render(InterfaceSize size) {
-    var layer = layerFactory.createBlankLayer(InterfaceSize.of(size.getWidth(), 5));
-    var writer = new LayerWriterImpl(characterFactory, layer);
+  public void render(TerminalLayerPainter painter) {
+    var writer = new LayerWriterImpl(characterFactory, painter);
     var updateTimeMs = Long.toString(benchmark.getLastUpdateTime().toMillis());
     var renderTimeMs = Long.toString(benchmark.getLastRenderTime().toMillis());
     var tickTimeMs = Long.toString(benchmark.getLastTickTime().toMillis());
-    renderGraph(size, layer);
+    renderGraph(painter);
     writer.write(
         "Update time ms: " + updateTimeMs + "\n" +
         "Render time ms: " + renderTimeMs + "\n" +
         "Tick time ms: " + tickTimeMs + "\n" +
         "Render string length: " + benchmark.getLastRenderStringLength(), at(0, 1));
-    return layer;
   }
 
-  private void renderGraph(InterfaceSize size, TerminalLayer layer) {
+  private void renderGraph(TerminalLayerPainter painter) {
     var latestTickTimes = benchmark.getLatestTickTimes();
-    for (int col = 0; col - 1 < size.getWidth() && col < latestTickTimes.size(); col++) {
+    for (int col = 0; col - 1 < painter.getAvailableSize().getWidth() && col < latestTickTimes.size(); col++) {
       var unit = UnitInterval.truncate((double) latestTickTimes.get(col).toMillis() / 30d);
-      layer.put(createCharacter(unit), at(size.getWidth() - col, 0));
+      painter.put(createCharacter(unit), at(painter.getAvailableSize().getWidth() - col, 0));
     }
   }
 

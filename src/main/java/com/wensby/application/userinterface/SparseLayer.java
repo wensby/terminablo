@@ -95,4 +95,10 @@ public class SparseLayer implements TerminalLayer {
     }
     return null;
   }
+
+  @Override
+  public TerminalLayerPainter getPainter() {
+    var fullSection = new TerminalLayerSection(InterfaceLocation.atOrigin(), size);
+    return new TerminalLayerSectionPainter(this, fullSection);
+  }
 }

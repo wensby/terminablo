@@ -10,7 +10,6 @@ public class TerminalApplicationContext {
   private static final TerminalApplicationContext SINGLETON = new TerminalApplicationContext();
 
   private final TerminalCharacterFactory characterFactory;
-  private final TerminalLayerFactoryImpl layerFactory;
   private final BenchmarkModelImpl benchmarkModel;
   private final TerminalUserInterface userInterface;
   private final BenchmarkViewImpl benchmarkView;
@@ -22,7 +21,7 @@ public class TerminalApplicationContext {
     var bashCommandExecutor = new BashCommandExecutor();
     var terminal = new LinuxTerminal(in, out, bashCommandExecutor, commandFactory);
     characterFactory = new TerminalCharacterFactoryImpl();
-    layerFactory = new TerminalLayerFactoryImpl(characterFactory);
+    var layerFactory = new TerminalLayerFactoryImpl(characterFactory);
     var layerDifferenceCalculator = new LayerDifferenceCalculatorFactory(characterFactory);
     var frameFactory = new TerminalFrameFactory(terminal, layerFactory);
     var terminalCanvas = new TerminalCanvasImpl(
@@ -30,7 +29,7 @@ public class TerminalApplicationContext {
     var terminalKeyboard = new LinuxTerminalKeyboard(terminal.getInputStream());
     userInterface = new TerminalUserInterface(terminalKeyboard, terminalCanvas);
     benchmarkModel = new BenchmarkModelImpl();
-    benchmarkView = new BenchmarkViewImpl(layerFactory, characterFactory, benchmarkModel);
+    benchmarkView = new BenchmarkViewImpl(characterFactory, benchmarkModel);
     benchmarkController = new BenchmarkController(this.benchmarkModel);
     terminalApplicationRunner = new TerminalApplicationRunner(terminal);
   }
@@ -46,10 +45,6 @@ public class TerminalApplicationContext {
 
   public TerminalCharacterFactory getCharacterFactory() {
     return characterFactory;
-  }
-
-  public TerminalLayerFactory getLayerFactory() {
-    return layerFactory;
   }
 
   public void run(TerminalApplication application) {

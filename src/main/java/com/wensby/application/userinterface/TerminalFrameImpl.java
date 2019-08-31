@@ -36,4 +36,9 @@ public class TerminalFrameImpl implements TerminalFrame {
   public TerminalCharacter getCharacter(InterfaceLocation interfacePosition) {
     return layer.getCharacter(interfacePosition);
   }
+
+  @Override
+  public TerminalLayerPainter getPainter() {
+    return layer.getPainter();
+  }
 }

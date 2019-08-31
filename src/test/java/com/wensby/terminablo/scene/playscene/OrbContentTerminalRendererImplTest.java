@@ -1,5 +1,7 @@
 package com.wensby.terminablo.scene.playscene;
 
+import static com.wensby.application.userinterface.InterfaceSize.of;
+import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at;
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
 import static org.hamcrest.CoreMatchers.is;
@@ -7,18 +9,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalCharacter;
-import com.wensby.application.userinterface.TerminalCharacterFactory;
-import com.wensby.application.userinterface.TerminalLayer;
-import com.wensby.application.userinterface.TerminalLayerFactory;
+import com.wensby.application.userinterface.*;
 import com.wensby.terminablo.util.Fraction;
 import java.awt.Color;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -34,63 +30,42 @@ public class OrbContentTerminalRendererImplTest {
     partialBlockFactory = mock(PartialBlockCharacterFactory.class);
     layerFactory = mock(TerminalLayerFactory.class);
     characterFactory = mock(TerminalCharacterFactory.class);
-    renderer = new OrbContentTerminalRendererImpl(partialBlockFactory, layerFactory, characterFactory);
+    renderer = new OrbContentTerminalRendererImpl(partialBlockFactory, characterFactory);
   }
 
   @Test
   public void fullOrbRenderedWithFullColorBlock() {
     var orb = mock(Orb.class);
-    var size = InterfaceSize.of(1, 1);
-    var layer = mock(TerminalLayer.class);
-    var colorLayer = mock(TerminalLayer.class);
     var color = mock(Color.class);
+    var layer = new SparseLayer(of(1, 1));
+    var painter = layer.getPainter();
+    var character = mock(TerminalCharacter.class);
     when(orb.getColor()).thenReturn(color);
     when(orb.getValues()).thenReturn(new Fraction(ONE, ONE));
-    when(layerFactory.createBlankLayer(size)).thenReturn(layer);
-    when(layerFactory.createColoredLayer(size, color)).thenReturn(colorLayer);
-
-    var result = renderer.render(orb, size);
-
-    verify(layer).put(colorLayer, InterfaceLocation.at(0, 0));
-    verifyNoMoreInteractions(layer);
-    assertThat(result, is(layer));
-  }
-
-  @Test
-  public void whenOrbFullWithWidth18Height8() {
-    var orb = mock(Orb.class);
-    var size = InterfaceSize.of(18, 8);
-    var layer = mock(TerminalLayer.class);
-    var character = mock(TerminalCharacter.class);
-    var color = mock(Color.class);
-    when(orb.getColor()).thenReturn(color);
-    when(orb.getValues()).thenReturn(new Fraction(TEN, TEN));
-    when(layerFactory.createBlankLayer(size)).thenReturn(layer);
     when(characterFactory.createCharacter(eq(' '), any())).thenReturn(character);
 
-    var result = renderer.render(orb, size);
+    renderer.render(orb, painter);
 
-    assertThat(result, is(layer));
+    assertThat(layer.getCharacter(at(0, 0)), is(character));
   }
 
   @Test
   public void rendersPartialCharacters_whenPartiallyFilledOrb() {
     var orb = mock(Orb.class);
-    var size = InterfaceSize.of(1, 1);
+    var size = of(1, 1);
     var color = mock(Color.class);
     var character = ' ';
-    var layer = mock(TerminalLayer.class);
     var terminalCharacter = mock(TerminalCharacter.class);
+    var layer = new SparseLayer(size);
+    var painter = layer.getPainter();
     when(layerFactory.createBlankLayer(size)).thenReturn(layer);
     when(orb.getColor()).thenReturn(color);
     when(orb.getValues()).thenReturn(new Fraction(ONE, TEN));
     when(partialBlockFactory.getPartialBlockCharacter(any())).thenReturn(character);
     when(characterFactory.createCharacter(eq(character), any())).thenReturn(terminalCharacter);
 
-    var result = renderer.render(orb, size);
+    renderer.render(orb, painter);
 
-    verify(layer).put(terminalCharacter, InterfaceLocation.at(0, 0));
-    verifyNoMoreInteractions(layer);
-    assertThat(result, is(layer));
+    assertThat(layer.getCharacter(at(0, 0)), is(terminalCharacter));
   }
 }

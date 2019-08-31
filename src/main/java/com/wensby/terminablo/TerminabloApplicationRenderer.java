@@ -1,9 +1,8 @@
 package com.wensby.terminablo;
 
 import com.wensby.application.ApplicationRenderer;
+import com.wensby.application.userinterface.TerminalLayerPainter;
 import com.wensby.terminablo.scene.SceneStack;
-import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalLayer;
 
 import java.util.Objects;
 
@@ -16,7 +15,7 @@ public class TerminabloApplicationRenderer implements ApplicationRenderer {
   }
 
   @Override
-  public TerminalLayer renderFrame(InterfaceSize size) {
-    return sceneStack.getTop().render(size);
+  public void renderApplication(TerminalLayerPainter painter) {
+    sceneStack.getTop().render(painter);
   }
 }

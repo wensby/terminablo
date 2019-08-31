@@ -1,9 +1,8 @@
 package com.wensby.terminablo.scene;
 
-import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalLayer;
+import com.wensby.application.userinterface.TerminalLayerPainter;
 
 public interface View {
 
-  TerminalLayer render(InterfaceSize size);
+  void render(TerminalLayerPainter painter);
 }

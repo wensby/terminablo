@@ -16,7 +16,6 @@ import com.wensby.terminablo.world.level.LevelFactory;
 import com.wensby.terminablo.world.level.LevelLocation;
 import com.wensby.application.userinterface.ComplexTerminalCharacterImpl;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
-import com.wensby.application.userinterface.TerminalLayerFactory;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,16 +25,10 @@ import java.util.Random;
 public class PlaySceneFactoryImpl implements PlaySceneFactory {
 
   private final TerminalCharacterFactory characterFactory;
-  private final TerminalLayerFactory layerFactory;
   private final SceneStack sceneStack;
 
-  public PlaySceneFactoryImpl(
-      TerminalCharacterFactory characterFactory,
-      TerminalLayerFactory layerFactory,
-      SceneStack sceneStack
-  ) {
+  public PlaySceneFactoryImpl(TerminalCharacterFactory characterFactory, SceneStack sceneStack) {
     this.characterFactory = requireNonNull(characterFactory);
-    this.layerFactory = requireNonNull(layerFactory);
     this.sceneStack = requireNonNull(sceneStack);
   }
 
@@ -59,14 +52,14 @@ public class PlaySceneFactoryImpl implements PlaySceneFactory {
     var model = new PlaySceneModel(playerCharacter, level, monsters);
     var partialBlockCharacterFactory = new PartialBlockCharacterFactoryImpl();
     var orbContentTerminalRenderer = new OrbContentTerminalRendererImpl(
-        partialBlockCharacterFactory, layerFactory, characterFactory);
-    var orbTerminalRepresentationFactory = new TerminalOrbRenderer(layerFactory,
+        partialBlockCharacterFactory, characterFactory);
+    var orbTerminalRepresentationFactory = new TerminalOrbRenderer(
         characterFactory,
         orbContentTerminalRenderer);
     var levelSceneInterfaceRenderer = new PlaySceneInterfaceRenderer(
-        orbTerminalRepresentationFactory, layerFactory, characterFactory);
+        orbTerminalRepresentationFactory, characterFactory);
     var levelEntityRenderer = new LevelEntityRenderer();
-    var levelRenderer = new TerminalLevelRenderer(layerFactory, levelEntityRenderer);
+    var levelRenderer = new TerminalLevelRenderer(levelEntityRenderer);
     var levelSceneView = new PlaySceneView(levelSceneInterfaceRenderer, levelRenderer, model);
     var agentController = new AgentController(level);
     var playerCombatController = new PlayerCombatController(playerCharacter, model);

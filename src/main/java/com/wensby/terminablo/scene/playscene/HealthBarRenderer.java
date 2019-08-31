@@ -10,7 +10,6 @@ import java.util.Objects;
 public class HealthBarRenderer {
 
   public static final int ROWS = 3;
-  private final TerminalLayerFactory layerFactory;
   private final TerminalCharacterFactory characterFactory;
 
   private final String name;
@@ -18,8 +17,7 @@ public class HealthBarRenderer {
   private final String type;
   private final String subType;
 
-  public HealthBarRenderer(TerminalLayerFactory layerFactory, TerminalCharacterFactory characterFactory, String name, float lifePercentage, String type, String subType) {
-    this.layerFactory = Objects.requireNonNull(layerFactory);
+  public HealthBarRenderer(TerminalCharacterFactory characterFactory, String name, float lifePercentage, String type, String subType) {
     this.characterFactory = Objects.requireNonNull(characterFactory);
     this.name = Objects.requireNonNull(name);
     this.lifePercentage = Validate.requireUnitInterval(lifePercentage);
@@ -27,35 +25,33 @@ public class HealthBarRenderer {
     this.subType = subType;
   }
 
-  public TerminalLayer render(InterfaceSize size) {
-    var layer = layerFactory.createBlankLayer(size);
-    renderHealthSection(layer);
-    renderTypeSection(layer);
-    renderSubtypeSection(layer);
-    return layer;
+  public void render(TerminalLayerPainter painter) {
+    renderHealthSection(painter);
+    renderTypeSection(painter);
+    renderSubtypeSection(painter);
   }
 
-  private void renderHealthSection(TerminalLayer layer) {
-    var height = layer.getSize().getHeight();
+  private void renderHealthSection(TerminalLayerPainter painter) {
+    var height = painter.getAvailableSize().getHeight();
     if (height > 0) {
       var decoration = new CharacterDecoration(Color.RED, Color.WHITE);
       for (int i = 0; i < name.length(); i++) {
-        layer.put(characterFactory.createCharacter(name.charAt(i), decoration), InterfaceLocation.at(i, 0));
+        painter.put(characterFactory.createCharacter(name.charAt(i), decoration), InterfaceLocation.at(i, 0));
       }
     }
   }
 
-  private void renderTypeSection(TerminalLayer layer) {
-    var height = layer.getSize().getHeight();
+  private void renderTypeSection(TerminalLayerPainter painter) {
+    var height = painter.getAvailableSize().getHeight();
     if (height > 1) {
-      layer.put(characterFactory.createCharacter(type.charAt(0)), InterfaceLocation.at(0, 1));
+      painter.put(characterFactory.createCharacter(type.charAt(0)), InterfaceLocation.at(0, 1));
     }
   }
 
-  private void renderSubtypeSection(TerminalLayer layer) {
-    var height = layer.getSize().getHeight();
+  private void renderSubtypeSection(TerminalLayerPainter painter) {
+    var height = painter.getAvailableSize().getHeight();
     if (height > 2) {
-      layer.put(characterFactory.createCharacter(subType.charAt(0)), InterfaceLocation.at(0, 2));
+      painter.put(characterFactory.createCharacter(subType.charAt(0)), InterfaceLocation.at(0, 2));
     }
   }
 }

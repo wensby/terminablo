@@ -1,9 +1,8 @@
 package com.wensby.application;
 
-import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalLayer;
+import com.wensby.application.userinterface.TerminalLayerPainter;
 
 public interface ApplicationRenderer {
 
-  TerminalLayer renderFrame(InterfaceSize size);
+  void renderApplication(TerminalLayerPainter painter);
 }

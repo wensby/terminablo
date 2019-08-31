@@ -3,17 +3,17 @@ package com.wensby.terminablo.userinterface;
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.userinterface.TerminalCharacterFactory;
-import com.wensby.application.userinterface.TerminalLayer;
+import com.wensby.application.userinterface.TerminalLayerPainter;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 
 public class LayerWriterImpl implements LayerWriter {
 
   private final TerminalCharacterFactory characterFactory;
-  private final TerminalLayer layer;
+  private final TerminalLayerPainter painter;
 
-  public LayerWriterImpl(TerminalCharacterFactory characterFactory, TerminalLayer layer) {
+  public LayerWriterImpl(TerminalCharacterFactory characterFactory, TerminalLayerPainter painter) {
     this.characterFactory = requireNonNull(characterFactory);
-    this.layer = requireNonNull(layer);
+    this.painter = requireNonNull(painter);
   }
 
   @Override
@@ -28,7 +28,7 @@ public class LayerWriterImpl implements LayerWriter {
       var character = text.charAt(i);
       if (character != '\n') {
         var terminalCharacter = characterFactory.createCharacter(character);
-        put = layer.put(terminalCharacter, characterLocation);
+        put = painter.put(terminalCharacter, characterLocation);
         column = column + 1;
       }
       else {

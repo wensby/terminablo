@@ -1,43 +1,36 @@
 package com.wensby.terminablo;
 
+import com.wensby.application.userinterface.TerminalLayerPainter;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
 import com.wensby.terminablo.world.level.Level;
 import com.wensby.terminablo.world.level.LevelLocation;
-import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalLayer;
-import com.wensby.application.userinterface.TerminalLayerFactory;
 
 import java.util.Optional;
 
 public class TerminalLevelRenderer {
 
-  private final TerminalLayerFactory layerFactory;
   private final LevelEntityRenderer entityRenderer;
 
-  public TerminalLevelRenderer(TerminalLayerFactory layerFactory,
-      LevelEntityRenderer entityRenderer) {
-    this.layerFactory = layerFactory;
+  public TerminalLevelRenderer(LevelEntityRenderer entityRenderer) {
     this.entityRenderer = entityRenderer;
   }
 
-  public TerminalLayer render(Level level, LevelLocation location, InterfaceSize size) {
-    var layer = layerFactory.createBlankLayer(size);
-    var interfaceCenter = InterfaceLocation.at(size.getWidth() / 2, size.getHeight() / 2);
+  public void render(Level level, LevelLocation location, TerminalLayerPainter painter) {
+    var interfaceCenter = InterfaceLocation.at(painter.getAvailableSize().getWidth() / 2, painter.getAvailableSize().getHeight() / 2);
     var topLeftInterfacePosition = topLeftInterfacePosition(interfaceCenter);
     var topLeftLevelLocation = topLeftLevelLocation(topLeftInterfacePosition, location, interfaceCenter);
 
-    for (int y = 0; y < size.getHeight(); y++) {
-      for (int x = 0; x < size.getWidth() / 2; x++) {
+    for (int y = 0; y < painter.getAvailableSize().getHeight(); y++) {
+      for (int x = 0; x < painter.getAvailableSize().getWidth() / 2; x++) {
         var layerPosition = topLeftInterfacePosition.plus(InterfaceLocation.at(x * 2, y));
         var levelLocation = LevelLocation.of(topLeftLevelLocation.getX() + x, topLeftLevelLocation.getY() + y);
         level.entities(levelLocation).stream()
             .map(entityRenderer::getTerminalCharacter)
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .forEach(character -> layer.put(character, layerPosition));
+            .forEach(character -> painter.put(character, layerPosition));
       }
     }
-    return layer;
   }
 
   private InterfaceLocation topLeftInterfacePosition(InterfaceLocation center) {

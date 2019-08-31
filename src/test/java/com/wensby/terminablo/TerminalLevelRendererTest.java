@@ -32,9 +32,9 @@ public class TerminalLevelRendererTest {
   public void name() {
     var interfaceSize = InterfaceSize.of(5, 5);
     when(entityRenderer.getTerminalCharacter(any())).thenReturn(Optional.of(new SimpleTerminalCharacterImpl('#')));
-    var renderer = new TerminalLevelRenderer(layerFactory, entityRenderer);
-    when(layerFactory.createBlankLayer(interfaceSize)).thenReturn(new TwoDimensionalCharacterArrayLayer(new TerminalCharacter[5][5]));
+    var renderer = new TerminalLevelRenderer(entityRenderer);
     var level = levelFactory.createLevelFromString("###\n# #\n###");
-    renderer.render(level, LevelLocation.of(1, 1), interfaceSize);
+    var layer = new SparseLayer(interfaceSize);
+    renderer.render(level, LevelLocation.of(1, 1), layer.getPainter());
   }
 }

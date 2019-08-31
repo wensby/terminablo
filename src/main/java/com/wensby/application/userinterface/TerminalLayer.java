@@ -15,4 +15,6 @@ public interface TerminalLayer {
   boolean put(TerminalCharacter character, InterfaceLocation location);
 
   TerminalCharacter getCharacter(InterfaceLocation position);
+
+  TerminalLayerPainter getPainter();
 }

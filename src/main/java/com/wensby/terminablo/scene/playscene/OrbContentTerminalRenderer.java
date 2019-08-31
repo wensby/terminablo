@@ -1,9 +1,8 @@
 package com.wensby.terminablo.scene.playscene;
 
-import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalLayer;
+import com.wensby.application.userinterface.TerminalLayerPainter;
 
 public interface OrbContentTerminalRenderer {
 
-  TerminalLayer render(Orb orb, InterfaceSize size);
+  void render(Orb orb, TerminalLayerPainter painter);
 }
