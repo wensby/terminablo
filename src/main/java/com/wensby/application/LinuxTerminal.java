@@ -62,4 +62,8 @@ public class LinuxTerminal {
   public PrintStream getOutputStream() {
     return printStream;
   }
+
+  public void clear() {
+    printStream.print(commandFactory.createClearScreenCommand().toRenderString());
+  }
 }

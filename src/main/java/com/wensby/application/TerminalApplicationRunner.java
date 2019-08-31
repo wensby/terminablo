@@ -34,6 +34,7 @@ public class TerminalApplicationRunner {
   }
 
   private void releaseTerminal() {
+    linuxTerminal.clear();
     linuxTerminal.moveCursor(0, 0);
     linuxTerminal.setTerminalCooked();
     linuxTerminal.showCursor(true);
