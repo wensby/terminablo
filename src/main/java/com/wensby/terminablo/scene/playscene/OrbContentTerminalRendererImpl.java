@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.userinterface.*;
 import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+import com.wensby.terminablo.util.PainterUtils;
 import com.wensby.terminablo.util.UnitInterval;
 
-import java.awt.*;
 import java.math.BigDecimal;
 import org.apache.log4j.Logger;
 
@@ -40,7 +40,9 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
       var location = InterfaceLocation.at(0, painter.getAvailableSize().getHeight() - fullRows);
       var size = InterfaceSize.of(painter.getAvailableSize().getWidth(), fullRows);
       var fullContentSubsectionPainter = painter.createSubsectionPainter(location, size);
-      renderFullRows(fullContentSubsectionPainter, color);
+      var painterUtils = new PainterUtils();
+      var character = characterFactory.createCharacter(' ', new CharacterDecoration(color, null));
+      painterUtils.cover(fullContentSubsectionPainter, character);
     }
 
     if (fullRows != painter.getAvailableSize().getHeight()) {
@@ -55,17 +57,6 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
     }
   }
 
-  private void renderFullRows(TerminalLayerPainter painter, Color color) {
-    var character = characterFactory.createCharacter(' ', new CharacterDecoration(color, null));
-    for (int row = 0; row < painter.getAvailableSize().getHeight(); row++) {
-      paintLayerRow(painter, row, character);
-    }
-  }
 
-  private void paintLayerRow(TerminalLayerPainter painter, int row, TerminalCharacter character) {
-    for (int column = 0; column < painter.getAvailableSize().getWidth(); column++) {
-      var position = InterfaceLocation.at(column, row);
-      painter.put(character, position);
-    }
-  }
+
 }
