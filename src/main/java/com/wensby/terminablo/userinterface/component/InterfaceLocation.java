@@ -6,8 +6,8 @@ public class InterfaceLocation {
 
   private static final InterfaceLocation ORIGIN = at(0, 0);
 
-  private final int row;
   private final int column;
+  private final int row;
 
   private InterfaceLocation(int column, int row) {
     this.row = row;
@@ -50,5 +50,12 @@ public class InterfaceLocation {
 
   public int getColumn() {
     return column;
+  }
+
+  @Override
+  public String toString() {
+    return "loc(" + column +
+        ", " + row +
+        ')';
   }
 }

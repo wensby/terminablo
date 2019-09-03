@@ -2,19 +2,21 @@ package com.wensby.terminablo;
 
 import com.wensby.application.TerminalApplication;
 import com.wensby.application.TerminalApplicationContext;
+import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.application.userinterface.UserInput;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.scene.SceneStackImpl;
-import com.wensby.terminablo.scene.mainmenu.MainMenuViewImpl;
-import com.wensby.terminablo.scene.mainmenu.MainMenuControllerImpl;
-import com.wensby.terminablo.scene.mainmenu.MainMenuModelImpl;
+import com.wensby.terminablo.scene.mainmenu.MainMenuView;
+import com.wensby.terminablo.scene.mainmenu.MainMenuController;
+import com.wensby.terminablo.scene.mainmenu.MainMenuModel;
 import com.wensby.terminablo.scene.playscene.PlaySceneFactory;
 import com.wensby.terminablo.scene.playscene.PlaySceneFactoryImpl;
-import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.scene.testscene.TestSceneView;
+import com.wensby.terminablo.userinterface.component.InterfaceComponentFactory;
 
 import java.time.Duration;
+import java.util.List;
 
 public class TerminabloFactory {
 
@@ -39,9 +41,11 @@ public class TerminabloFactory {
       SceneStack sceneStack,
       PlaySceneFactory playSceneFactory
   ) {
-    var model = new MainMenuModelImpl();
-    var view = new MainMenuViewImpl(model, characterFactory);
-    var controller = new MainMenuControllerImpl(model, sceneStack, playSceneFactory);
+    var items = List.of("SINGLE PLAYER", "BATTLE.NET", "OTHER MULTIPLAYER", "CREDITS", "CINEMATICS", "EXIT TERMINABLO");
+    var model = new MainMenuModel(items);
+    var componentFactory = new InterfaceComponentFactory(characterFactory);
+    var view = new MainMenuView(model, componentFactory);
+    var controller = new MainMenuController(sceneStack, model, playSceneFactory);
     return new Scene(controller, view);
   }
 }

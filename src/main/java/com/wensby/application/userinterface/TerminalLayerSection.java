@@ -20,7 +20,7 @@ public class TerminalLayerSection {
 
   public TerminalLayerSection createSubsection(InterfaceLocation topLeft, InterfaceSize size) {
     if (isInvalidSubsection(topLeft, size)) {
-      throw new RuntimeException("Invalid subsection");
+      throw new RuntimeException("Invalid subsection: " + topLeft + ", " + size);
     }
     return new TerminalLayerSection(this.topLeft.plus(topLeft), size);
   }

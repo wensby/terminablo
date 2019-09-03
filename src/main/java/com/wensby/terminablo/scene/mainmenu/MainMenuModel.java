@@ -1,12 +1,36 @@
 package com.wensby.terminablo.scene.mainmenu;
 
+import com.wensby.terminablo.userinterface.component.InterfaceComponent;
+import com.wensby.terminablo.userinterface.component.TriggerableComponent;
+
 import java.util.List;
 
-public interface MainMenuModel {
+public class MainMenuModel {
 
-  List<String> getMenuItems();
+  private final List<String> menuItems;
+  private int selectedItemIndex;
 
-  int getSelectedMenuItemIndex();
+  public MainMenuModel(List<String> menuItems) {
+    this.menuItems = menuItems;
+  }
 
-  void setSelectedMenuItemIndex(int index);
+  public List<String> getMenuItems() {
+    return menuItems;
+  }
+
+  public void selectNextItem() {
+    selectedItemIndex = (selectedItemIndex + 1) % menuItems.size();
+  }
+
+  public void selectPreviousItem() {
+    selectedItemIndex = (selectedItemIndex + menuItems.size() - 1) % menuItems.size();
+  }
+
+  public String getSelectedMenu() {
+    return menuItems.get(selectedItemIndex);
+  }
+
+  public void setSelectedMenuItemIndex(int index) {
+    selectedItemIndex = index;
+  }
 }
