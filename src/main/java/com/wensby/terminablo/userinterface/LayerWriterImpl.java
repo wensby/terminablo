@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.application.userinterface.TerminalLayerPainter;
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+import com.wensby.application.userinterface.InterfaceLocation;
 
 public class LayerWriterImpl implements LayerWriter {
 

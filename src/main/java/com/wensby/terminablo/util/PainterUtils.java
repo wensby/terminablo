@@ -3,7 +3,7 @@ package com.wensby.terminablo.util;
 import com.wensby.application.userinterface.TerminalCharacter;
 import com.wensby.application.userinterface.TerminalLayerPainter;
 
-import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at;
+import static com.wensby.application.userinterface.InterfaceLocation.at;
 
 
 public class PainterUtils {

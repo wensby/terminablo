@@ -1,7 +1,7 @@
 package com.wensby.terminablo.scene.playscene;
 
 import static com.wensby.application.userinterface.InterfaceSize.of;
-import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at;
+import static com.wensby.application.userinterface.InterfaceLocation.at;
 import static java.math.BigDecimal.ONE;
 import static java.math.BigDecimal.TEN;
 import static org.hamcrest.CoreMatchers.is;

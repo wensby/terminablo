@@ -1,13 +1,11 @@
 package com.wensby.application.userinterface;
 
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at;
-import static com.wensby.terminablo.userinterface.component.InterfaceLocation.atOrigin;
+import static com.wensby.application.userinterface.InterfaceLocation.at;
+import static com.wensby.application.userinterface.InterfaceLocation.atOrigin;
 
 public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
 

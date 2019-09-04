@@ -1,5 +1,6 @@
 package com.wensby.terminablo.userinterface.component;
 
+import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.application.userinterface.TerminalLayerPainter;
 

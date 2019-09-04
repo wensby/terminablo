@@ -7,7 +7,7 @@ import com.wensby.terminablo.util.UnitInterval;
 
 import java.awt.*;
 
-import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at;
+import static com.wensby.application.userinterface.InterfaceLocation.at;
 import static java.util.Objects.requireNonNull;
 
 public class BenchmarkRenderer {

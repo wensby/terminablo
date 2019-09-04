@@ -1,7 +1,7 @@
 package com.wensby.terminablo.scene.playscene;
 
 import com.wensby.application.userinterface.*;
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.util.Fraction;
 import java.awt.Color;

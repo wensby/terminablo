@@ -4,7 +4,7 @@ import static java.math.BigDecimal.ONE;
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.userinterface.*;
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.terminablo.util.PainterUtils;
 import com.wensby.terminablo.util.UnitInterval;
 

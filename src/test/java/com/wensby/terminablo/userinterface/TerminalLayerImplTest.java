@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import com.wensby.application.userinterface.PositionedTerminalCharacter;
 import com.wensby.application.userinterface.TerminalCharacter;
 import com.wensby.application.userinterface.TwoDimensionalCharacterArrayLayer;
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+import com.wensby.application.userinterface.InterfaceLocation;
 import org.junit.Test;
 
 import java.util.List;

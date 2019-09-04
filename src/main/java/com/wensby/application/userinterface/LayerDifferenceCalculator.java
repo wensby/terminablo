@@ -1,7 +1,5 @@
 package com.wensby.application.userinterface;
 
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-
 import java.util.*;
 import java.util.stream.Stream;
 

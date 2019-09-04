@@ -1,7 +1,7 @@
 package com.wensby.terminablo;
 
 import com.wensby.application.userinterface.TerminalLayerPainter;
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.terminablo.world.level.Level;
 import com.wensby.terminablo.world.level.LevelLocation;
 

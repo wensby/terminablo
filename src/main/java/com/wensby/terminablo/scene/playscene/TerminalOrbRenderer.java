@@ -3,7 +3,7 @@ package com.wensby.terminablo.scene.playscene;
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.userinterface.*;
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.terminablo.userinterface.smartstring.NumberedString;
 import org.apache.log4j.Logger;
 

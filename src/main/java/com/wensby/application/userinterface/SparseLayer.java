@@ -1,7 +1,5 @@
 package com.wensby.application.userinterface;
 
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
-
 import java.util.*;
 
 import static java.util.stream.Collectors.toList;

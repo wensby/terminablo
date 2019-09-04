@@ -2,7 +2,7 @@ package com.wensby.terminablo.scene.playscene;
 
 import com.wensby.application.userinterface.*;
 import com.wensby.terminablo.Validate;
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+import com.wensby.application.userinterface.InterfaceLocation;
 
 import java.awt.*;
 import java.util.Objects;

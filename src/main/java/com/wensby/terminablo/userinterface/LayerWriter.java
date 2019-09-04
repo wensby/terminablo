@@ -1,6 +1,6 @@
 package com.wensby.terminablo.userinterface;
 
-import com.wensby.terminablo.userinterface.component.InterfaceLocation;
+import com.wensby.application.userinterface.InterfaceLocation;
 
 public interface LayerWriter {
 

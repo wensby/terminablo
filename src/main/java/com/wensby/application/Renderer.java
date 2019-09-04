@@ -1,7 +1,7 @@
 package com.wensby.application;
 
-import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at;
-import static com.wensby.terminablo.userinterface.component.InterfaceLocation.atOrigin;
+import static com.wensby.application.userinterface.InterfaceLocation.at;
+import static com.wensby.application.userinterface.InterfaceLocation.atOrigin;
 import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.userinterface.*;

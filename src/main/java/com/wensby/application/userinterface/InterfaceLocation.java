@@ -1,4 +1,4 @@
-package com.wensby.terminablo.userinterface.component;
+package com.wensby.application.userinterface;
 
 import static java.util.Objects.hash;
 

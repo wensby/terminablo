@@ -1,12 +1,11 @@
 package com.wensby.application.userinterface;
 
-import org.hamcrest.core.Is;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
-import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at;
+import static com.wensby.application.userinterface.InterfaceLocation.at;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 

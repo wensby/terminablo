@@ -1,12 +1,13 @@
 package com.wensby.terminablo.userinterface.component;
 
+import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.application.userinterface.TerminalLayerPainter;
 import com.wensby.terminablo.userinterface.LayerWriterImpl;
 
 import java.util.Objects;
 
-import static com.wensby.terminablo.userinterface.component.InterfaceLocation.at;
+import static com.wensby.application.userinterface.InterfaceLocation.at;
 
 public class Text implements InterfaceComponent {
 
