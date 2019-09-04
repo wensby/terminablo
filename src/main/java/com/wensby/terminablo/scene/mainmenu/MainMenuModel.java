@@ -1,8 +1,5 @@
 package com.wensby.terminablo.scene.mainmenu;
 
-import com.wensby.terminablo.userinterface.component.InterfaceComponent;
-import com.wensby.terminablo.userinterface.component.TriggerableComponent;
-
 import java.util.List;
 
 public class MainMenuModel {
