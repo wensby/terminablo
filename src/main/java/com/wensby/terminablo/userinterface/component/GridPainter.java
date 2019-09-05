@@ -56,12 +56,8 @@ public class GridPainter {
   }
 
   private TerminalLayerPainter getPainter(InterfaceLocation first, InterfaceLocation last) {
-    Logger.getLogger(this.getClass()).debug("first:" + first);
-    Logger.getLogger(this.getClass()).debug("last:" + last);
     var location = getSubsectionLocation(first);
     var size = getSubsectionSize(first, last);
-    Logger.getLogger(this.getClass()).debug(location);
-    Logger.getLogger(this.getClass()).debug(size);
     return painter.createSubsectionPainter(location, size);
   }
 

@@ -31,7 +31,7 @@ public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
 
   @Override
   public InterfaceSize getSize() {
-    return InterfaceSize.of(characters[0].length, characters.length);
+    return InterfaceSize.of(characters.length > 0 ? characters[0].length : 0, characters.length);
   }
 
   @Override

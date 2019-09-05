@@ -15,22 +15,62 @@ public class Container implements InterfaceComponent {
     this.children = Objects.requireNonNull(children);
   }
 
+  private static InterfaceSize combinedContentSize(InterfaceSize a, InterfaceSize b) {
+    var width = Math.max(a.getWidth(), b.getWidth());
+    var height = a.getHeight() + b.getHeight();
+    return InterfaceSize.of(width, height);
+  }
+
   @Override
   public void render(TerminalLayerPainter painter) {
-    if (!children.isEmpty()) {
-      var height = painter.getAvailableSize().getHeight();
-      var childrenHeight = height / children.size();
-      for (int i = 0; i < children.size(); i++) {
-        var child = children.get(i);
-        InterfaceSize size;
-        if (i == children.size() - 1) {
-          size = painter.getAvailableSize().minus(InterfaceSize.of(0, i * childrenHeight));
-        }
-        else {
-          size = InterfaceSize.of(painter.getAvailableSize().getWidth(), childrenHeight);
-        }
-        child.render(painter.createSubsectionPainter(InterfaceLocation.at(0, i * childrenHeight), size));
-      }
+    new ContainerPainter(painter, children).paint();
+  }
+
+  @Override
+  public InterfaceSize contentSize() {
+    return children.stream()
+        .map(InterfaceComponent::contentSize)
+        .reduce(Container::combinedContentSize)
+        .orElse(InterfaceSize.of(0, 0));
+  }
+}
+
+class ContainerPainter {
+
+  private final TerminalLayerPainter painter;
+  private final List<InterfaceComponent> children;
+  private final InterfaceSize availableSize;
+
+  private int childrenHeight;
+
+  public ContainerPainter(TerminalLayerPainter painter, List<InterfaceComponent> children) {
+    this.painter = Objects.requireNonNull(painter);
+    this.children = Objects.requireNonNull(children);
+    availableSize = painter.getAvailableSize();
+  }
+
+  public void paint() {
+    if (children.isEmpty()) {
+      return;
+    }
+    childrenHeight = availableSize.getHeight() / children.size();
+    for (int i = 0; i < children.size(); i++) {
+      children.get(i).render(createChildPainter(i));
+    }
+  }
+
+  private TerminalLayerPainter createChildPainter(int i) {
+    var childSize = getChildPainterSize(i);
+    var childPosition = InterfaceLocation.at(0, i * childrenHeight);
+    return painter.createSubsectionPainter(childPosition, childSize);
+  }
+
+  private InterfaceSize getChildPainterSize(int i) {
+    if (i == children.size() - 1) {
+      return availableSize.minus(InterfaceSize.of(0, i * childrenHeight));
+    }
+    else {
+      return InterfaceSize.of(availableSize.getWidth(), childrenHeight);
     }
   }
 }

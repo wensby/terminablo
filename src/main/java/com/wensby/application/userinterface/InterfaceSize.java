@@ -14,6 +14,8 @@ public class InterfaceSize {
     return new InterfaceSize(width, height);
   }
 
+  public static final InterfaceSize ZERO = new InterfaceSize(0, 0);
+
   private InterfaceSize(int width, int height) {
     this.width = requireNonNegative(width);
     this.height = requireNonNegative(height);

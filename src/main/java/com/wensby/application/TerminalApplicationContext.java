@@ -15,13 +15,14 @@ public class TerminalApplicationContext {
   private final BenchmarkViewImpl benchmarkView;
   private final BenchmarkController benchmarkController;
   private final TerminalApplicationRunner terminalApplicationRunner;
+  private final TerminalLayerFactory layerFactory;
 
   private TerminalApplicationContext() {
     var commandFactory = new LinuxTerminalRenderCommandFactory();
     var bashCommandExecutor = new BashCommandExecutor();
     var terminal = new LinuxTerminal(in, out, bashCommandExecutor, commandFactory);
     characterFactory = new TerminalCharacterFactoryImpl();
-    var layerFactory = new TerminalLayerFactoryImpl();
+    layerFactory = new TerminalLayerFactoryImpl();
     var layerDifferenceCalculator = new LayerDifferenceCalculatorFactory(characterFactory);
     var frameFactory = new TerminalFrameFactory(terminal, layerFactory);
     var terminalCanvas = new TerminalCanvasImpl(
@@ -52,5 +53,9 @@ public class TerminalApplicationContext {
       throw new RuntimeException("Terminal application context already running application");
     }
     terminalApplicationRunner.run(application);
+  }
+
+  public TerminalLayerFactory getLayerFactory() {
+    return layerFactory;
   }
 }
