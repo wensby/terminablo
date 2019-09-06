@@ -27,7 +27,4 @@ public class MainMenuModel {
     return menuItems.get(selectedItemIndex);
   }
 
-  public void setSelectedMenuItemIndex(int index) {
-    selectedItemIndex = index;
-  }
 }
