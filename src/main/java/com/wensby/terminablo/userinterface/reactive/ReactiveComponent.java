@@ -2,6 +2,7 @@ package com.wensby.terminablo.userinterface.reactive;
 
 import com.wensby.application.userinterface.TerminalLayerPainter;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -11,8 +12,8 @@ public abstract class ReactiveComponent implements Component {
   private boolean stateChanged;
   private Component component;
 
-  protected ReactiveComponent(Map<String, Object> state) {
-    this.state = Objects.requireNonNull(state);
+  protected ReactiveComponent() {
+    this.state = new HashMap<>();
     stateChanged = true;
   }
 

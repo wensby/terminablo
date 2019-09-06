@@ -24,7 +24,7 @@ public class TerminabloFactory {
     var mainMenuSceneFactory = new MainMenuSceneFactory(sceneStack, levelSceneFactory, componentFactory);
     var scene = mainMenuSceneFactory.createMainMenuScene();
     var testScene = new Scene((Duration elapsedTime, UserInput input) -> {}, new TestSceneView(characterFactory));
-    sceneStack.push(scene);
+    sceneStack.push(testScene);
     var terminabloUpdater = new TerminabloUpdater(sceneStack);
     var terminabloRenderer = new TerminabloApplicationRenderer(sceneStack);
     return context.getApplicationBuilder()
