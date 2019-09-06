@@ -11,8 +11,8 @@ public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
 
   private final TerminalCharacter[][] characters;
 
-  public TwoDimensionalCharacterArrayLayer(TerminalCharacter[][] characters) {
-    this.characters = characters.clone();
+  public TwoDimensionalCharacterArrayLayer(InterfaceSize size) {
+    this.characters = new TerminalCharacter[size.getHeight()][size.getWidth()];
   }
 
   @Override
