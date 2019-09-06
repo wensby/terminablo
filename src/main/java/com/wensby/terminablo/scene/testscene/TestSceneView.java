@@ -19,7 +19,7 @@ public class TestSceneView implements View {
 
   @Override
   public void render(TerminalLayerPainter painter) {
-    var character = characterFactory.createCharacter(' ', new CharacterDecoration(RED, YELLOW));
+    var character = characterFactory.createCharacter(' ', new CharacterDecoration(RED, YELLOW, false));
     new PainterUtils().cover(painter, character);
   }
 }

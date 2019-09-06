@@ -22,7 +22,7 @@ public class BenchmarkRenderer {
   }
 
   public void render(TerminalLayerPainter painter) {
-    var writer = new LayerWriterImpl(characterFactory, painter);
+    var writer = new LayerWriterImpl(characterFactory, painter, false);
     var updateTimeMs = Long.toString(benchmark.getLastUpdateTime().toMillis());
     var renderTimeMs = Long.toString(benchmark.getLastRenderTime().toMillis());
     var tickTimeMs = Long.toString(benchmark.getLastTickTime().toMillis());
@@ -44,7 +44,7 @@ public class BenchmarkRenderer {
 
   private TerminalCharacter createCharacter(UnitInterval unit) {
     if (unit.toIntRoundedDown(9) == 9) {
-      return characterFactory.createCharacter(' ', new CharacterDecoration(Color.RED, null));
+      return characterFactory.createCharacter(' ', new CharacterDecoration(Color.RED, null, false));
     }
     else {
       var partialBlockCharacter = this.partialBlockCharacterFactory.getPartialBlockCharacter(unit);

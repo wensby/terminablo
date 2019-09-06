@@ -19,7 +19,7 @@ public class HealthBarRendererTest {
 
     renderer.render(painter);
 
-    assertThat(layer.getCharacter(InterfaceLocation.at(0, 0)), is(characterFactory.createCharacter('A', new CharacterDecoration(RED, WHITE))));
+    assertThat(layer.getCharacter(InterfaceLocation.at(0, 0)), is(characterFactory.createCharacter('A', new CharacterDecoration(RED, WHITE, false))));
     assertThat(layer.getCharacter(InterfaceLocation.at(0, 1)), is(characterFactory.createCharacter('B')));
     assertThat(layer.getCharacter(InterfaceLocation.at(0, 2)), is(characterFactory.createCharacter('C')));
   }

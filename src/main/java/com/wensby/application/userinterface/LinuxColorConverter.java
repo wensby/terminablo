@@ -12,6 +12,8 @@ public class LinuxColorConverter {
       return 41;
     } else if (color.equals(Color.BLUE)) {
       return 44;
+    } else if (color.equals(Color.YELLOW)) {
+      return 43;
     } else {
       return 1;
     }
@@ -25,6 +27,10 @@ public class LinuxColorConverter {
       return 31;
     } else if (color.equals(Color.BLUE)) {
       return 34;
+    } else if (color.equals(Color.BLACK)) {
+      return 30;
+    } else if (color.equals(Color.YELLOW)) {
+      return 33;
     } else {
       return 1;
     }

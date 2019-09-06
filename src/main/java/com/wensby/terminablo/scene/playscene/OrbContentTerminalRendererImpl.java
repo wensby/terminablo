@@ -41,7 +41,7 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
       var size = InterfaceSize.of(painter.getAvailableSize().getWidth(), fullRows);
       var fullContentSubsectionPainter = painter.createSubsectionPainter(location, size);
       var painterUtils = new PainterUtils();
-      var character = characterFactory.createCharacter(' ', new CharacterDecoration(color, null));
+      var character = characterFactory.createCharacter(' ', new CharacterDecoration(color, null, false));
       painterUtils.cover(fullContentSubsectionPainter, character);
     }
 
@@ -49,7 +49,7 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
       var surfaceRowPercent = rowsPercent.divideAndRemainder(ONE)[1].floatValue();
       var character = partialBlockFactory.getPartialBlockCharacter(UnitInterval.of(surfaceRowPercent));
       var surfaceRow = painter.getAvailableSize().getHeight() - fullRows - 1;
-      var surfaceCharacter = characterFactory.createCharacter(character, new CharacterDecoration(null, color));
+      var surfaceCharacter = characterFactory.createCharacter(character, new CharacterDecoration(null, color, false));
       for (int x = 0; x < painter.getAvailableSize().getWidth(); x++) {
         var position = InterfaceLocation.at(x, surfaceRow);
         painter.put(surfaceCharacter, position);

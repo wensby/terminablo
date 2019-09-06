@@ -15,16 +15,18 @@ public class Text implements InterfaceComponent {
 
   private final TerminalCharacterFactory characterFactory;
   private final String text;
+  private final boolean bold;
 
-  public Text(TerminalCharacterFactory characterFactory, String text) {
+  public Text(TerminalCharacterFactory characterFactory, String text, boolean bold) {
     this.characterFactory = Objects.requireNonNull(characterFactory);
     this.text = Objects.requireNonNull(text);
+    this.bold = bold;
   }
 
   @Override
   public void render(TerminalLayerPainter painter) {
     InterfaceLocation topLeft = at((painter.getAvailableSize().getWidth() / 2) - (text.length() / 2), painter.getAvailableSize().getHeight() / 2);
-    new LayerWriterImpl(characterFactory, painter).write(text, topLeft);
+    new LayerWriterImpl(characterFactory, painter, bold).write(text, topLeft);
   }
 
   @Override

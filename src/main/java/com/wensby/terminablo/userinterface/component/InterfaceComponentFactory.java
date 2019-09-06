@@ -15,12 +15,13 @@ public class InterfaceComponentFactory {
     this.borderStyleFactory = borderStyleFactory;
   }
 
-  public Text createText(String text) {
-    return new Text(characterFactory , text);
+  public Text createText(String text, boolean selected) {
+    return new Text(characterFactory , text, selected);
   }
 
   public InterfaceComponent createButton(String label, boolean selected) {
-    return new Border(new Text(characterFactory, !selected ? label : ">"+ label + "<"), borderStyleFactory.createButtonBorderStyle());
+    var buttonBorderStyle = selected ? borderStyleFactory.createSelectedButtonBorderStyle() : borderStyleFactory.createButtonBorderStyle();
+    return new Border(new Text(characterFactory, label, selected), buttonBorderStyle);
   }
 
   public ContainerBuilder buildContainer() {

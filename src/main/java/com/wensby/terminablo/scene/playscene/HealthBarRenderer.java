@@ -34,7 +34,7 @@ public class HealthBarRenderer {
   private void renderHealthSection(TerminalLayerPainter painter) {
     var height = painter.getAvailableSize().getHeight();
     if (height > 0) {
-      var decoration = new CharacterDecoration(Color.RED, Color.WHITE);
+      var decoration = new CharacterDecoration(Color.RED, Color.WHITE, false);
       for (int i = 0; i < name.length(); i++) {
         painter.put(characterFactory.createCharacter(name.charAt(i), decoration), InterfaceLocation.at(i, 0));
       }

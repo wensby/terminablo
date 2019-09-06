@@ -6,12 +6,14 @@ import java.util.Optional;
 
 public class CharacterDecoration {
 
+  private final boolean bold;
   private final Color backgroundColor;
   private final Color foregroundColor;
 
-  public CharacterDecoration(Color backgroundColor, Color foregroundColor) {
+  public CharacterDecoration(Color backgroundColor, Color foregroundColor, boolean bold) {
     this.backgroundColor = backgroundColor;
     this.foregroundColor = foregroundColor;
+    this.bold = bold;
   }
 
   public Optional<Color> getBackgroundColor() {
@@ -27,12 +29,17 @@ public class CharacterDecoration {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     CharacterDecoration that = (CharacterDecoration) o;
-    return Objects.equals(backgroundColor, that.backgroundColor) &&
+    return bold == that.bold &&
+        Objects.equals(backgroundColor, that.backgroundColor) &&
         Objects.equals(foregroundColor, that.foregroundColor);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(backgroundColor, foregroundColor);
+    return Objects.hash(bold, backgroundColor, foregroundColor);
+  }
+
+  public boolean isBold() {
+    return bold;
   }
 }

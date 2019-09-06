@@ -2,18 +2,20 @@ package com.wensby.terminablo.userinterface;
 
 import static java.util.Objects.requireNonNull;
 
-import com.wensby.application.userinterface.TerminalCharacterFactory;
-import com.wensby.application.userinterface.TerminalLayerPainter;
-import com.wensby.application.userinterface.InterfaceLocation;
+import com.wensby.application.userinterface.*;
+
+import java.awt.*;
 
 public class LayerWriterImpl implements LayerWriter {
 
   private final TerminalCharacterFactory characterFactory;
   private final TerminalLayerPainter painter;
+  private final boolean bold;
 
-  public LayerWriterImpl(TerminalCharacterFactory characterFactory, TerminalLayerPainter painter) {
+  public LayerWriterImpl(TerminalCharacterFactory characterFactory, TerminalLayerPainter painter, boolean bold) {
     this.characterFactory = requireNonNull(characterFactory);
     this.painter = requireNonNull(painter);
+    this.bold = bold;
   }
 
   @Override
@@ -27,7 +29,7 @@ public class LayerWriterImpl implements LayerWriter {
       var characterLocation = InterfaceLocation.at(column, row);
       var character = text.charAt(i);
       if (character != '\n') {
-        var terminalCharacter = characterFactory.createCharacter(character);
+        var terminalCharacter = getCharacter(character);
         put = painter.put(terminalCharacter, characterLocation);
         column = column + 1;
       }
@@ -36,6 +38,13 @@ public class LayerWriterImpl implements LayerWriter {
         column = location.getColumn();
       }
     }
+  }
+
+  private TerminalCharacter getCharacter(char character) {
+    if (bold) {
+      return characterFactory.createCharacter(character, new CharacterDecoration(null, null, true));
+    }
+    return characterFactory.createCharacter(character);
   }
 
 }

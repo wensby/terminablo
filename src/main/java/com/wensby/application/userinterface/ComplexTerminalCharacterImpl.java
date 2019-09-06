@@ -13,7 +13,7 @@ public class ComplexTerminalCharacterImpl implements ComplexTerminalCharacter {
   }
 
   public ComplexTerminalCharacterImpl(CharSequence charSequence) {
-    this(charSequence, new CharacterDecoration(null, null));
+    this(charSequence, new CharacterDecoration(null, null, false));
   }
 
   @Override

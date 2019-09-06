@@ -8,6 +8,7 @@ import com.wensby.terminablo.scene.playscene.Controller;
 import com.wensby.terminablo.scene.playscene.PlaySceneFactory;
 import com.wensby.application.userinterface.UserInput;
 import java.time.Duration;
+import java.util.List;
 import java.util.Objects;
 
 public class MainMenuController implements Controller {
@@ -26,9 +27,21 @@ public class MainMenuController implements Controller {
   public void update(Duration elapsedTime, UserInput input) {
     final int i = model.getMenuItems().size();
     if (input.getKeyStrokes().contains(ARROW_DOWN)) {
+      if (model.getSelectedMenu().equalsIgnoreCase("CREDITS")) {
+        model.selectNextItem();
+      }
       model.selectNextItem();
     }
     if (input.getKeyStrokes().contains(ARROW_UP)) {
+      if (List.of("CINEMATICS", "EXIT TERMINABLO").contains(model.getSelectedMenu())) {
+        model.selectPreviousItem();
+      }
+      model.selectPreviousItem();
+    }
+    if (input.getKeyStrokes().contains(ARROW_RIGHT) && model.getSelectedMenu().equalsIgnoreCase("CREDITS")) {
+      model.selectNextItem();
+    }
+    if (input.getKeyStrokes().contains(ARROW_LEFT) && model.getSelectedMenu().equalsIgnoreCase("CINEMATICS")) {
       model.selectPreviousItem();
     }
     if (input.getKeyStrokes().contains(CARRIAGE_RETURN)) {
