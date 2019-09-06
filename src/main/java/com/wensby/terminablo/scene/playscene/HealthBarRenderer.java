@@ -25,33 +25,33 @@ public class HealthBarRenderer {
     this.subType = subType;
   }
 
-  public void render(TerminalLayerPainter painter) {
-    renderHealthSection(painter);
-    renderTypeSection(painter);
-    renderSubtypeSection(painter);
+  public void render(TerminalLayer layer) {
+    renderHealthSection(layer);
+    renderTypeSection(layer);
+    renderSubtypeSection(layer);
   }
 
-  private void renderHealthSection(TerminalLayerPainter painter) {
-    var height = painter.getAvailableSize().getHeight();
+  private void renderHealthSection(TerminalLayer layer) {
+    var height = layer.getSize().getHeight();
     if (height > 0) {
       var decoration = new CharacterDecoration(Color.RED, Color.WHITE, false);
       for (int i = 0; i < name.length(); i++) {
-        painter.put(characterFactory.createCharacter(name.charAt(i), decoration), InterfaceLocation.at(i, 0));
+        layer.put(characterFactory.createCharacter(name.charAt(i), decoration), InterfaceLocation.at(i, 0));
       }
     }
   }
 
-  private void renderTypeSection(TerminalLayerPainter painter) {
-    var height = painter.getAvailableSize().getHeight();
+  private void renderTypeSection(TerminalLayer layer) {
+    var height = layer.getSize().getHeight();
     if (height > 1) {
-      painter.put(characterFactory.createCharacter(type.charAt(0)), InterfaceLocation.at(0, 1));
+      layer.put(characterFactory.createCharacter(type.charAt(0)), InterfaceLocation.at(0, 1));
     }
   }
 
-  private void renderSubtypeSection(TerminalLayerPainter painter) {
-    var height = painter.getAvailableSize().getHeight();
+  private void renderSubtypeSection(TerminalLayer layer) {
+    var height = layer.getSize().getHeight();
     if (height > 2) {
-      painter.put(characterFactory.createCharacter(subType.charAt(0)), InterfaceLocation.at(0, 2));
+      layer.put(characterFactory.createCharacter(subType.charAt(0)), InterfaceLocation.at(0, 2));
     }
   }
 }

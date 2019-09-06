@@ -1,19 +1,20 @@
 package com.wensby.application.userinterface;
 
+import java.util.List;
 import java.util.Objects;
 
-public class TerminalLayerSectionPainter implements TerminalLayerPainter {
+public class TerminalLayerSubsection implements TerminalLayer {
 
   private final TerminalLayer layer;
   private final TerminalLayerSection section;
 
-  public TerminalLayerSectionPainter(TerminalLayer layer, TerminalLayerSection section) {
+  public TerminalLayerSubsection(TerminalLayer layer, TerminalLayerSection section) {
     this.layer = Objects.requireNonNull(layer);
     this.section = Objects.requireNonNull(section);
   }
 
   @Override
-  public InterfaceSize getAvailableSize() {
+  public InterfaceSize getSize() {
     return section.getSize();
   }
 
@@ -25,6 +26,16 @@ public class TerminalLayerSectionPainter implements TerminalLayerPainter {
       }
     }
     return false;
+  }
+
+  @Override
+  public TerminalCharacter getCharacter(InterfaceLocation position) {
+    return layer.getCharacter(section.getAbsoluteLocation(position));
+  }
+
+  @Override
+  public List<PositionedTerminalCharacter> getPositionedCharacters() {
+    return null;
   }
 
   @Override
@@ -41,7 +52,7 @@ public class TerminalLayerSectionPainter implements TerminalLayerPainter {
   }
 
   @Override
-  public TerminalLayerPainter createSubsectionPainter(InterfaceLocation topLeft, InterfaceSize size) {
-    return new TerminalLayerSectionPainter(layer, this.section.createSubsection(topLeft, size));
+  public TerminalLayerSubsection getSubsection(InterfaceLocation topLeft, InterfaceSize size) {
+    return new TerminalLayerSubsection(layer, this.section.createSubsection(topLeft, size));
   }
 }

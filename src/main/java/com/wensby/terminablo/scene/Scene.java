@@ -1,6 +1,6 @@
 package com.wensby.terminablo.scene;
 
-import com.wensby.application.userinterface.TerminalLayerPainter;
+import com.wensby.application.userinterface.TerminalLayer;
 import com.wensby.terminablo.scene.playscene.Controller;
 import com.wensby.application.userinterface.UserInput;
 import java.time.Duration;
@@ -19,7 +19,7 @@ public class Scene {
     controller.update(elapsedTime, input);
   }
 
-  public void render(TerminalLayerPainter painter) {
-    view.render(painter);
+  public void render(TerminalLayer layer) {
+    view.render(layer);
   }
 }

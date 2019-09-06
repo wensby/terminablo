@@ -2,24 +2,23 @@ package com.wensby.terminablo.userinterface.reactive;
 
 import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalLayerPainter;
-import com.wensby.terminablo.userinterface.component.InterfaceComponent;
+import com.wensby.application.userinterface.TerminalLayer;
 
 import java.util.List;
 import java.util.Objects;
 
 public class ContainerPainter {
 
-  private final TerminalLayerPainter painter;
+  private final TerminalLayer layer;
   private final List<Component> children;
   private final InterfaceSize availableSize;
 
   private int childrenHeight;
 
-  public ContainerPainter(TerminalLayerPainter painter, List<Component> children) {
-    this.painter = Objects.requireNonNull(painter);
+  public ContainerPainter(TerminalLayer layer, List<Component> children) {
+    this.layer = Objects.requireNonNull(layer);
     this.children = Objects.requireNonNull(children);
-    availableSize = painter.getAvailableSize();
+    availableSize = layer.getSize();
   }
 
   public void paint() {
@@ -32,10 +31,10 @@ public class ContainerPainter {
     }
   }
 
-  private TerminalLayerPainter createChildPainter(int i) {
+  private TerminalLayer createChildPainter(int i) {
     var childSize = getChildPainterSize(i);
     var childPosition = InterfaceLocation.at(0, i * childrenHeight);
-    return painter.createSubsectionPainter(childPosition, childSize);
+    return layer.getSubsection(childPosition, childSize);
   }
 
   private InterfaceSize getChildPainterSize(int i) {

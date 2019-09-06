@@ -21,42 +21,42 @@ public class TerminalOrbRenderer {
     this.orbContentTerminalRenderer = requireNonNull(orbContentTerminalRenderer);
   }
 
-  public void render(Orb orb, TerminalLayerPainter painter) {
-    LOGGER.debug("Create Orb Representation: " + orb + ", " + painter);
-    if (isBordered(painter.getAvailableSize())) {
-      createFullSizeRepresentation(orb, painter);
+  public void render(Orb orb, TerminalLayer layer) {
+    LOGGER.debug("Create Orb Representation: " + orb + ", " + layer);
+    if (isBordered(layer.getSize())) {
+      createFullSizeRepresentation(orb, layer);
     } else {
-      createScaledDownRepresentation(orb, painter);
+      createScaledDownRepresentation(orb, layer);
     }
   }
 
-  private void createScaledDownRepresentation(Orb orb, TerminalLayerPainter painter) {
-    orbContentTerminalRenderer.render(orb, painter);
+  private void createScaledDownRepresentation(Orb orb, TerminalLayer layer) {
+    orbContentTerminalRenderer.render(orb, layer);
   }
 
-  private void createFullSizeRepresentation(Orb orb, TerminalLayerPainter painter) {
-    fillInBorder(painter);
-    var orbContentSize = painter.getAvailableSize().minus(InterfaceSize.of(2, 2));
-    var contentPainter = painter.createSubsectionPainter(InterfaceLocation.at(1, 1), orbContentSize);
+  private void createFullSizeRepresentation(Orb orb, TerminalLayer layer) {
+    fillInBorder(layer);
+    var orbContentSize = layer.getSize().minus(InterfaceSize.of(2, 2));
+    var contentPainter = layer.getSubsection(InterfaceLocation.at(1, 1), orbContentSize);
     orbContentTerminalRenderer.render(orb, contentPainter);
-    fillInValue(painter, orb);
+    fillInValue(layer, orb);
   }
 
-  private void fillInBorder(TerminalLayerPainter painter) {
-    if (isBordered(painter.getAvailableSize())) {
-      var height = painter.getAvailableSize().getHeight();
-      var width = painter.getAvailableSize().getWidth();
+  private void fillInBorder(TerminalLayer layer) {
+    if (isBordered(layer.getSize())) {
+      var height = layer.getSize().getHeight();
+      var width = layer.getSize().getWidth();
       for (int i = 1; i < width - 1; i++) {
-        painter.put(characterFactory.createCharacter('─'), InterfaceLocation.at(i, 0));
+        layer.put(characterFactory.createCharacter('─'), InterfaceLocation.at(i, 0));
       }
-      painter.put(characterFactory.createCharacter('╭'), InterfaceLocation.at(0, 0));
-      painter.put(characterFactory.createCharacter('╮'), InterfaceLocation.at(width - 1, 0));
+      layer.put(characterFactory.createCharacter('╭'), InterfaceLocation.at(0, 0));
+      layer.put(characterFactory.createCharacter('╮'), InterfaceLocation.at(width - 1, 0));
       for (int i = 1; i < height - 1; i++) {
-        painter.put(characterFactory.createCharacter('│'), InterfaceLocation.at(0, i));
-        painter.put(characterFactory.createCharacter('│'), InterfaceLocation.at(width - 1, i));
+        layer.put(characterFactory.createCharacter('│'), InterfaceLocation.at(0, i));
+        layer.put(characterFactory.createCharacter('│'), InterfaceLocation.at(width - 1, i));
       }
-      painter.put(characterFactory.createCharacter('╰'), InterfaceLocation.at(0, height - 1));
-      painter.put(characterFactory.createCharacter('╯'), InterfaceLocation.at(width - 1, height - 1));
+      layer.put(characterFactory.createCharacter('╰'), InterfaceLocation.at(0, height - 1));
+      layer.put(characterFactory.createCharacter('╯'), InterfaceLocation.at(width - 1, height - 1));
     }
   }
 
@@ -64,15 +64,15 @@ public class TerminalOrbRenderer {
     return size.getWidth() > 2 && size.getHeight() > 2;
   }
 
-  private void fillInValue(TerminalLayerPainter painter, Orb orb) {
-    var height = painter.getAvailableSize().getHeight();
-    var width = painter.getAvailableSize().getWidth();
-    if (painter.getAvailableSize().getWidth() >= 6 && painter.getAvailableSize().getHeight() > 1) {
+  private void fillInValue(TerminalLayer layer, Orb orb) {
+    var height = layer.getSize().getHeight();
+    var width = layer.getSize().getWidth();
+    if (layer.getSize().getWidth() >= 6 && layer.getSize().getHeight() > 1) {
       var s = NumberedString.format("%s/%s", orb.getValues().getNumerator(), orb.getValues().getDenominator());
       s = s.length() > 6 ? s.substring(0, 6) : s;
       var start = (width - s.length()) / 2;
       for (int i = 0; i < s.length(); i++) {
-        painter.put(characterFactory.createCharacter(s.charAt(i)), InterfaceLocation.at(i + start, height - 1));
+        layer.put(characterFactory.createCharacter(s.charAt(i)), InterfaceLocation.at(i + start, height - 1));
       }
     }
   }

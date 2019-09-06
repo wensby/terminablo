@@ -14,5 +14,5 @@ public interface TerminalLayer {
 
   TerminalCharacter getCharacter(InterfaceLocation position);
 
-  TerminalLayerPainter getPainter();
+  TerminalLayer getSubsection(InterfaceLocation topLeft, InterfaceSize size);
 }

@@ -19,19 +19,19 @@ public class PlaySceneInterfaceRenderer {
     this.terminalCharacterFactory = terminalCharacterFactory;
   }
 
-  public void render(Agent hero, TerminalLayerPainter painter, PlaySceneModel model) {
-    renderHero(hero, painter);
-    renderOrbs(hero, painter);
-    model.getCurrentTarget().ifPresent(agent -> renderHealthBar(agent, painter));
+  public void render(Agent hero, TerminalLayer layer, PlaySceneModel model) {
+    renderHero(hero, layer);
+    renderOrbs(hero, layer);
+    model.getCurrentTarget().ifPresent(agent -> renderHealthBar(agent, layer));
   }
 
-  private void renderHealthBar(Agent agent, TerminalLayerPainter painter) {
+  private void renderHealthBar(Agent agent, TerminalLayer layer) {
     var healthBarRenderer = new HealthBarRenderer(terminalCharacterFactory, agent.getName(), 1, " ", " ");
-    healthBarRenderer.render(painter.createSubsectionPainter(InterfaceLocation.at((painter.getAvailableSize().getWidth() / 2) - (agent.getName().length() / 2), 1), InterfaceSize.of(agent.getName().length(), 3)));
+    healthBarRenderer.render(layer.getSubsection(InterfaceLocation.at((layer.getSize().getWidth() / 2) - (agent.getName().length() / 2), 1), InterfaceSize.of(agent.getName().length(), 3)));
   }
 
-  private void renderHero(Agent hero, TerminalLayerPainter painter) {
-    InterfaceSize layerSize = painter.getAvailableSize();
+  private void renderHero(Agent hero, TerminalLayer painter) {
+    InterfaceSize layerSize = painter.getSize();
     int midColumn = layerSize.getWidth() / 2;
     int midRow = layerSize.getHeight() / 2;
     InterfaceLocation layerMidpoint = InterfaceLocation.at(midColumn, midRow);
@@ -46,15 +46,15 @@ public class PlaySceneInterfaceRenderer {
     painter.put(character, layerMidpoint);
   }
 
-  private void renderOrbs(final Agent hero, final TerminalLayerPainter painter) {
-    var orbSize = getOrbSize(painter.getAvailableSize().getWidth());
+  private void renderOrbs(final Agent hero, final TerminalLayer layer) {
+    var orbSize = getOrbSize(layer.getSize().getWidth());
     var healthOrb = new DefaultOrb("HP", Color.RED, new Fraction(hero.getStats().getLife(), hero.getStats().getMaxLife()));
-    int top = painter.getAvailableSize().getHeight() - orbSize.getHeight();
+    int top = layer.getSize().getHeight() - orbSize.getHeight();
     var healthOrbPosition = InterfaceLocation.at(0, top);
-    orbRenderer.render(healthOrb, painter.createSubsectionPainter(healthOrbPosition, orbSize));
+    orbRenderer.render(healthOrb, layer.getSubsection(healthOrbPosition, orbSize));
     var manaOrb = new DefaultOrb("MP", Color.BLUE, new Fraction(hero.getStats().getMana(), hero.getStats().getMaxMana()));
-    var manaOrbPosition = InterfaceLocation.at(painter.getAvailableSize().getWidth() - orbSize.getWidth(), top);
-    orbRenderer.render(manaOrb, painter.createSubsectionPainter(manaOrbPosition, orbSize));
+    var manaOrbPosition = InterfaceLocation.at(layer.getSize().getWidth() - orbSize.getWidth(), top);
+    orbRenderer.render(manaOrb, layer.getSubsection(manaOrbPosition, orbSize));
   }
 
   private InterfaceSize getOrbSize(int width) {

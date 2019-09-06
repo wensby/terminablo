@@ -22,7 +22,7 @@ public class MainMenuView implements View {
   }
 
   @Override
-  public void render(TerminalLayerPainter painter) {
+  public void render(TerminalLayer layer) {
     var menuItems = model.getMenuItems().stream().map(this::createButton).collect(toList());
     var childLayout =
         "_ _ _\n" +
@@ -35,7 +35,7 @@ public class MainMenuView implements View {
         "menu", createFirstPartMenu(menuItems),
         "submenu", createSecondPartMenu(menuItems)
     ), childLayout, columnLayout, rowLayout);
-    grid.render(painter);
+    grid.render(layer);
   }
 
   private InterfaceComponent createButton(String item) {

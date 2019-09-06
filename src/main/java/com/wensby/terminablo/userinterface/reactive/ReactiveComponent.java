@@ -1,10 +1,9 @@
 package com.wensby.terminablo.userinterface.reactive;
 
-import com.wensby.application.userinterface.TerminalLayerPainter;
+import com.wensby.application.userinterface.TerminalLayer;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public abstract class ReactiveComponent implements Component {
 
@@ -32,11 +31,12 @@ public abstract class ReactiveComponent implements Component {
 
   public abstract Component createComponent();
 
-  public void render(TerminalLayerPainter painter) {
+  @Override
+  public void render(TerminalLayer layer) {
     if (stateChanged) {
       component = createComponent();
       stateChanged = false;
     }
-    component.render(painter);
+    component.render(layer);
   }
 }

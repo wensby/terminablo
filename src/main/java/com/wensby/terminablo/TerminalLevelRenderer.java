@@ -1,6 +1,6 @@
 package com.wensby.terminablo;
 
-import com.wensby.application.userinterface.TerminalLayerPainter;
+import com.wensby.application.userinterface.TerminalLayer;
 import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.terminablo.world.level.Level;
 import com.wensby.terminablo.world.level.LevelLocation;
@@ -15,20 +15,20 @@ public class TerminalLevelRenderer {
     this.entityRenderer = entityRenderer;
   }
 
-  public void render(Level level, LevelLocation location, TerminalLayerPainter painter) {
-    var interfaceCenter = InterfaceLocation.at(painter.getAvailableSize().getWidth() / 2, painter.getAvailableSize().getHeight() / 2);
+  public void render(Level level, LevelLocation location, TerminalLayer layer) {
+    var interfaceCenter = InterfaceLocation.at(layer.getSize().getWidth() / 2, layer.getSize().getHeight() / 2);
     var topLeftInterfacePosition = topLeftInterfacePosition(interfaceCenter);
     var topLeftLevelLocation = topLeftLevelLocation(topLeftInterfacePosition, location, interfaceCenter);
 
-    for (int y = 0; y < painter.getAvailableSize().getHeight(); y++) {
-      for (int x = 0; x < painter.getAvailableSize().getWidth() / 2; x++) {
+    for (int y = 0; y < layer.getSize().getHeight(); y++) {
+      for (int x = 0; x < layer.getSize().getWidth() / 2; x++) {
         var layerPosition = topLeftInterfacePosition.plus(InterfaceLocation.at(x * 2, y));
         var levelLocation = LevelLocation.of(topLeftLevelLocation.getX() + x, topLeftLevelLocation.getY() + y);
         level.entities(levelLocation).stream()
             .map(entityRenderer::getTerminalCharacter)
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .forEach(character -> painter.put(character, layerPosition));
+            .forEach(character -> layer.put(character, layerPosition));
       }
     }
   }

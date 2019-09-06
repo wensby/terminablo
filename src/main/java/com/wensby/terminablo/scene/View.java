@@ -1,8 +1,8 @@
 package com.wensby.terminablo.scene;
 
-import com.wensby.application.userinterface.TerminalLayerPainter;
+import com.wensby.application.userinterface.TerminalLayer;
 
 public interface View {
 
-  void render(TerminalLayerPainter painter);
+  void render(TerminalLayer layer);
 }

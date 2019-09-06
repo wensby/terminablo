@@ -1,7 +1,7 @@
 package com.wensby.terminablo.userinterface.component;
 
 import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalLayerPainter;
+import com.wensby.application.userinterface.TerminalLayer;
 
 import java.util.List;
 import java.util.Map;
@@ -22,8 +22,8 @@ public class Grid implements InterfaceComponent {
   }
 
   @Override
-  public void render(TerminalLayerPainter painter) {
-    new GridPainter(painter, childrenByGridKey, childLayout, columnLayout, rowLayout).paint();
+  public void render(TerminalLayer layer) {
+    new GridPainter(layer, childrenByGridKey, childLayout, columnLayout, rowLayout).paint();
   }
 
   @Override

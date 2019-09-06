@@ -1,8 +1,7 @@
 package com.wensby.terminablo.userinterface.component;
 
-import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalLayerPainter;
+import com.wensby.application.userinterface.TerminalLayer;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,8 +21,8 @@ public class Container implements InterfaceComponent {
   }
 
   @Override
-  public void render(TerminalLayerPainter painter) {
-    new ContainerPainter(painter, children).paint();
+  public void render(TerminalLayer layer) {
+    new ContainerPainter(layer, children).paint();
   }
 
   @Override

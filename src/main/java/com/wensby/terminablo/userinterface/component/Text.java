@@ -1,9 +1,6 @@
 package com.wensby.terminablo.userinterface.component;
 
-import com.wensby.application.userinterface.InterfaceLocation;
-import com.wensby.application.userinterface.InterfaceSize;
-import com.wensby.application.userinterface.TerminalCharacterFactory;
-import com.wensby.application.userinterface.TerminalLayerPainter;
+import com.wensby.application.userinterface.*;
 import com.wensby.terminablo.userinterface.LayerWriterImpl;
 
 import java.util.List;
@@ -24,9 +21,9 @@ public class Text implements InterfaceComponent {
   }
 
   @Override
-  public void render(TerminalLayerPainter painter) {
-    InterfaceLocation topLeft = at((painter.getAvailableSize().getWidth() / 2) - (text.length() / 2), painter.getAvailableSize().getHeight() / 2);
-    new LayerWriterImpl(characterFactory, painter, bold).write(text, topLeft);
+  public void render(TerminalLayer layer) {
+    InterfaceLocation topLeft = at((layer.getSize().getWidth() / 2) - (text.length() / 2), layer.getSize().getHeight() / 2);
+    new LayerWriterImpl(characterFactory, layer, bold).write(text, topLeft);
   }
 
   @Override

@@ -1,6 +1,6 @@
 package com.wensby.terminablo.userinterface.reactive;
 
-import com.wensby.application.userinterface.TerminalLayerPainter;
+import com.wensby.application.userinterface.TerminalLayer;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class Container implements Component {
   }
 
   @Override
-  public void render(TerminalLayerPainter painter) {
-    new ContainerPainter(painter, children).paint();
+  public void render(TerminalLayer layer) {
+    new ContainerPainter(layer, children).paint();
   }
 }

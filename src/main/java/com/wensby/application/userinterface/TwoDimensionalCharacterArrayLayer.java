@@ -107,7 +107,7 @@ public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
   }
 
   @Override
-  public TerminalLayerPainter getPainter() {
-    return new TerminalLayerSectionPainter(this, new TerminalLayerSection(atOrigin(), getSize()));
+  public TerminalLayer getSubsection(InterfaceLocation topLeft, InterfaceSize size) {
+    return ((TerminalLayer) new TerminalLayerSubsection(this, new TerminalLayerSection(atOrigin(), getSize()))).getSubsection(topLeft, size);
   }
 }

@@ -27,16 +27,15 @@ public class Renderer {
 
   public void render() {
     var frame = canvas.createFrame();
-    var painter = frame.getPainter();
     if (benchmarkModel.isDisplayed()) {
       var sectionSize = InterfaceSize.of(frame.getSize().getWidth(), 5);
-      benchmarkView.render(painter.createSubsectionPainter(atOrigin(), sectionSize));
+      benchmarkView.render(frame.getSubsection(atOrigin(), sectionSize));
       var applicationViewportSize = frame.getSize().minus(InterfaceSize.of(0, 5));
-      var applicationPainter = painter.createSubsectionPainter(at(0, 5), applicationViewportSize);
+      var applicationPainter = frame.getSubsection(at(0, 5), applicationViewportSize);
       applicationRenderer.renderApplication(applicationPainter);
     }
     else {
-      applicationRenderer.renderApplication(painter);
+      applicationRenderer.renderApplication(frame);
     }
     LOGGER.debug("Rendering frame at size " + frame.getSize());
     var renderResult = canvas.renderFrame(frame);

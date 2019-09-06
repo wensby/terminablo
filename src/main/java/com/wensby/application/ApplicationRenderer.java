@@ -1,8 +1,8 @@
 package com.wensby.application;
 
-import com.wensby.application.userinterface.TerminalLayerPainter;
+import com.wensby.application.userinterface.TerminalLayer;
 
 public interface ApplicationRenderer {
 
-  void renderApplication(TerminalLayerPainter painter);
+  void renderApplication(TerminalLayer layer);
 }

@@ -18,8 +18,8 @@ public class Border implements InterfaceComponent {
   }
 
   @Override
-  public void render(TerminalLayerPainter painter) {
-    var size = painter.getAvailableSize();
+  public void render(TerminalLayer layer) {
+    var size = layer.getSize();
     var topLeftLayer = style.getTopLeft().getLayer(size);
     var bottomLeftLayer = style.getBottomLeft().getLayer(size);
     var topRightLayer = style.getTopRight().getLayer(size);
@@ -42,15 +42,15 @@ public class Border implements InterfaceComponent {
     int bottomRightCornerHeight = bottomRightLayer.getSize().getHeight();
     int rightStraightLength = height - topRightCornerHeight - bottomRightCornerHeight;
     TerminalLayer rightStraight = style.getRightStraight().getLayer(rightStraightLength);
-    painter.put(topLeftLayer, atOrigin());
-    painter.put(bottomLeftLayer, at(0, height - bottomLeftCornerHeight));
-    painter.put(topRightLayer, at(width - topRightCornerWidth, 0));
-    painter.put(bottomRightLayer, at(width - topRightCornerWidth, height - bottomLeftCornerHeight));
-    painter.put(topStraight, at(topLeftCornerWidth, 0));
-    painter.put(bottomStraight, at(topLeftCornerWidth, height - bottomStraight.getSize().getHeight()));
-    painter.put(leftStraight, at(0, topLeftCornerHeight));
-    painter.put(rightStraight, at(width - rightStraight.getSize().getWidth(), topRightCornerHeight));
-    child.render(painter);
+    layer.put(topLeftLayer, atOrigin());
+    layer.put(bottomLeftLayer, at(0, height - bottomLeftCornerHeight));
+    layer.put(topRightLayer, at(width - topRightCornerWidth, 0));
+    layer.put(bottomRightLayer, at(width - topRightCornerWidth, height - bottomLeftCornerHeight));
+    layer.put(topStraight, at(topLeftCornerWidth, 0));
+    layer.put(bottomStraight, at(topLeftCornerWidth, height - bottomStraight.getSize().getHeight()));
+    layer.put(leftStraight, at(0, topLeftCornerHeight));
+    layer.put(rightStraight, at(width - rightStraight.getSize().getWidth(), topRightCornerHeight));
+    child.render(layer);
   }
 
   @Override

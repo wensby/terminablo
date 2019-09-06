@@ -14,9 +14,9 @@ public class BenchmarkViewImpl implements BenchmarkView {
   }
 
   @Override
-  public void render(TerminalLayerPainter painter) {
+  public void render(TerminalLayer layer) {
     final var benchmark = benchmarkModel.getBenchmark();
     final var renderer = new BenchmarkRenderer(characterFactory, benchmark);
-    renderer.render(painter);
+    renderer.render(layer);
   }
 }

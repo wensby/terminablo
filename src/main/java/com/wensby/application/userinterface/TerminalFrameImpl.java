@@ -36,7 +36,7 @@ public class TerminalFrameImpl implements TerminalFrame {
   }
 
   @Override
-  public TerminalLayerPainter getPainter() {
-    return layer.getPainter();
+  public TerminalLayer getSubsection(InterfaceLocation topLeft, InterfaceSize size) {
+    return layer.getSubsection(topLeft, size);
   }
 }

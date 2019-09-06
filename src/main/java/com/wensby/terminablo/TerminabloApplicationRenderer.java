@@ -1,7 +1,7 @@
 package com.wensby.terminablo;
 
 import com.wensby.application.ApplicationRenderer;
-import com.wensby.application.userinterface.TerminalLayerPainter;
+import com.wensby.application.userinterface.TerminalLayer;
 import com.wensby.terminablo.scene.SceneStack;
 
 import java.util.Objects;
@@ -15,7 +15,7 @@ public class TerminabloApplicationRenderer implements ApplicationRenderer {
   }
 
   @Override
-  public void renderApplication(TerminalLayerPainter painter) {
-    sceneStack.getTop().render(painter);
+  public void renderApplication(TerminalLayer layer) {
+    sceneStack.getTop().render(layer);
   }
 }

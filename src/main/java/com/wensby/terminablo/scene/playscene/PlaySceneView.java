@@ -1,6 +1,6 @@
 package com.wensby.terminablo.scene.playscene;
 
-import com.wensby.application.userinterface.TerminalLayerPainter;
+import com.wensby.application.userinterface.TerminalLayer;
 import com.wensby.terminablo.TerminalLevelRenderer;
 import com.wensby.terminablo.scene.View;
 
@@ -20,11 +20,11 @@ public class PlaySceneView implements View {
   }
 
   @Override
-  public void render(TerminalLayerPainter painter) {
+  public void render(TerminalLayer layer) {
     var level = model.getLevel();
     var hero = model.getCharacter();
     var heroLocation = level.locationOf(hero.getLevelEntity()).orElseThrow();
-    terminalLevelRenderer.render(level, heroLocation, painter);
-    playSceneInterfaceRenderer.render(hero, painter, model);
+    terminalLevelRenderer.render(level, heroLocation, layer);
+    playSceneInterfaceRenderer.render(hero, layer, model);
   }
 }

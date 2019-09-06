@@ -21,12 +21,12 @@ public class BenchmarkRenderer {
     this.benchmark = requireNonNull(benchmark);
   }
 
-  public void render(TerminalLayerPainter painter) {
-    var writer = new LayerWriterImpl(characterFactory, painter, false);
+  public void render(TerminalLayer layer) {
+    var writer = new LayerWriterImpl(characterFactory, layer, false);
     var updateTimeMs = Long.toString(benchmark.getLastUpdateTime().toMillis());
     var renderTimeMs = Long.toString(benchmark.getLastRenderTime().toMillis());
     var tickTimeMs = Long.toString(benchmark.getLastTickTime().toMillis());
-    renderGraph(painter);
+    renderGraph(layer);
     writer.write(
         "Update time ms: " + updateTimeMs + "\n" +
         "Render time ms: " + renderTimeMs + "\n" +
@@ -34,11 +34,11 @@ public class BenchmarkRenderer {
         "Render string length: " + benchmark.getLastRenderStringLength(), at(0, 1));
   }
 
-  private void renderGraph(TerminalLayerPainter painter) {
+  private void renderGraph(TerminalLayer layer) {
     var latestTickTimes = benchmark.getLatestTickTimes();
-    for (int col = 0; col - 1 < painter.getAvailableSize().getWidth() && col < latestTickTimes.size(); col++) {
+    for (int col = 0; col - 1 < layer.getSize().getWidth() && col < latestTickTimes.size(); col++) {
       var unit = UnitInterval.truncate((double) latestTickTimes.get(col).toMillis() / 30d);
-      painter.put(createCharacter(unit), at(painter.getAvailableSize().getWidth() - col, 0));
+      layer.put(createCharacter(unit), at(layer.getSize().getWidth() - col, 0));
     }
   }
 

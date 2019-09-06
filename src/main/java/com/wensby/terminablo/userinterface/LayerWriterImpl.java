@@ -4,17 +4,15 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.userinterface.*;
 
-import java.awt.*;
-
 public class LayerWriterImpl implements LayerWriter {
 
   private final TerminalCharacterFactory characterFactory;
-  private final TerminalLayerPainter painter;
+  private final TerminalLayer layer;
   private final boolean bold;
 
-  public LayerWriterImpl(TerminalCharacterFactory characterFactory, TerminalLayerPainter painter, boolean bold) {
+  public LayerWriterImpl(TerminalCharacterFactory characterFactory, TerminalLayer layer, boolean bold) {
     this.characterFactory = requireNonNull(characterFactory);
-    this.painter = requireNonNull(painter);
+    this.layer = requireNonNull(layer);
     this.bold = bold;
   }
 
@@ -30,7 +28,7 @@ public class LayerWriterImpl implements LayerWriter {
       var character = text.charAt(i);
       if (character != '\n') {
         var terminalCharacter = getCharacter(character);
-        put = painter.put(terminalCharacter, characterLocation);
+        put = layer.put(terminalCharacter, characterLocation);
         column = column + 1;
       }
       else {

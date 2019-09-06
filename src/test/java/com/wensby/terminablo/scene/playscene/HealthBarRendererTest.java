@@ -15,7 +15,8 @@ public class HealthBarRendererTest {
     var characterFactory = new TerminalCharacterFactoryImpl();
     var renderer = new HealthBarRenderer(characterFactory, "A", 1f, "B", "C");
     var layer = new SparseLayer(InterfaceSize.of(1, 3));
-    var painter = layer.getPainter();
+    var fullSection = new TerminalLayerSection(InterfaceLocation.atOrigin(), layer.getSize());
+    var painter = (TerminalLayer) new TerminalLayerSubsection(layer, fullSection);
 
     renderer.render(painter);
 
