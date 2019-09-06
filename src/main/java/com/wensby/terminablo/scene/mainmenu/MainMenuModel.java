@@ -1,11 +1,14 @@
 package com.wensby.terminablo.scene.mainmenu;
 
+import com.wensby.terminablo.userinterface.component.InterfaceComponent;
+
 import java.util.List;
 
 public class MainMenuModel {
 
   private final List<String> menuItems;
   private int selectedItemIndex;
+  private InterfaceComponent component;
 
   public MainMenuModel(List<String> menuItems) {
     this.menuItems = menuItems;
