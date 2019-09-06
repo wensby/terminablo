@@ -10,12 +10,12 @@ import java.util.Objects;
 public class ContainerPainter {
 
   private final TerminalLayer layer;
-  private final List<Component> children;
+  private final List<? extends Component> children;
   private final InterfaceSize availableSize;
 
   private int childrenHeight;
 
-  public ContainerPainter(TerminalLayer layer, List<Component> children) {
+  public ContainerPainter(TerminalLayer layer, List<? extends Component> children) {
     this.layer = Objects.requireNonNull(layer);
     this.children = Objects.requireNonNull(children);
     availableSize = layer.getSize();

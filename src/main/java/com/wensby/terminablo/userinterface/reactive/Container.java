@@ -6,9 +6,9 @@ import java.util.List;
 
 public class Container implements Component {
 
-  private final List<Component> children;
+  private final List<? extends Component> children;
 
-  public Container(List<Component> children) {
+  public Container(List<? extends Component> children) {
     this.children = children;
   }
 
