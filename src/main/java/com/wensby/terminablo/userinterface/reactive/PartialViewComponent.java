@@ -6,8 +6,6 @@ import com.wensby.application.userinterface.*;
 import java.util.List;
 import java.util.Objects;
 
-import static com.wensby.application.userinterface.InterfaceLocation.atOrigin;
-
 public class PartialViewComponent implements Component {
 
   private final Component component;
@@ -16,23 +14,31 @@ public class PartialViewComponent implements Component {
   private final float leftRatio;
   private final float topRatio;
 
-  public PartialViewComponent(Component component, float childHeightRatio, float childWidthRatio, float leftRatio, float topRatio) {
+  public PartialViewComponent(Component component, float childHeightRatio, float childWidthRatio, float topRatio, float leftRatio) {
     this.component = Objects.requireNonNull(component);
     this.childHeightRatio = childHeightRatio;
     this.childWidthRatio = childWidthRatio;
-    this.leftRatio = leftRatio;
     this.topRatio = topRatio;
+    this.leftRatio = leftRatio;
   }
 
   @Override
   public void render(TerminalLayer layer) {
-    var column = layer.getSize().getWidth() * leftRatio;
-    var row = layer.getSize().getHeight() * topRatio;
-    InterfaceLocation topLeft = InterfaceLocation.at((int)column, (int)row);
+    InterfaceLocation topLeft = getTopLeft(layer);
+    InterfaceSize size = getSize(layer);
+    component.render(layer.getSubsection(topLeft, size));
+  }
+
+  private InterfaceLocation getTopLeft(TerminalLayer layer) {
+    var column = (int)(layer.getSize().getWidth() * leftRatio);
+    var row = (int)((float)layer.getSize().getHeight() * topRatio);
+    return InterfaceLocation.at(column, row);
+  }
+
+  private InterfaceSize getSize(TerminalLayer layer) {
     var childWidth = layer.getSize().getWidth() * childWidthRatio;
     var childHeight = layer.getSize().getHeight() * childHeightRatio;
-    InterfaceSize size = InterfaceSize.of((int)childWidth, (int)childHeight);
-    component.render(layer.getSubsection(topLeft, size));
+    return InterfaceSize.of((int)childWidth, (int)childHeight);
   }
 
   @Override

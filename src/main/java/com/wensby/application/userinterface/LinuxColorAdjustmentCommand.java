@@ -1,24 +1,29 @@
 package com.wensby.application.userinterface;
 
+
 import java.awt.*;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.joining;
 
 public class LinuxColorAdjustmentCommand implements TerminalRenderCommand {
 
   private final String renderString;
 
   public LinuxColorAdjustmentCommand(Color background, Color foreground, boolean bold) {
-    int backgroundColorCode = LinuxColorConverter.getBackgroundColorCode(background);
-    int foregroundColorCode = LinuxColorConverter.getForegroundColorCode(foreground);
+    var backgroundColorCode = LinuxColorConverter.getBackgroundColorCode(background);
+    var foregroundColorCode = LinuxColorConverter.getForegroundColorCode(foreground);
     StringBuilder colorAdjust = new StringBuilder();
     colorAdjust.append(Ansi.ESCAPE)
         .append("[")
-        .append(foregroundColorCode)
+        .append(foregroundColorCode.stream().map(String::valueOf).collect(joining(";")))
         .append(";")
-        .append(backgroundColorCode);
-    if (backgroundColorCode == 1) {
+        .append(backgroundColorCode.stream().map(String::valueOf).collect(joining(";")));
+    if (backgroundColorCode.equals(List.of(1))) {
       colorAdjust.append(";49");
     }
-    if (foregroundColorCode == 1) {
+    if (foregroundColorCode.equals(List.of(1))) {
       colorAdjust.append(";39");
     }
     if (bold) {

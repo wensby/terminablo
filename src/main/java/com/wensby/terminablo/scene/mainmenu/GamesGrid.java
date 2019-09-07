@@ -6,8 +6,9 @@ import com.wensby.terminablo.game.Game;
 import com.wensby.terminablo.player.PlayerCharacter;
 import com.wensby.terminablo.userinterface.reactive.Component;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
-import com.wensby.terminablo.userinterface.reactive.Scroll;
+import com.wensby.terminablo.userinterface.reactive.VerticalScroll;
 import com.wensby.terminablo.userinterface.reactive.SimpleGrid;
+import com.wensby.terminablo.util.UnitInterval;
 import com.wensby.terminablo.world.level.LevelEntityImpl;
 
 import java.util.List;
@@ -41,7 +42,8 @@ public class GamesGrid extends ReactiveComponent {
   @Override
   public Component render() {
     var characterGrid = createCharacterGrid();
-    return new Scroll(characterGrid, requiredRows / visibleRows, - (getTopRow() / (float) requiredRows));
+    var scroll = (float)getTopRow() / (Math.max(requiredRows, visibleRows) - 4f);
+    return new VerticalScroll(characterFactory, characterGrid, requiredRows / visibleRows, UnitInterval.of(scroll));
   }
 
   private int getTopRow() {
