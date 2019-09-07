@@ -4,9 +4,11 @@ import com.wensby.application.userinterface.Key;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.userinterface.reactive.Component;
 import com.wensby.terminablo.userinterface.reactive.Container;
+import com.wensby.terminablo.userinterface.reactive.Grid;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 
 import java.util.List;
+import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
 
@@ -31,7 +33,15 @@ public class MainMenu extends ReactiveComponent {
     buttons = itemLabels.stream()
         .map(this::createMainMenuButton)
         .collect(toList());
-    return new Container(buttons);
+    return new Grid(
+        Map.of(
+            "top", new Container(buttons.subList(0, 3)),
+            "bottom", new Container(buttons.subList(3, 5))
+        ),
+        "top\n_\nbottom",
+        List.of(1),
+        List.of(3, 2,2)
+    );
   }
 
   private MainMenuButton createMainMenuButton(String label) {
