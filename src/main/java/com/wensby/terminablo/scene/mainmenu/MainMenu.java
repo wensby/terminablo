@@ -13,11 +13,13 @@ import static java.util.stream.Collectors.toList;
 public class MainMenu extends ReactiveComponent {
 
   private final TerminalCharacterFactory characterFactory;
+  private final Runnable onExitTerminabloClicked;
   private final List<String> itemLabels;
   private List<MainMenuButton> buttons = List.of();
 
-  public MainMenu(TerminalCharacterFactory characterFactory) {
+  public MainMenu(TerminalCharacterFactory characterFactory, Runnable onExitTerminabloClicked) {
     this.characterFactory = characterFactory;
+    this.onExitTerminabloClicked = onExitTerminabloClicked;
     setState("indexFocused", 0);
     itemLabels = List.of("SINGLE PLAYER", "BATTLE.NET", "OTHER MULTIPLAYER", "CREDITS/CINEMATICS", "EXIT TERMINABLO");
   }
@@ -33,7 +35,8 @@ public class MainMenu extends ReactiveComponent {
   private MainMenuButton createMainMenuButton(String label) {
     var currentIndex = getState("indexFocused", Integer.class);
     var focused = itemLabels.get(currentIndex).equals(label);
-    return new MainMenuButton(characterFactory, label, () -> { }, focused);
+    var onClick = label.equalsIgnoreCase("EXIT TERMINABLO") ? onExitTerminabloClicked : (Runnable)() -> {};
+    return new MainMenuButton(characterFactory, label, onClick, focused);
   }
 
   @Override
