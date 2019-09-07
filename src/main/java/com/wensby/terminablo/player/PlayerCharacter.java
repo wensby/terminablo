@@ -31,7 +31,11 @@ public class PlayerCharacter implements Agent {
     return levelEntity;
   }
 
-  CharacterClass getCharacterClass() {
-    return null;
+  public CharacterClass getCharacterClass() {
+    return new CharacterClass();
+  }
+
+  public int getLevel() {
+    return 1;
   }
 }
