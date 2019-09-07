@@ -1,29 +1,31 @@
 package com.wensby.terminablo.scene.mainmenu;
 
+import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.scene.playscene.PlaySceneFactory;
-import com.wensby.terminablo.userinterface.component.InterfaceComponentFactory;
-
-import java.util.List;
+import com.wensby.terminablo.userinterface.UserInterface;
 
 public class MainMenuSceneFactory {
 
   private final SceneStack sceneStack;
   private final PlaySceneFactory playSceneFactory;
-  private final InterfaceComponentFactory componentFactory;
+  private final TerminalCharacterFactory characterFactory;
 
-  public MainMenuSceneFactory(SceneStack sceneStack, PlaySceneFactory playSceneFactory, InterfaceComponentFactory componentFactory) {
+  public MainMenuSceneFactory(SceneStack sceneStack, PlaySceneFactory playSceneFactory, TerminalCharacterFactory characterFactory) {
     this.sceneStack = sceneStack;
     this.playSceneFactory = playSceneFactory;
-    this.componentFactory = componentFactory;
+    this.characterFactory = characterFactory;
   }
 
   public Scene createMainMenuScene()  {
-    var items = List.of("SINGLE PLAYER", "BATTLE.NET", "OTHER MULTIPLAYER", "CREDITS", "CINEMATICS", "EXIT TERMINABLO");
-    var model = new MainMenuModel(items);
-    var controller = new MainMenuController(sceneStack, model, playSceneFactory);
-    var view = new MainMenuView(model, componentFactory);
+    Runnable onSinglePlayerClicked = () -> sceneStack.push(playSceneFactory.createPlayScene());
+    Runnable onExitTerminabloClicked = sceneStack::pop;
+    var mainMenu = new MainMenu(characterFactory, onSinglePlayerClicked, onExitTerminabloClicked);
+    var mainMenuUserInterface = new UserInterface(mainMenu);
+    var model = new MainMenuModel(mainMenuUserInterface);
+    var controller = new MainMenuController(model);
+    var view = new MainMenuView(model);
     return new Scene(controller, view);
   }
 }
