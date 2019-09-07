@@ -9,19 +9,16 @@ import com.wensby.terminablo.userinterface.UserInterface;
 public class MainMenuSceneFactory {
 
   private final SceneStack sceneStack;
-  private final PlaySceneFactory playSceneFactory;
   private final TerminalCharacterFactory characterFactory;
 
-  public MainMenuSceneFactory(SceneStack sceneStack, PlaySceneFactory playSceneFactory, TerminalCharacterFactory characterFactory) {
+  public MainMenuSceneFactory(SceneStack sceneStack, TerminalCharacterFactory characterFactory) {
     this.sceneStack = sceneStack;
-    this.playSceneFactory = playSceneFactory;
     this.characterFactory = characterFactory;
   }
 
   public Scene createMainMenuScene()  {
-    Runnable onSinglePlayerClicked = () -> sceneStack.push(playSceneFactory.createPlayScene());
     Runnable onExitTerminabloClicked = sceneStack::pop;
-    var mainMenuPage = new MainMenuPage(characterFactory, onSinglePlayerClicked, onExitTerminabloClicked);
+    var mainMenuPage = new MainMenuTopComponent(characterFactory, onExitTerminabloClicked);
     var mainMenuUserInterface = new UserInterface(mainMenuPage);
     var model = new MainMenuModel(mainMenuUserInterface);
     var controller = new MainMenuController(model);

@@ -5,15 +5,13 @@ import com.wensby.application.TerminalApplicationContext;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStackImpl;
 import com.wensby.terminablo.scene.mainmenu.MainMenuSceneFactory;
-import com.wensby.terminablo.scene.playscene.PlaySceneFactoryImpl;
 
 public class TerminabloFactory {
 
   public TerminalApplication createTerminablo(TerminalApplicationContext context) {
     var characterFactory = context.getCharacterFactory();
     var sceneStack = new SceneStackImpl();
-    var levelSceneFactory = new PlaySceneFactoryImpl(characterFactory, sceneStack);
-    var mainMenuSceneFactory = new MainMenuSceneFactory(sceneStack, levelSceneFactory, characterFactory);
+    var mainMenuSceneFactory = new MainMenuSceneFactory(sceneStack, characterFactory);
     var scene = mainMenuSceneFactory.createMainMenuScene();
     var testScene = new Scene((elapsedTime, input) -> {}, layer -> {});
     sceneStack.push(scene);
