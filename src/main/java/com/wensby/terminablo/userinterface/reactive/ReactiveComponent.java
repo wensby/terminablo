@@ -1,9 +1,12 @@
 package com.wensby.terminablo.userinterface.reactive;
 
+import com.wensby.application.userinterface.Key;
 import com.wensby.application.userinterface.TerminalLayer;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public abstract class ReactiveComponent implements Component {
 
@@ -29,14 +32,19 @@ public abstract class ReactiveComponent implements Component {
     return tClass.cast(o);
   }
 
-  public abstract Component createComponent();
+  public abstract Component render();
 
   @Override
   public void render(TerminalLayer layer) {
     if (stateChanged) {
-      component = createComponent();
+      component = render();
       stateChanged = false;
     }
     component.render(layer);
+  }
+
+  @Override
+  public void sendKeys(List<Key> keys) {
+    Optional.ofNullable(component).ifPresent(c -> c.sendKeys(keys));
   }
 }
