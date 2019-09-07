@@ -53,6 +53,6 @@ public class TerminalLayerSubsection implements TerminalLayer {
 
   @Override
   public TerminalLayerSubsection getSubsection(InterfaceLocation topLeft, InterfaceSize size) {
-    return new TerminalLayerSubsection(layer, this.section.createSubsection(topLeft, size));
+    return new TerminalLayerSubsection(this, this.section.createSection(topLeft, size));
   }
 }

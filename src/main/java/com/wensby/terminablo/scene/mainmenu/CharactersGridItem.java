@@ -36,9 +36,9 @@ public class CharactersGridItem extends ReactiveComponent {
   private Container createCharacterDetails() {
     return new Container(
         List.of(
-            new Text(characterFactory, character.getName(), false),
-            new Text(characterFactory, "Level " + character.getLevel() + " " + character.getCharacterClass().getName(), false),
-            new Text(characterFactory, "EXPANSION CHARACTER", false)
+            new Text(characterFactory, character.getName(), selected),
+            new Text(characterFactory, "Level " + character.getLevel() + " " + character.getCharacterClass().getName(), selected),
+            new Text(characterFactory, "EXPANSION CHARACTER", selected)
             )
     );
   }

@@ -16,18 +16,8 @@ public class TerminalLayerSection {
     return size;
   }
 
-  public TerminalLayerSection createSubsection(InterfaceLocation topLeft, InterfaceSize size) {
-    if (isInvalidSubsection(topLeft, size)) {
-      throw new RuntimeException("Invalid subsection: " + topLeft + ", " + size);
-    }
-    return new TerminalLayerSection(this.topLeft.plus(topLeft), size);
-  }
-
-  private boolean isInvalidSubsection(InterfaceLocation topLeft, InterfaceSize size) {
-    return topLeft.getRow() < 0
-        || topLeft.getColumn() < 0
-        || (size.getHeight() + topLeft.getRow() > this.size.getHeight())
-        || (size.getWidth() + topLeft.getColumn() > this.size.getWidth());
+  public TerminalLayerSection createSection(InterfaceLocation topLeft, InterfaceSize size) {
+    return new TerminalLayerSection(topLeft, size);
   }
 
   public boolean containsRelativeLocation(InterfaceLocation location) {
