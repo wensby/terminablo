@@ -22,7 +22,7 @@ public class TerminabloFactory {
     var componentFactory = new InterfaceComponentFactory(characterFactory, context.getLayerFactory(), borderStyleFactory);
     var mainMenuSceneFactory = new MainMenuSceneFactory(sceneStack, levelSceneFactory, componentFactory);
     var scene = mainMenuSceneFactory.createMainMenuScene();
-    var mainMenu = new MainMenu(characterFactory, sceneStack::pop);
+    var mainMenu = new MainMenu(characterFactory, () -> sceneStack.push(levelSceneFactory.createPlayScene()), sceneStack::pop);
     var testSceneUserInterface = new UserInterface(mainMenu);
     var testScene = new Scene(testSceneUserInterface::update, new TestSceneView(testSceneUserInterface));
     sceneStack.push(testScene);
