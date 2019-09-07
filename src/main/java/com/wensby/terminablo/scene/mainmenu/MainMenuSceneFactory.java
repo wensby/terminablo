@@ -21,8 +21,8 @@ public class MainMenuSceneFactory {
   public Scene createMainMenuScene()  {
     Runnable onSinglePlayerClicked = () -> sceneStack.push(playSceneFactory.createPlayScene());
     Runnable onExitTerminabloClicked = sceneStack::pop;
-    var mainMenu = new MainMenu(characterFactory, onSinglePlayerClicked, onExitTerminabloClicked);
-    var mainMenuUserInterface = new UserInterface(mainMenu);
+    var mainMenuPage = new MainMenuPage(characterFactory, onSinglePlayerClicked, onExitTerminabloClicked);
+    var mainMenuUserInterface = new UserInterface(mainMenuPage);
     var model = new MainMenuModel(mainMenuUserInterface);
     var controller = new MainMenuController(model);
     var view = new MainMenuView(model);

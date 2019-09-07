@@ -1,8 +1,9 @@
-package com.wensby.terminablo.userinterface.component;
+package com.wensby.terminablo.userinterface.reactive;
 
 import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.application.userinterface.TerminalLayer;
+import com.wensby.terminablo.userinterface.component.InterfaceComponent;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -12,7 +13,7 @@ import java.util.stream.Stream;
 public class GridPainter {
 
   private final TerminalLayer layer;
-  private final Map<String, InterfaceComponent> childrenByGridKey;
+  private final Map<String, Component> childrenByGridKey;
   private final String childLayout;
   private final List<Integer> columnLayout;
   private final List<Integer> rowLayout;
@@ -20,7 +21,7 @@ public class GridPainter {
 
   private Set<String> paintedGridKeys;
 
-  public GridPainter(TerminalLayer layer, Map<String, InterfaceComponent> childrenByGridKey, String childLayout, List<Integer> columnLayout, List<Integer> rowLayout) {
+  public GridPainter(TerminalLayer layer, Map<String, Component> childrenByGridKey, String childLayout, List<Integer> columnLayout, List<Integer> rowLayout) {
     this.layer = layer;
     this.childrenByGridKey = childrenByGridKey;
     this.childLayout = childLayout;

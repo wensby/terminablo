@@ -1,20 +1,20 @@
-package com.wensby.terminablo.userinterface.component;
+package com.wensby.terminablo.userinterface.reactive;
 
-import com.wensby.application.userinterface.InterfaceSize;
+import com.wensby.application.userinterface.Key;
 import com.wensby.application.userinterface.TerminalLayer;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class Grid implements InterfaceComponent {
+public class Grid implements Component {
 
-  private final Map<String, InterfaceComponent> childrenByGridKey;
+  private final Map<String, Component> childrenByGridKey;
   private final String childLayout;
   private final List<Integer> columnLayout;
   private final List<Integer> rowLayout;
 
-  public Grid(Map<String, InterfaceComponent> childrenByGridKey, String childLayout, List<Integer> columnLayout, List<Integer> rowLayout) {
+  public Grid(Map<String, Component> childrenByGridKey, String childLayout, List<Integer> columnLayout, List<Integer> rowLayout) {
     this.childrenByGridKey = Objects.requireNonNull(childrenByGridKey);
     this.childLayout = Objects.requireNonNull(childLayout);
     this.columnLayout = Objects.requireNonNull(columnLayout);
@@ -27,7 +27,7 @@ public class Grid implements InterfaceComponent {
   }
 
   @Override
-  public InterfaceSize contentSize() {
-    return InterfaceSize.ZERO;
+  public void sendKeys(List<Key> keys) {
+    childrenByGridKey.values().forEach(child -> child.sendKeys(keys));
   }
 }
