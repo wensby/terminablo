@@ -11,4 +11,8 @@ public class Game {
   public Game(PlayerCharacter character) {
     this.character = Objects.requireNonNull(character);
   }
+
+  public PlayerCharacter getCharacter() {
+    return character;
+  }
 }

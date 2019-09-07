@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class CharactersGridItem extends ReactiveComponent {
+public class GameGridItem extends ReactiveComponent {
 
   private final PlayerCharacter character;
   private final boolean selected;
   private final TerminalCharacterFactory characterFactory;
 
-  public CharactersGridItem(PlayerCharacter character, boolean selected, TerminalCharacterFactory characterFactory) {
+  public GameGridItem(PlayerCharacter character, boolean selected, TerminalCharacterFactory characterFactory) {
     this.characterFactory = Objects.requireNonNull(characterFactory);
     this.character = Objects.requireNonNull(character);
     this.selected = selected;

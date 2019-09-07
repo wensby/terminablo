@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class CharacterSelection extends ReactiveComponent {
+public class GameSelection extends ReactiveComponent {
 
   private final TerminalCharacterFactory characterFactory;
 
-  public CharacterSelection(TerminalCharacterFactory characterFactory) {
+  public GameSelection(TerminalCharacterFactory characterFactory) {
     this.characterFactory = Objects.requireNonNull(characterFactory);
   }
 
@@ -22,9 +22,9 @@ public class CharacterSelection extends ReactiveComponent {
   public Component render() {
     return new Grid(Map.of(
         "name", new Text(characterFactory, "text", false),
-        "characters", new CharactersGrid(characterFactory),
+        "games", new GamesGrid(characterFactory),
         "controls", new Text(characterFactory, "controls", false),
         "exit", new Text(characterFactory, "exit", false)
-    ), "name\ncharacters\ncontrols\nexit", List.of(1), List.of(1, 5, 1, 1));
+    ), "name\ngames\ncontrols\nexit", List.of(1), List.of(1, 5, 1, 1));
   }
 }

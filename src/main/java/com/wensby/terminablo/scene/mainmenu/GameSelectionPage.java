@@ -10,19 +10,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class CharacterSelectionPage extends ReactiveComponent {
+public class GameSelectionPage extends ReactiveComponent {
 
   private final TerminalCharacterFactory characterFactory;
   private final Runnable onExit;
 
-  public CharacterSelectionPage(TerminalCharacterFactory characterFactory, Runnable onExit) {
+  public GameSelectionPage(TerminalCharacterFactory characterFactory, Runnable onExit) {
     this.characterFactory = Objects.requireNonNull(characterFactory);
     this.onExit = Objects.requireNonNull(onExit);
   }
 
   @Override
   public Component render() {
-    return new Grid(Map.of("character", new CharacterSelection(characterFactory)),
+    return new Grid(Map.of("character", new GameSelection(characterFactory)),
         "character _", List.of(2, 1), List.of(1));
   }
 

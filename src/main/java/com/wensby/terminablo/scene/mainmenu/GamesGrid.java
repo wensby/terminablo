@@ -2,6 +2,7 @@ package com.wensby.terminablo.scene.mainmenu;
 
 import com.wensby.application.userinterface.Key;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
+import com.wensby.terminablo.game.Game;
 import com.wensby.terminablo.player.PlayerCharacter;
 import com.wensby.terminablo.userinterface.reactive.Component;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
@@ -14,23 +15,23 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
-public class CharactersGrid extends ReactiveComponent {
+public class GamesGrid extends ReactiveComponent {
 
-  private final List<PlayerCharacter> characters;
+  private final List<Game> games;
   private final TerminalCharacterFactory characterFactory;
   private final float visibleRows;
   private final float itemsPerRow;
   private final int requiredRows;
 
-  public CharactersGrid(TerminalCharacterFactory characterFactory) {
+  public GamesGrid(TerminalCharacterFactory characterFactory) {
     this.characterFactory = characterFactory;
     var character = new PlayerCharacter("Dj", null, new LevelEntityImpl(characterFactory.createCharacter('A')));
-    characters = IntStream.range(0, 12).mapToObj(a -> character).collect(toList());
-    setSelectedCharacterIndex(0);
+    games = IntStream.range(0, 12).mapToObj(a -> character).map(Game::new).collect(toList());
+    setSelectedGameIndex(0);
     setTopRow(0);
     visibleRows = 4f;
     itemsPerRow = 2f;
-    requiredRows = (int) (characters.size() / itemsPerRow + 0.5f);
+    requiredRows = (int) (games.size() / itemsPerRow + 0.5f);
   }
 
   private void setTopRow(int row) {
@@ -48,14 +49,14 @@ public class CharactersGrid extends ReactiveComponent {
   }
 
   private SimpleGrid createCharacterGrid() {
-    return new SimpleGrid(createCharacterGridItems(), 2);
+    return new SimpleGrid(createGameGridItems(), 2);
   }
 
-  private List<CharactersGridItem> createCharacterGridItems() {
-    return IntStream.range(0, characters.size())
+  private List<GameGridItem> createGameGridItems() {
+    return IntStream.range(0, games.size())
         .mapToObj(i -> {
-          var selected = i == getSelectedCharacterIndex();
-          return new CharactersGridItem(characters.get(i), selected, characterFactory);
+          var selected = i == getSelectedGameIndex();
+          return new GameGridItem(games.get(i).getCharacter(), selected, characterFactory);
         })
         .collect(toList());
   }
@@ -64,21 +65,21 @@ public class CharactersGrid extends ReactiveComponent {
   public void sendKeys(List<Key> keys) {
     if (keys.contains(Key.ARROW_DOWN)) {
       if (!isOnLastRow()) {
-        incrementSelectedCharacterIndex();
-        incrementSelectedCharacterIndex();
+        incrementSelectedGameIndex();
+        incrementSelectedGameIndex();
       }
     }
     if (keys.contains(Key.ARROW_UP)) {
       if (getRowOfSelected() > 0) {
-        decrementSelectedCharacterIndex();
-        decrementSelectedCharacterIndex();
+        decrementSelectedGameIndex();
+        decrementSelectedGameIndex();
       }
     }
     if (keys.contains(Key.ARROW_RIGHT)) {
-      incrementSelectedCharacterIndex();
+      incrementSelectedGameIndex();
     }
     if (keys.contains(Key.ARROW_LEFT)) {
-      decrementSelectedCharacterIndex();
+      decrementSelectedGameIndex();
     }
     super.sendKeys(keys);
   }
@@ -87,31 +88,31 @@ public class CharactersGrid extends ReactiveComponent {
     return getRowOfSelected() == requiredRows - 1;
   }
 
-  private void decrementSelectedCharacterIndex() {
-    var decremented = getSelectedCharacterIndex() - 1;
-    setSelectedCharacterIndex(Math.max(0, decremented));
+  private void decrementSelectedGameIndex() {
+    var decremented = getSelectedGameIndex() - 1;
+    setSelectedGameIndex(Math.max(0, decremented));
     if (getRowOfSelected() < getTopRow()) {
       setTopRow(getTopRow() - 1);
     }
   }
 
-  private void incrementSelectedCharacterIndex() {
-    var incremented = getSelectedCharacterIndex() + 1;
-    setSelectedCharacterIndex(Math.min(characters.size() - 1, incremented));
+  private void incrementSelectedGameIndex() {
+    var incremented = getSelectedGameIndex() + 1;
+    setSelectedGameIndex(Math.min(games.size() - 1, incremented));
     if (getRowOfSelected() >= getTopRow() + 4) {
       setTopRow(getTopRow() + 1);
     }
   }
 
-  private void setSelectedCharacterIndex(int index) {
-    setState("selectedCharacterIndex", index);
+  private void setSelectedGameIndex(int index) {
+    setState("selectedGameIndex", index);
   }
 
   private int getRowOfSelected() {
-    return getSelectedCharacterIndex() / 2;
+    return getSelectedGameIndex() / 2;
   }
 
-  private int getSelectedCharacterIndex() {
-    return getState("selectedCharacterIndex", Integer.class);
+  private int getSelectedGameIndex() {
+    return getState("selectedGameIndex", Integer.class);
   }
 }

@@ -24,7 +24,7 @@ public class MainMenuPageSwitch extends ReactiveComponent {
     return new ComponentSwitch(
         Map.of(
             "main", this::createFirstPage,
-            "character", this::createCharacterSelectionPage
+            "game", this::createGameSelectionPage
         ), getState("switch", String.class)
     );
   }
@@ -33,8 +33,8 @@ public class MainMenuPageSwitch extends ReactiveComponent {
     return new FirstPage(characterFactory, this::onSinglePlayerClicked, onExitTerminabloClicked);
   }
 
-  private CharacterSelectionPage createCharacterSelectionPage() {
-    return new CharacterSelectionPage(characterFactory, this::onBackFromCharacterSelection);
+  private GameSelectionPage createGameSelectionPage() {
+    return new GameSelectionPage(characterFactory, this::onBackFromCharacterSelection);
   }
 
   private void onBackFromCharacterSelection() {
@@ -42,6 +42,6 @@ public class MainMenuPageSwitch extends ReactiveComponent {
   }
 
   private void onSinglePlayerClicked() {
-    setState("switch", "character");
+    setState("switch", "game");
   }
 }
