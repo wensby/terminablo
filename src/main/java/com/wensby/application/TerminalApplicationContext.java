@@ -25,8 +25,9 @@ public class TerminalApplicationContext {
     layerFactory = new TerminalLayerFactoryImpl();
     var layerDifferenceCalculator = new LayerDifferenceCalculatorFactory(characterFactory);
     var frameFactory = new TerminalFrameFactory(terminal, layerFactory);
+    var layerDifferenceRenderCommandFactory = new LayerDifferenceRenderCommandFactory(layerDifferenceCalculator, commandFactory);
     var terminalCanvas = new TerminalCanvasImpl(
-        frameFactory, terminal.getOutputStream(), commandFactory, layerDifferenceCalculator);
+        frameFactory, terminal.getOutputStream(), commandFactory, layerDifferenceRenderCommandFactory);
     var terminalKeyboard = new LinuxTerminalKeyboard(terminal.getInputStream());
     userInterface = new TerminalUserInterface(terminalKeyboard, terminalCanvas);
     benchmarkModel = new BenchmarkModelImpl();

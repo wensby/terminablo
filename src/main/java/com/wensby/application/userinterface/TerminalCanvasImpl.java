@@ -7,17 +7,17 @@ public class TerminalCanvasImpl implements TerminalCanvas {
   private final TerminalFrameFactory frameFactory;
   private final PrintStream printStream;
   private final LinuxTerminalRenderCommandFactory commandFactory;
-  private final LayerDifferenceCalculatorFactory differenceCalculatorFactory;
+  private final LayerDifferenceRenderCommandFactory layerDifferenceRenderCommandFactory;
 
   private TerminalFrame previousFrame = null;
 
   public TerminalCanvasImpl(TerminalFrameFactory frameFactory, PrintStream printStream,
       final LinuxTerminalRenderCommandFactory commandFactory,
-      final LayerDifferenceCalculatorFactory differenceCalculatorFactory) {
+      LayerDifferenceRenderCommandFactory layerDifferenceRenderCommandFactory) {
     this.frameFactory = frameFactory;
     this.printStream = printStream;
     this.commandFactory = commandFactory;
-    this.differenceCalculatorFactory = differenceCalculatorFactory;
+    this.layerDifferenceRenderCommandFactory = layerDifferenceRenderCommandFactory;
   }
 
   @Override
@@ -31,9 +31,7 @@ public class TerminalCanvasImpl implements TerminalCanvas {
       printStream.print(commandFactory.createClearScreenCommand().toRenderString());
       previousFrame = null;
     }
-    var differenceCalculator = differenceCalculatorFactory.createLayerDifferenceCalculator(previousFrame, frame);
-    var differingCharacters = differenceCalculator.getDifference();
-    var command = commandFactory.createCommand(differingCharacters);
+    var command = layerDifferenceRenderCommandFactory.createCommand(previousFrame, frame);
     var commandRenderString = command.toRenderString();
     printStream.print(commandRenderString);
     printStream.flush();
