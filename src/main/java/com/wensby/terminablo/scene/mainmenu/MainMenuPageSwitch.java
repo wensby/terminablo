@@ -29,8 +29,8 @@ public class MainMenuPageSwitch extends ReactiveComponent {
     );
   }
 
-  private MainMenuPage createFirstPage() {
-    return new MainMenuPage(characterFactory, this::onSinglePlayerClicked, onExitTerminabloClicked);
+  private FirstPage createFirstPage() {
+    return new FirstPage(characterFactory, this::onSinglePlayerClicked, onExitTerminabloClicked);
   }
 
   private CharacterSelectionPage createCharacterSelectionPage() {

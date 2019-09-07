@@ -8,13 +8,13 @@ import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 import java.util.List;
 import java.util.Map;
 
-public class MainMenuPage extends ReactiveComponent {
+public class FirstPage extends ReactiveComponent {
 
   private final TerminalCharacterFactory characterFactory;
   private final Runnable onSinglePlayerClicked;
   private final Runnable onExitTerminabloClicked;
 
-  public MainMenuPage(TerminalCharacterFactory characterFactory, Runnable onSinglePlayerClicked, Runnable onExitTerminabloClicked) {
+  public FirstPage(TerminalCharacterFactory characterFactory, Runnable onSinglePlayerClicked, Runnable onExitTerminabloClicked) {
     this.characterFactory = characterFactory;
     this.onSinglePlayerClicked = onSinglePlayerClicked;
     this.onExitTerminabloClicked = onExitTerminabloClicked;
