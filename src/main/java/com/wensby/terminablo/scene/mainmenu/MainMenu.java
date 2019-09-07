@@ -30,10 +30,10 @@ public class MainMenu extends ReactiveComponent {
     return new Container(buttons);
   }
 
-  private MainMenuButton createMainMenuButton(String s) {
+  private MainMenuButton createMainMenuButton(String label) {
     var currentIndex = getState("indexFocused", Integer.class);
-    var focused = itemLabels.get(currentIndex).equals(s);
-    return new MainMenuButton(characterFactory, s, () -> { }, focused);
+    var focused = itemLabels.get(currentIndex).equals(label);
+    return new MainMenuButton(characterFactory, label, () -> { }, focused);
   }
 
   @Override
