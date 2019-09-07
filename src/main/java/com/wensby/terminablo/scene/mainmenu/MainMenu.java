@@ -13,18 +13,18 @@ import static java.util.stream.Collectors.toList;
 public class MainMenu extends ReactiveComponent {
 
   private final TerminalCharacterFactory characterFactory;
-  private final List<String> strings;
+  private final List<String> itemLabels;
   private List<MainMenuButton> buttons = List.of();
 
   public MainMenu(TerminalCharacterFactory characterFactory) {
     this.characterFactory = characterFactory;
     setState("indexFocused", 0);
-    strings = List.of("SINGLE PLAYER", "BATTLE.NET", "OTHER MULTIPLAYER", "CREDITS/CINEMATICS", "EXIT TERMINABLO");
+    itemLabels = List.of("SINGLE PLAYER", "BATTLE.NET", "OTHER MULTIPLAYER", "CREDITS/CINEMATICS", "EXIT TERMINABLO");
   }
 
   @Override
   public Component render() {
-    buttons = strings.stream()
+    buttons = itemLabels.stream()
         .map(this::createMainMenuButton)
         .collect(toList());
     return new Container(buttons);
@@ -32,7 +32,7 @@ public class MainMenu extends ReactiveComponent {
 
   private MainMenuButton createMainMenuButton(String s) {
     var currentIndex = getState("indexFocused", Integer.class);
-    var focused = strings.get(currentIndex).equals(s);
+    var focused = itemLabels.get(currentIndex).equals(s);
     return new MainMenuButton(characterFactory, s, () -> { }, focused);
   }
 
