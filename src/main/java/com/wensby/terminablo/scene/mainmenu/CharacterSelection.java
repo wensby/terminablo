@@ -22,7 +22,7 @@ public class CharacterSelection extends ReactiveComponent {
   public Component render() {
     return new Grid(Map.of(
         "name", new Text(characterFactory, "text", false),
-        "characters", new Text(characterFactory, "characters", false),
+        "characters", new CharactersGrid(),
         "controls", new Text(characterFactory, "controls", false),
         "exit", new Text(characterFactory, "exit", false)
     ), "name\ncharacters\ncontrols\nexit", List.of(1), List.of(1, 5, 1, 1));
