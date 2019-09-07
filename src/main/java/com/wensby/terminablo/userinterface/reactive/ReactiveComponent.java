@@ -12,6 +12,7 @@ public abstract class ReactiveComponent implements Component {
 
   private final Map<String, Object> state;
   private boolean stateChanged;
+  private boolean reconstructingComponent;
   private Component component;
 
   protected ReactiveComponent() {
@@ -20,6 +21,9 @@ public abstract class ReactiveComponent implements Component {
   }
 
   public void setState(String key, Object value) {
+    if (reconstructingComponent) {
+      throw new IllegalStateException("Not allowed to change state while rendering component.");
+    }
     state.put(key, value);
     stateChanged = true;
   }
@@ -37,8 +41,10 @@ public abstract class ReactiveComponent implements Component {
   @Override
   public final void render(TerminalLayer layer) {
     if (stateChanged) {
+      reconstructingComponent = true;
       component = render();
       stateChanged = false;
+      reconstructingComponent = false;
     }
     component.render(layer);
   }
