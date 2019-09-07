@@ -35,7 +35,7 @@ public abstract class ReactiveComponent implements Component {
   public abstract Component render();
 
   @Override
-  public void render(TerminalLayer layer) {
+  public final void render(TerminalLayer layer) {
     if (stateChanged) {
       component = render();
       stateChanged = false;
