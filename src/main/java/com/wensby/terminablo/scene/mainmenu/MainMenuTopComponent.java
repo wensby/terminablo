@@ -25,9 +25,13 @@ public class MainMenuTopComponent extends ReactiveComponent {
     return new ComponentSwitch(
         Map.of(
             "main", new MainMenuPage(characterFactory, this::onSinglePlayerClicked, onExitTerminabloClicked),
-            "character", new CharacterSelectionPage(characterFactory)
+            "character", new CharacterSelectionPage(characterFactory, this::onBackFromCharacterSelection)
         ), aSwitch
     );
+  }
+
+  private void onBackFromCharacterSelection() {
+    setState("switch", "main");
   }
 
   private void onSinglePlayerClicked() {
