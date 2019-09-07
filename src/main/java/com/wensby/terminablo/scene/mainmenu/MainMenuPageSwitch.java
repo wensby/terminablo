@@ -8,12 +8,12 @@ import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 import java.util.Map;
 import java.util.Objects;
 
-public class MainMenuTopComponent extends ReactiveComponent {
+public class MainMenuPageSwitch extends ReactiveComponent {
 
   private final TerminalCharacterFactory characterFactory;
   private final Runnable onExitTerminabloClicked;
 
-  public MainMenuTopComponent(TerminalCharacterFactory characterFactory, Runnable onExitTerminabloClicked) {
+  public MainMenuPageSwitch(TerminalCharacterFactory characterFactory, Runnable onExitTerminabloClicked) {
     this.characterFactory = Objects.requireNonNull(characterFactory);
     this.onExitTerminabloClicked = Objects.requireNonNull(onExitTerminabloClicked);
     setState("switch", "main");
@@ -21,12 +21,11 @@ public class MainMenuTopComponent extends ReactiveComponent {
 
   @Override
   public Component render() {
-    var aSwitch = getState("switch", String.class);
     return new ComponentSwitch(
         Map.of(
             "main", new MainMenuPage(characterFactory, this::onSinglePlayerClicked, onExitTerminabloClicked),
             "character", new CharacterSelectionPage(characterFactory, this::onBackFromCharacterSelection)
-        ), aSwitch
+        ), getState("switch", String.class)
     );
   }
 
