@@ -22,7 +22,7 @@ public class BenchmarkRenderer {
   }
 
   public void render(TerminalLayer layer) {
-    var writer = new LayerWriterImpl(characterFactory, layer, false);
+    var writer = new LayerWriterImpl(characterFactory, layer);
     var updateTimeMs = Long.toString(benchmark.getLastUpdateTime().toMillis());
     var renderTimeMs = Long.toString(benchmark.getLastRenderTime().toMillis());
     var tickTimeMs = Long.toString(benchmark.getLastTickTime().toMillis());

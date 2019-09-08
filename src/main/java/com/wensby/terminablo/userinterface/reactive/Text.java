@@ -23,7 +23,7 @@ public class Text implements Component {
 
   @Override
   public void render(TerminalLayer layer) {
-    new LayerWriterImpl(characterFactory, layer, bold).write(text, atOrigin());
+    new LayerWriterImpl(characterFactory, layer).write(text, atOrigin());
   }
 
   @Override

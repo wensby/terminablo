@@ -8,12 +8,10 @@ public class LayerWriterImpl implements LayerWriter {
 
   private final TerminalCharacterFactory characterFactory;
   private final TerminalLayer layer;
-  private final boolean bold;
 
-  public LayerWriterImpl(TerminalCharacterFactory characterFactory, TerminalLayer layer, boolean bold) {
+  public LayerWriterImpl(TerminalCharacterFactory characterFactory, TerminalLayer layer) {
     this.characterFactory = requireNonNull(characterFactory);
     this.layer = requireNonNull(layer);
-    this.bold = bold;
   }
 
   @Override
@@ -39,9 +37,6 @@ public class LayerWriterImpl implements LayerWriter {
   }
 
   private TerminalCharacter getCharacter(char character) {
-    if (bold) {
-      return characterFactory.createCharacter(character, new CharacterDecoration(null, null, true));
-    }
     return characterFactory.createCharacter(character);
   }
 
