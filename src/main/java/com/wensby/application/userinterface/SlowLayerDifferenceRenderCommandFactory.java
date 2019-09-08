@@ -10,7 +10,7 @@ public class SlowLayerDifferenceRenderCommandFactory implements LayerDifferenceR
   }
 
   @Override
-  public TerminalRenderCommand createCommand(TerminalFrame previousFrame, TerminalLayer frame) {
+  public TerminalRenderCommand createCommand(TerminalFrame previousFrame, TerminalFrame frame) {
     var differenceCalculator = differenceCalculatorFactory.createLayerDifferenceCalculator(previousFrame, frame);
     var differingCharacters = differenceCalculator.getDifference();
     return commandFactory.createCommand(differingCharacters);

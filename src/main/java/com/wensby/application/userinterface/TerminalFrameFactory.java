@@ -22,7 +22,7 @@ public class TerminalFrameFactory {
       updateCache();
     }
     return new TerminalFrameImpl(
-        layerFactory.createBlankLayer(InterfaceSize.of(columnsCached, linesCached)));
+        (TwoDimensionalCharacterArrayLayer) layerFactory.createBlankLayer(InterfaceSize.of(columnsCached, linesCached)));
   }
 
   private void updateCache() {

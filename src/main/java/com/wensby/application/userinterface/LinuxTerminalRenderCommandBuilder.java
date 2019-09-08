@@ -6,12 +6,14 @@ import java.util.List;
 public class LinuxTerminalRenderCommandBuilder {
 
   private final List<TerminalRenderCommand> commands = new ArrayList<>();
+  private final int terminalWidth;
 
   private TerminalCoordinates currentCursorPosition;
   private CharacterDecoration currentDecoration;
   private StringBuffer ongoingPrint;
 
-  public LinuxTerminalRenderCommandBuilder() {
+  public LinuxTerminalRenderCommandBuilder(int terminalWidth) {
+    this.terminalWidth = terminalWidth;
     currentCursorPosition = null;
     currentDecoration = null;
     ongoingPrint = new StringBuffer();
@@ -60,7 +62,14 @@ public class LinuxTerminalRenderCommandBuilder {
       currentDecoration = null;
     }
     ongoingPrint.append(character.getCharacter());
-    currentCursorPosition = currentCursorPosition.plus(0, 1);
+    incrementInternalCursorPosition(1);
+  }
+
+  private void incrementInternalCursorPosition(int i) {
+    currentCursorPosition = currentCursorPosition.plus(0, i);
+    if (currentCursorPosition.getColumn() >= terminalWidth) {
+      currentCursorPosition = currentCursorPosition.plus(1, -terminalWidth);
+    }
   }
 
   private void printComplexTerminalCharacter(ComplexTerminalCharacter character) {
@@ -72,7 +81,7 @@ public class LinuxTerminalRenderCommandBuilder {
     }
     var charSequence = character.getCharSequence();
     ongoingPrint.append(charSequence);
-    currentCursorPosition = currentCursorPosition.plus(0, charSequence.length());
+    incrementInternalCursorPosition(charSequence.length());
   }
 
   private boolean isNewDecoration(CharacterDecoration decoration) {

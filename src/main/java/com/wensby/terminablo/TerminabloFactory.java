@@ -5,6 +5,7 @@ import com.wensby.application.TerminalApplicationContext;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStackImpl;
 import com.wensby.terminablo.scene.mainmenu.MainMenuSceneFactory;
+import com.wensby.terminablo.scene.testscene.StressTestSceneView;
 
 public class TerminabloFactory {
 
@@ -13,7 +14,7 @@ public class TerminabloFactory {
     var sceneStack = new SceneStackImpl();
     var mainMenuSceneFactory = new MainMenuSceneFactory(sceneStack, characterFactory);
     var scene = mainMenuSceneFactory.createMainMenuScene();
-    var testScene = new Scene((elapsedTime, input) -> {}, layer -> {});
+    var stressTestScene = new Scene((elapsedTime, input) -> {}, new StressTestSceneView(characterFactory));
     sceneStack.push(scene);
     var terminabloUpdater = new TerminabloUpdater(sceneStack);
     var terminabloRenderer = new TerminabloApplicationRenderer(sceneStack);

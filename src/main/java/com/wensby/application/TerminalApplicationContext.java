@@ -15,17 +15,15 @@ public class TerminalApplicationContext {
   private final BenchmarkViewImpl benchmarkView;
   private final BenchmarkController benchmarkController;
   private final TerminalApplicationRunner terminalApplicationRunner;
-  private final TerminalLayerFactory layerFactory;
 
   private TerminalApplicationContext() {
     var commandFactory = new LinuxTerminalRenderCommandFactory();
     var bashCommandExecutor = new BashCommandExecutor();
     var terminal = new LinuxTerminal(in, out, bashCommandExecutor, commandFactory);
     characterFactory = new TerminalCharacterFactoryImpl();
-    layerFactory = new TerminalLayerFactoryImpl();
-    var layerDifferenceCalculator = new LayerDifferenceCalculatorFactory(characterFactory);
+    var layerFactory = new TerminalLayerFactoryImpl();
     var frameFactory = new TerminalFrameFactory(terminal, layerFactory);
-    var layerDifferenceRenderCommandFactory = new SlowLayerDifferenceRenderCommandFactory(layerDifferenceCalculator, commandFactory);
+    var layerDifferenceRenderCommandFactory = new CrawlingDifferenceRenderCommandFactory(characterFactory);
     var terminalCanvas = new TerminalCanvasImpl(
         frameFactory, terminal.getOutputStream(), commandFactory, layerDifferenceRenderCommandFactory);
     var terminalKeyboard = new LinuxTerminalKeyboard(terminal.getInputStream());
@@ -56,7 +54,4 @@ public class TerminalApplicationContext {
     terminalApplicationRunner.run(application);
   }
 
-  public TerminalLayerFactory getLayerFactory() {
-    return layerFactory;
-  }
 }

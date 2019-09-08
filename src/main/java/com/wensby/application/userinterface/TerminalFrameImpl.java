@@ -4,9 +4,9 @@ import java.util.List;
 
 public class TerminalFrameImpl implements TerminalFrame {
 
-  private final TerminalLayer layer;
+  private final TwoDimensionalCharacterArrayLayer layer;
 
-  public TerminalFrameImpl(TerminalLayer layer) {
+  public TerminalFrameImpl(TwoDimensionalCharacterArrayLayer layer) {
     this.layer = layer;
   }
 
@@ -38,5 +38,10 @@ public class TerminalFrameImpl implements TerminalFrame {
   @Override
   public TerminalLayer getSubsection(InterfaceLocation topLeft, InterfaceSize size) {
     return layer.getSubsection(topLeft, size);
+  }
+
+  @Override
+  public TerminalCharacter[][] getCharacters() {
+    return layer.getCharacters();
   }
 }

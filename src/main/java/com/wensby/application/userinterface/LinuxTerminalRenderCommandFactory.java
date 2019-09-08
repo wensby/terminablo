@@ -7,10 +7,10 @@ public class LinuxTerminalRenderCommandFactory implements TerminalRenderCommandF
   @Override
   public TerminalRenderCommand createCommand(List<PositionedTerminalCharacter> characters) {
     if (characters.isEmpty()) {
-      return new LinuxTerminalRenderCommandBuilder().build();
+      return new LinuxTerminalRenderCommandBuilder(0).build();
     }
     else {
-      var commandBuilder = new LinuxTerminalRenderCommandBuilder();
+      var commandBuilder = new LinuxTerminalRenderCommandBuilder(10000);
       characters.stream().sorted(this::compareLocation).forEach(commandBuilder::printCharacter);
       return commandBuilder.build();
     }

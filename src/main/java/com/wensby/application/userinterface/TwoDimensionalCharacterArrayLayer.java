@@ -15,6 +15,10 @@ public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
     this.characters = new TerminalCharacter[size.getHeight()][size.getWidth()];
   }
 
+  public TerminalCharacter[][] getCharacters() {
+    return characters;
+  }
+
   @Override
   public List<PositionedTerminalCharacter> getPositionedCharacters() {
     var positionedCharacters = new ArrayList<PositionedTerminalCharacter>();
