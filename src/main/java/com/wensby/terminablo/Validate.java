@@ -18,6 +18,13 @@ public class Validate {
       }
       return number;
     }
+
+    public T isEqualTo(T other) {
+      if (number.doubleValue() != other.doubleValue()) {
+        throw new IllegalArgumentException(number + " not equal to " + other);
+      }
+      return number;
+    }
   }
 
   public static <T extends Number> Validator<T> validateThat(T number) {

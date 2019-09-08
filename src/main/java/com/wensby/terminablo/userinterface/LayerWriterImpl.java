@@ -36,6 +36,28 @@ public class LayerWriterImpl implements LayerWriter {
     }
   }
 
+  @Override
+  public void write(DecoratedText text, InterfaceLocation location) {
+    requireNonNull(location);
+    requireNonNull(text);
+    var row = location.getRow();
+    var column = location.getColumn();
+    boolean put = true;
+    for (int i = 0; put && i < text.length(); i++) {
+      var characterLocation = InterfaceLocation.at(column, row);
+      var character = text.charAt(i);
+      if (character != '\n') {
+        var terminalCharacter = characterFactory.createCharacter(character, text.getDecoration(i));
+        put = layer.put(terminalCharacter, characterLocation);
+        column = column + 1;
+      }
+      else {
+        row = characterLocation.getRow() + 1;
+        column = location.getColumn();
+      }
+    }
+  }
+
   private TerminalCharacter getCharacter(char character) {
     return characterFactory.createCharacter(character);
   }
