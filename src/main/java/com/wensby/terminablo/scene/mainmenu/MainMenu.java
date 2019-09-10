@@ -4,7 +4,7 @@ import com.wensby.application.userinterface.Key;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.userinterface.reactive.Component;
 import com.wensby.terminablo.userinterface.reactive.Container;
-import com.wensby.terminablo.userinterface.reactive.Grid;
+import com.wensby.terminablo.userinterface.reactive.FlexibleGrid;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class MainMenu extends ReactiveComponent {
     buttons = itemLabels.stream()
         .map(this::createMainMenuButton)
         .collect(toList());
-    return new Grid(
+    return new FlexibleGrid(
         Map.of(
             "top", new Container(buttons.subList(0, 3)),
             "bottom", new Container(buttons.subList(3, 5))

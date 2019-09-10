@@ -7,14 +7,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class Grid implements Component {
+public class FlexibleGrid implements Component {
 
   private final Map<String, Component> childrenByGridKey;
   private final String childLayout;
   private final List<Integer> columnLayout;
   private final List<Integer> rowLayout;
 
-  public Grid(Map<String, Component> childrenByGridKey, String childLayout, List<Integer> columnLayout, List<Integer> rowLayout) {
+  public FlexibleGrid(Map<String, Component> childrenByGridKey, String childLayout, List<Integer> columnLayout, List<Integer> rowLayout) {
     this.childrenByGridKey = Objects.requireNonNull(childrenByGridKey);
     this.childLayout = Objects.requireNonNull(childLayout);
     this.columnLayout = Objects.requireNonNull(columnLayout);

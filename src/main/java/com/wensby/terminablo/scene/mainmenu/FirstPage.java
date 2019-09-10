@@ -2,7 +2,7 @@ package com.wensby.terminablo.scene.mainmenu;
 
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.userinterface.reactive.Component;
-import com.wensby.terminablo.userinterface.reactive.Grid;
+import com.wensby.terminablo.userinterface.reactive.FlexibleGrid;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class FirstPage extends ReactiveComponent {
     var columnLayout = List.of(1, 1, 1);
     var rowLayout = List.of(1, 1);
     var mainMenu = new MainMenu(characterFactory, onSinglePlayerClicked, onExitTerminabloClicked);
-    return new Grid(
+    return new FlexibleGrid(
         Map.of("menu", mainMenu),
         childLayout, columnLayout, rowLayout
     );

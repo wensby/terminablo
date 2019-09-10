@@ -3,7 +3,7 @@ package com.wensby.terminablo.scene.mainmenu;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.userinterface.DecoratedText;
 import com.wensby.terminablo.userinterface.reactive.Component;
-import com.wensby.terminablo.userinterface.reactive.Grid;
+import com.wensby.terminablo.userinterface.reactive.FlexibleGrid;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 import com.wensby.terminablo.userinterface.reactive.Text;
 
@@ -21,7 +21,7 @@ public class GameSelection extends ReactiveComponent {
 
   @Override
   public Component render() {
-    return new Grid(Map.of(
+    return new FlexibleGrid(Map.of(
         "name", new Text(characterFactory, DecoratedText.blank().append("text"), false),
         "games", new GamesGrid(characterFactory),
         "controls", new Text(characterFactory, DecoratedText.blank().append("controls"), false),

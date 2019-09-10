@@ -3,7 +3,7 @@ package com.wensby.terminablo.scene.mainmenu;
 import com.wensby.application.userinterface.Key;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.userinterface.reactive.Component;
-import com.wensby.terminablo.userinterface.reactive.Grid;
+import com.wensby.terminablo.userinterface.reactive.FlexibleGrid;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 
 import java.util.List;
@@ -22,7 +22,7 @@ public class GameSelectionPage extends ReactiveComponent {
 
   @Override
   public Component render() {
-    return new Grid(Map.of("character", new GameSelection(characterFactory)),
+    return new FlexibleGrid(Map.of("character", new GameSelection(characterFactory)),
         "character _", List.of(2, 1), List.of(1));
   }
 

@@ -27,7 +27,7 @@ public class GameGridItem extends ReactiveComponent {
 
   @Override
   public Component render() {
-    return new Grid(Map.of(
+    return new FlexibleGrid(Map.of(
         "visual", createVisual(),
         "details", createCharacterDetails()),
         "visual details", List.of(1, 3), List.of(1)
