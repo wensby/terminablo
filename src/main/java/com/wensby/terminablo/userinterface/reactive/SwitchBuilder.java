@@ -9,12 +9,12 @@ public class SwitchBuilder {
 
   private final Map<String, Supplier<Component>> components = new HashMap<>();
 
-  public Switch build(String route) {
-    return new Switch(components, route);
-  }
-
   public SwitchBuilder route(String path, Supplier<Component> componentSupplier) {
     components.put(path, componentSupplier);
     return this;
+  }
+
+  public Switch build(String route) {
+    return new Switch(components, route);
   }
 }
