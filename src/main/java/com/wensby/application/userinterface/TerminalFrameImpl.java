@@ -16,8 +16,8 @@ public class TerminalFrameImpl implements TerminalFrame {
   }
 
   @Override
-  public InterfaceSize getSize() {
-    return layer.getSize();
+  public InterfaceSize size() {
+    return layer.size();
   }
 
   @Override

@@ -24,7 +24,7 @@ public class Button implements Component {
 
   @Override
   public void render(TerminalLayer layer) {
-    var topLeft = at((layer.getSize().getWidth() / 2) - (label.length() / 2), layer.getSize().getHeight() / 2);
+    var topLeft = at((layer.size().getWidth() / 2) - (label.length() / 2), layer.size().getHeight() / 2);
     new LayerWriterImpl(characterFactory, layer).write(label, topLeft);
   }
 

@@ -32,7 +32,7 @@ public class TerminalOrbRendererTest {
     var orb = new DefaultOrb("HP", RED, new Fraction(ONE, ONE));
     var size = InterfaceSize.of(1, 1);
     var layer = new SparseLayer(size);
-    var fullSection = new TerminalLayerSection(InterfaceLocation.atOrigin(), layer.getSize());
+    var fullSection = new TerminalLayerSection(InterfaceLocation.atOrigin(), layer.size());
     var painter = (TerminalLayer) new TerminalLayerSubsection(layer, fullSection);
 
     factory.render(orb, painter);

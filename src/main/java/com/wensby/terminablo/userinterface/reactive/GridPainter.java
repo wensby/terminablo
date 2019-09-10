@@ -3,7 +3,6 @@ package com.wensby.terminablo.userinterface.reactive;
 import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.application.userinterface.TerminalLayer;
-import com.wensby.terminablo.userinterface.component.InterfaceComponent;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -72,13 +71,13 @@ public class GridPainter {
     int width;
     int height;
     if (last.getColumn() == columnLayout.size() - 1) {
-      width = layer.getSize().getWidth() - getWidthBetween(0, first.getColumn());
+      width = layer.size().getWidth() - getWidthBetween(0, first.getColumn());
     }
     else {
       width = getWidthBetween(first.getColumn(), last.getColumn() + 1);
     }
     if (last.getRow() == rowLayout.size() - 1) {
-      height = layer.getSize().getHeight() - getHeightBetween(0, first.getRow());
+      height = layer.size().getHeight() - getHeightBetween(0, first.getRow());
     }
     else {
       height = getHeightBetween(first.getRow(), last.getRow() + 1);
@@ -89,14 +88,14 @@ public class GridPainter {
   private int getWidthBetween(int x1, int x2) {
     return IntStream.range(x1, x2)
         .map(columnLayout::get)
-        .map(c -> layer.getSize().getWidth() * c / totalSize.getWidth())
+        .map(c -> layer.size().getWidth() * c / totalSize.getWidth())
         .sum();
   }
 
   private int getHeightBetween(int y1, int y2) {
     return IntStream.range(y1, y2)
         .map(rowLayout::get)
-        .map(c -> layer.getSize().getHeight() * c / totalSize.getHeight())
+        .map(c -> layer.size().getHeight() * c / totalSize.getHeight())
         .sum();
   }
 

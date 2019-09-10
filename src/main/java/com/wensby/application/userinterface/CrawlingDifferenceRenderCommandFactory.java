@@ -20,8 +20,8 @@ public class CrawlingDifferenceRenderCommandFactory implements LayerDifferenceRe
 
   @Override
   public TerminalRenderCommand createCommand(TerminalFrame previousFrame, TerminalFrame frame) {
-    frameHeight = frame.getSize().getHeight();
-    frameWidth = frame.getSize().getWidth();
+    frameHeight = frame.size().getHeight();
+    frameWidth = frame.size().getWidth();
     prevCharacters = previousFrame != null ? previousFrame.getCharacters() : new TerminalCharacter[frameHeight][frameWidth];
     nextCharacters = frame.getCharacters();
     lastColumn = frameWidth - 1;

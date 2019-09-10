@@ -32,7 +32,7 @@ public class HealthBarRenderer {
   }
 
   private void renderHealthSection(TerminalLayer layer) {
-    var height = layer.getSize().getHeight();
+    var height = layer.size().getHeight();
     if (height > 0) {
       var decoration = new CharacterDecoration(Color.RED, Color.WHITE, false);
       for (int i = 0; i < name.length(); i++) {
@@ -42,14 +42,14 @@ public class HealthBarRenderer {
   }
 
   private void renderTypeSection(TerminalLayer layer) {
-    var height = layer.getSize().getHeight();
+    var height = layer.size().getHeight();
     if (height > 1) {
       layer.put(characterFactory.createCharacter(type.charAt(0)), InterfaceLocation.at(0, 1));
     }
   }
 
   private void renderSubtypeSection(TerminalLayer layer) {
-    var height = layer.getSize().getHeight();
+    var height = layer.size().getHeight();
     if (height > 2) {
       layer.put(characterFactory.createCharacter(subType.charAt(0)), InterfaceLocation.at(0, 2));
     }

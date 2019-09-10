@@ -34,13 +34,13 @@ public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
   }
 
   @Override
-  public InterfaceSize getSize() {
+  public InterfaceSize size() {
     return InterfaceSize.of(characters.length > 0 ? characters[0].length : 0, characters.length);
   }
 
   @Override
   public void put(TerminalLayer layer, InterfaceLocation location) {
-    var size = layer.getSize();
+    var size = layer.size();
     for (int row = 0; row < size.getHeight(); row++) {
       for (int column = 0; column < size.getWidth(); column++) {
         var originLocation = at(column, row);
@@ -112,6 +112,6 @@ public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
 
   @Override
   public TerminalLayer getSubsection(InterfaceLocation topLeft, InterfaceSize size) {
-    return ((TerminalLayer) new TerminalLayerSubsection(this, new TerminalLayerSection(atOrigin(), getSize()))).getSubsection(topLeft, size);
+    return ((TerminalLayer) new TerminalLayerSubsection(this, new TerminalLayerSection(atOrigin(), size()))).getSubsection(topLeft, size);
   }
 }

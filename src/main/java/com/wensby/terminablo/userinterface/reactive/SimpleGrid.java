@@ -21,7 +21,7 @@ public class SimpleGrid implements Component {
   @Override
   public void render(TerminalLayer layer) {
     var rows = (int)(children.size() / (float)columns + 0.5f);
-    var itemSize = InterfaceSize.of(layer.getSize().getWidth() / columns, layer.getSize().getHeight() / rows);
+    var itemSize = InterfaceSize.of(layer.size().getWidth() / columns, layer.size().getHeight() / rows);
     for (int i = 0; i < children.size(); i++) {
       var row = i / columns;
       var column = i % columns;

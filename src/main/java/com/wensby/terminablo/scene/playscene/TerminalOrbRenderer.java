@@ -23,7 +23,7 @@ public class TerminalOrbRenderer {
 
   public void render(Orb orb, TerminalLayer layer) {
     LOGGER.debug("Create Orb Representation: " + orb + ", " + layer);
-    if (isBordered(layer.getSize())) {
+    if (isBordered(layer.size())) {
       createFullSizeRepresentation(orb, layer);
     } else {
       createScaledDownRepresentation(orb, layer);
@@ -36,16 +36,16 @@ public class TerminalOrbRenderer {
 
   private void createFullSizeRepresentation(Orb orb, TerminalLayer layer) {
     fillInBorder(layer);
-    var orbContentSize = layer.getSize().minus(InterfaceSize.of(2, 2));
+    var orbContentSize = layer.size().minus(InterfaceSize.of(2, 2));
     var contentPainter = layer.getSubsection(InterfaceLocation.at(1, 1), orbContentSize);
     orbContentTerminalRenderer.render(orb, contentPainter);
     fillInValue(layer, orb);
   }
 
   private void fillInBorder(TerminalLayer layer) {
-    if (isBordered(layer.getSize())) {
-      var height = layer.getSize().getHeight();
-      var width = layer.getSize().getWidth();
+    if (isBordered(layer.size())) {
+      var height = layer.size().getHeight();
+      var width = layer.size().getWidth();
       for (int i = 1; i < width - 1; i++) {
         layer.put(characterFactory.createCharacter('─'), InterfaceLocation.at(i, 0));
       }
@@ -65,9 +65,9 @@ public class TerminalOrbRenderer {
   }
 
   private void fillInValue(TerminalLayer layer, Orb orb) {
-    var height = layer.getSize().getHeight();
-    var width = layer.getSize().getWidth();
-    if (layer.getSize().getWidth() >= 6 && layer.getSize().getHeight() > 1) {
+    var height = layer.size().getHeight();
+    var width = layer.size().getWidth();
+    if (layer.size().getWidth() >= 6 && layer.size().getHeight() > 1) {
       var s = NumberedString.format("%s/%s", orb.getValues().getNumerator(), orb.getValues().getDenominator());
       s = s.length() > 6 ? s.substring(0, 6) : s;
       var start = (width - s.length()) / 2;

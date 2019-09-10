@@ -16,12 +16,12 @@ public class TerminalLevelRenderer {
   }
 
   public void render(Level level, LevelLocation location, TerminalLayer layer) {
-    var interfaceCenter = InterfaceLocation.at(layer.getSize().getWidth() / 2, layer.getSize().getHeight() / 2);
+    var interfaceCenter = InterfaceLocation.at(layer.size().getWidth() / 2, layer.size().getHeight() / 2);
     var topLeftInterfacePosition = topLeftInterfacePosition(interfaceCenter);
     var topLeftLevelLocation = topLeftLevelLocation(topLeftInterfacePosition, location, interfaceCenter);
 
-    for (int y = 0; y < layer.getSize().getHeight(); y++) {
-      for (int x = 0; x < layer.getSize().getWidth() / 2; x++) {
+    for (int y = 0; y < layer.size().getHeight(); y++) {
+      for (int x = 0; x < layer.size().getWidth() / 2; x++) {
         var layerPosition = topLeftInterfacePosition.plus(InterfaceLocation.at(x * 2, y));
         var levelLocation = LevelLocation.of(topLeftLevelLocation.getX() + x, topLeftLevelLocation.getY() + y);
         level.entities(levelLocation).stream()

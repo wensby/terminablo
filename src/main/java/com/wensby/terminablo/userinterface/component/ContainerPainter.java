@@ -18,7 +18,7 @@ public class ContainerPainter {
   public ContainerPainter(TerminalLayer layer, List<InterfaceComponent> children) {
     this.layer = Objects.requireNonNull(layer);
     this.children = Objects.requireNonNull(children);
-    availableSize = layer.getSize();
+    availableSize = layer.size();
   }
 
   public void paint() {

@@ -25,14 +25,14 @@ public class ScrollBarDecorated implements Component {
 
   @Override
   public void render(TerminalLayer layer) {
-    component.render(layer.getSubsection(atOrigin(), layer.getSize().minus(of(1, 0))));
-    layer.put(characterFactory.createCharacter('▲', new CharacterDecoration(new Color(36, 35, 11), new Color(122, 120, 69), true)), at(layer.getSize().getWidth()-1, 0));
-    layer.put(characterFactory.createCharacter('▼', new CharacterDecoration(new Color(36, 35, 11), new Color(122, 120, 69), true)), at(layer.getSize().getWidth()-1, layer.getSize().getHeight()-1));
-    for (int r = 1; r < layer.getSize().getHeight() -1; r++) {
-      layer.put(characterFactory.createCharacter('▏', new CharacterDecoration(new Color(36, 35, 11), new Color(219, 218, 180), true)), at(layer.getSize().getWidth()-1, r));
+    component.render(layer.getSubsection(atOrigin(), layer.size().minus(of(1, 0))));
+    layer.put(characterFactory.createCharacter('▲', new CharacterDecoration(new Color(36, 35, 11), new Color(122, 120, 69), true)), at(layer.size().getWidth()-1, 0));
+    layer.put(characterFactory.createCharacter('▼', new CharacterDecoration(new Color(36, 35, 11), new Color(122, 120, 69), true)), at(layer.size().getWidth()-1, layer.size().getHeight()-1));
+    for (int r = 1; r < layer.size().getHeight() -1; r++) {
+      layer.put(characterFactory.createCharacter('▏', new CharacterDecoration(new Color(36, 35, 11), new Color(219, 218, 180), true)), at(layer.size().getWidth()-1, r));
     }
-    var location = (int) ((layer.getSize().getHeight() - 3) * scroll.getValue()) + 1;
-    layer.put(characterFactory.createCharacter('▏', new CharacterDecoration(new Color(122, 120, 69), new Color(219, 218, 180), true)), at(layer.getSize().getWidth()-1, location));
+    var location = (int) ((layer.size().getHeight() - 3) * scroll.getValue()) + 1;
+    layer.put(characterFactory.createCharacter('▏', new CharacterDecoration(new Color(122, 120, 69), new Color(219, 218, 180), true)), at(layer.size().getWidth()-1, location));
   }
 
   @Override

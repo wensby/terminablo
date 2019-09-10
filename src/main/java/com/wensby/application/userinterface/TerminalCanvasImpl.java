@@ -27,7 +27,7 @@ public class TerminalCanvasImpl implements TerminalCanvas {
 
   @Override
   public CanvasRenderResult renderFrame(TerminalFrame frame) {
-    if (previousFrame == null || !previousFrame.getSize().equals(frame.getSize())) {
+    if (previousFrame == null || !previousFrame.size().equals(frame.size())) {
       printStream.print(commandFactory.createClearScreenCommand().toRenderString());
       previousFrame = null;
     }

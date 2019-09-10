@@ -14,7 +14,7 @@ public class TerminalLayerSubsection implements TerminalLayer {
   }
 
   @Override
-  public InterfaceSize getSize() {
+  public InterfaceSize size() {
     return section.getSize();
   }
 

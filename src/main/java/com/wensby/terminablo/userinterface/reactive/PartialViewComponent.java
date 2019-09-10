@@ -30,14 +30,14 @@ public class PartialViewComponent implements Component {
   }
 
   private InterfaceLocation getTopLeft(TerminalLayer layer) {
-    var column = (int)(layer.getSize().getWidth() * leftRatio);
-    var row = (int)((float)layer.getSize().getHeight() * topRatio);
+    var column = (int)(layer.size().getWidth() * leftRatio);
+    var row = (int)((float)layer.size().getHeight() * topRatio);
     return InterfaceLocation.at(column, row);
   }
 
   private InterfaceSize getSize(TerminalLayer layer) {
-    var childWidth = layer.getSize().getWidth() * childWidthRatio;
-    var childHeight = layer.getSize().getHeight() * childHeightRatio;
+    var childWidth = layer.size().getWidth() * childWidthRatio;
+    var childHeight = layer.size().getHeight() * childHeightRatio;
     return InterfaceSize.of((int)childWidth, (int)childHeight);
   }
 

@@ -35,7 +35,7 @@ public class TerminalLevelRendererTest {
     var renderer = new TerminalLevelRenderer(entityRenderer);
     var level = levelFactory.createLevelFromString("###\n# #\n###");
     var layer = new SparseLayer(interfaceSize);
-    var fullSection = new TerminalLayerSection(InterfaceLocation.atOrigin(), layer.getSize());
+    var fullSection = new TerminalLayerSection(InterfaceLocation.atOrigin(), layer.size());
     renderer.render(level, LevelLocation.of(1, 1), new TerminalLayerSubsection(layer, fullSection));
   }
 }

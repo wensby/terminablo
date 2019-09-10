@@ -28,29 +28,29 @@ public class OrbContentTerminalRendererImpl implements OrbContentTerminalRendere
 
   @Override
   public void render(Orb orb, TerminalLayer layer) {
-    LOGGER.debug("Render orb content: " + orb + ", " + layer.getSize());
+    LOGGER.debug("Render orb content: " + orb + ", " + layer.size());
     var color = orb.getColor();
-    var rows = layer.getSize().getHeight();
+    var rows = layer.size().getHeight();
     var percent = orb.getValues().toUnitInterval();
     var rowsPercent = BigDecimal.valueOf(rows).multiply(percent);
     var fullRows = rowsPercent.intValue();
     LOGGER.debug("Rendered full rows: " + fullRows);
 
     if (fullRows > 0) {
-      var location = InterfaceLocation.at(0, layer.getSize().getHeight() - fullRows);
-      var size = InterfaceSize.of(layer.getSize().getWidth(), fullRows);
+      var location = InterfaceLocation.at(0, layer.size().getHeight() - fullRows);
+      var size = InterfaceSize.of(layer.size().getWidth(), fullRows);
       var fullContentSubsectionPainter = layer.getSubsection(location, size);
       var painterUtils = new PainterUtils();
       var character = characterFactory.createCharacter(' ', new CharacterDecoration(color, null, false));
       painterUtils.cover(fullContentSubsectionPainter, character);
     }
 
-    if (fullRows != layer.getSize().getHeight()) {
+    if (fullRows != layer.size().getHeight()) {
       var surfaceRowPercent = rowsPercent.divideAndRemainder(ONE)[1].floatValue();
       var character = partialBlockFactory.getPartialBlockCharacter(UnitInterval.of(surfaceRowPercent));
-      var surfaceRow = layer.getSize().getHeight() - fullRows - 1;
+      var surfaceRow = layer.size().getHeight() - fullRows - 1;
       var surfaceCharacter = characterFactory.createCharacter(character, new CharacterDecoration(null, color, false));
-      for (int x = 0; x < layer.getSize().getWidth(); x++) {
+      for (int x = 0; x < layer.size().getWidth(); x++) {
         var position = InterfaceLocation.at(x, surfaceRow);
         layer.put(surfaceCharacter, position);
       }

@@ -6,7 +6,7 @@ public interface TerminalLayer {
 
   List<PositionedTerminalCharacter> getPositionedCharacters();
 
-  InterfaceSize getSize();
+  InterfaceSize size();
 
   void put(TerminalLayer layer, InterfaceLocation location);
 

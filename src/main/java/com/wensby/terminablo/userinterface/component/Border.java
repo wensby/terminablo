@@ -19,27 +19,27 @@ public class Border implements InterfaceComponent {
 
   @Override
   public void render(TerminalLayer layer) {
-    var size = layer.getSize();
+    var size = layer.size();
     var topLeftLayer = style.getTopLeft().getLayer(size);
     var bottomLeftLayer = style.getBottomLeft().getLayer(size);
     var topRightLayer = style.getTopRight().getLayer(size);
     var bottomRightLayer = style.getBottomRight().getLayer(size);
-    var topRightCornerWidth = topRightLayer.getSize().getWidth();
-    var bottomLeftCornerHeight = bottomLeftLayer.getSize().getHeight();
-    var topLeftCornerWidth = topLeftLayer.getSize().getWidth();
+    var topRightCornerWidth = topRightLayer.size().getWidth();
+    var bottomLeftCornerHeight = bottomLeftLayer.size().getHeight();
+    var topLeftCornerWidth = topLeftLayer.size().getWidth();
     var width = size.getWidth();
     var topStraightLength = width - topLeftCornerWidth - topRightCornerWidth;
     var topStraight = style.getTopStraight().getLayer(topStraightLength);
-    var bottomLeftCornerWidth = bottomLeftLayer.getSize().getWidth();
-    var bottomRightCornerWidth = bottomRightLayer.getSize().getWidth();
+    var bottomLeftCornerWidth = bottomLeftLayer.size().getWidth();
+    var bottomRightCornerWidth = bottomRightLayer.size().getWidth();
     var bottomStraightLength = width - bottomLeftCornerWidth - bottomRightCornerWidth;
     var bottomStraight = style.getBottomStraight().getLayer(bottomStraightLength);
     var height = size.getHeight();
-    int topLeftCornerHeight = topLeftLayer.getSize().getHeight();
+    int topLeftCornerHeight = topLeftLayer.size().getHeight();
     int leftStraightLength = height - topLeftCornerHeight - bottomLeftCornerHeight;
     TerminalLayer leftStraight = style.getLeftStraight().getLayer(leftStraightLength);
-    int topRightCornerHeight = topRightLayer.getSize().getHeight();
-    int bottomRightCornerHeight = bottomRightLayer.getSize().getHeight();
+    int topRightCornerHeight = topRightLayer.size().getHeight();
+    int bottomRightCornerHeight = bottomRightLayer.size().getHeight();
     int rightStraightLength = height - topRightCornerHeight - bottomRightCornerHeight;
     TerminalLayer rightStraight = style.getRightStraight().getLayer(rightStraightLength);
     layer.put(topLeftLayer, atOrigin());
@@ -47,9 +47,9 @@ public class Border implements InterfaceComponent {
     layer.put(topRightLayer, at(width - topRightCornerWidth, 0));
     layer.put(bottomRightLayer, at(width - topRightCornerWidth, height - bottomLeftCornerHeight));
     layer.put(topStraight, at(topLeftCornerWidth, 0));
-    layer.put(bottomStraight, at(topLeftCornerWidth, height - bottomStraight.getSize().getHeight()));
+    layer.put(bottomStraight, at(topLeftCornerWidth, height - bottomStraight.size().getHeight()));
     layer.put(leftStraight, at(0, topLeftCornerHeight));
-    layer.put(rightStraight, at(width - rightStraight.getSize().getWidth(), topRightCornerHeight));
+    layer.put(rightStraight, at(width - rightStraight.size().getWidth(), topRightCornerHeight));
     child.render(layer);
   }
 

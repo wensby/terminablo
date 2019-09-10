@@ -36,9 +36,9 @@ public class BenchmarkRenderer {
 
   private void renderGraph(TerminalLayer layer) {
     var latestTickTimes = benchmark.getLatestTickTimes();
-    for (int col = 0; col - 1 < layer.getSize().getWidth() && col < latestTickTimes.size(); col++) {
+    for (int col = 0; col - 1 < layer.size().getWidth() && col < latestTickTimes.size(); col++) {
       var unit = UnitInterval.truncate((double) latestTickTimes.get(col).toMillis() / 30d);
-      layer.put(createCharacter(unit), at(layer.getSize().getWidth() - col, 0));
+      layer.put(createCharacter(unit), at(layer.size().getWidth() - col, 0));
     }
   }
 

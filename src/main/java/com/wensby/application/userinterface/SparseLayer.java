@@ -23,7 +23,7 @@ public class SparseLayer implements TerminalLayer {
   }
 
   @Override
-  public InterfaceSize getSize() {
+  public InterfaceSize size() {
     return size;
   }
 

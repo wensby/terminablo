@@ -38,7 +38,7 @@ public class OrbContentTerminalRendererImplTest {
     var orb = mock(Orb.class);
     var color = mock(Color.class);
     var layer = new SparseLayer(of(1, 1));
-    var fullSection = new TerminalLayerSection(InterfaceLocation.atOrigin(), layer.getSize());
+    var fullSection = new TerminalLayerSection(InterfaceLocation.atOrigin(), layer.size());
     var painter = (TerminalLayer) new TerminalLayerSubsection(layer, fullSection);
     var character = mock(TerminalCharacter.class);
     when(orb.getColor()).thenReturn(color);
@@ -58,7 +58,7 @@ public class OrbContentTerminalRendererImplTest {
     var character = ' ';
     var terminalCharacter = mock(TerminalCharacter.class);
     var layer = new SparseLayer(size);
-    var fullSection = new TerminalLayerSection(InterfaceLocation.atOrigin(), layer.getSize());
+    var fullSection = new TerminalLayerSection(InterfaceLocation.atOrigin(), layer.size());
     var painter = (TerminalLayer) new TerminalLayerSubsection(layer, fullSection);
     when(layerFactory.createBlankLayer(size)).thenReturn(layer);
     when(orb.getColor()).thenReturn(color);

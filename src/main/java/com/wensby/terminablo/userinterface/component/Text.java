@@ -22,7 +22,7 @@ public class Text implements InterfaceComponent {
 
   @Override
   public void render(TerminalLayer layer) {
-    InterfaceLocation topLeft = at((layer.getSize().getWidth() / 2) - (text.length() / 2), layer.getSize().getHeight() / 2);
+    InterfaceLocation topLeft = at((layer.size().getWidth() / 2) - (text.length() / 2), layer.size().getHeight() / 2);
     new LayerWriterImpl(characterFactory, layer).write(text, topLeft);
   }
 
