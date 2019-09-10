@@ -4,6 +4,7 @@ import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStack;
 import com.wensby.terminablo.userinterface.UserInterface;
+import com.wensby.terminablo.userinterface.reactive.ComponentFactory;
 
 public class MainMenuSceneFactory {
 
@@ -17,7 +18,8 @@ public class MainMenuSceneFactory {
 
   public Scene createMainMenuScene()  {
     Runnable onExitTerminabloClicked = sceneStack::pop;
-    var mainMenuPage = new MainMenuPageSwitch(characterFactory, onExitTerminabloClicked);
+    var componentFactory = new ComponentFactory();
+    var mainMenuPage = new MainMenuPageSwitch(componentFactory, characterFactory, onExitTerminabloClicked);
     var mainMenuUserInterface = new UserInterface(mainMenuPage);
     var model = new MainMenuModel(mainMenuUserInterface);
     var controller = new MainMenuController(model);

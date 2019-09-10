@@ -3,18 +3,18 @@ package com.wensby.terminablo.scene.mainmenu;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.userinterface.reactive.Component;
 import com.wensby.terminablo.userinterface.reactive.ComponentFactory;
-import com.wensby.terminablo.userinterface.reactive.ComponentSwitch;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 
-import java.util.Map;
 import java.util.Objects;
 
 public class MainMenuPageSwitch extends ReactiveComponent {
 
+  private final ComponentFactory componentFactory;
   private final TerminalCharacterFactory characterFactory;
   private final Runnable onExitTerminabloClicked;
 
-  public MainMenuPageSwitch(TerminalCharacterFactory characterFactory, Runnable onExitTerminabloClicked) {
+  public MainMenuPageSwitch(ComponentFactory componentFactory, TerminalCharacterFactory characterFactory, Runnable onExitTerminabloClicked) {
+    this.componentFactory = Objects.requireNonNull(componentFactory);
     this.characterFactory = Objects.requireNonNull(characterFactory);
     this.onExitTerminabloClicked = Objects.requireNonNull(onExitTerminabloClicked);
     setState("switch", "main");
@@ -22,7 +22,7 @@ public class MainMenuPageSwitch extends ReactiveComponent {
 
   @Override
   public Component render() {
-    return new ComponentFactory().aSwitch()
+    return componentFactory.aSwitch()
         .route("main", this::createFirstPage)
         .route("game", this::createGameSelectionPage)
         .build(getState("switch", String.class));
