@@ -2,6 +2,7 @@ package com.wensby.terminablo.scene.mainmenu;
 
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.userinterface.reactive.Component;
+import com.wensby.terminablo.userinterface.reactive.ComponentFactory;
 import com.wensby.terminablo.userinterface.reactive.ComponentSwitch;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 
@@ -21,12 +22,10 @@ public class MainMenuPageSwitch extends ReactiveComponent {
 
   @Override
   public Component render() {
-    return new ComponentSwitch(
-        Map.of(
-            "main", this::createFirstPage,
-            "game", this::createGameSelectionPage
-        ), getState("switch", String.class)
-    );
+    return new ComponentFactory().aSwitch()
+        .route("main", this::createFirstPage)
+        .route("game", this::createGameSelectionPage)
+        .build(getState("switch", String.class));
   }
 
   private FirstPage createFirstPage() {
