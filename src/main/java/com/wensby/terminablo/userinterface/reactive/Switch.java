@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class ComponentSwitch extends ReactiveComponent {
+public class Switch extends ReactiveComponent {
 
   private final Map<String, Supplier<Component>> components;
   private final String route;
 
-  public ComponentSwitch(Map<String, Supplier<Component>> components, String route) {
+  public Switch(Map<String, Supplier<Component>> components, String route) {
     this.components = Objects.requireNonNull(components);
     this.route = Objects.requireNonNull(route);
   }
