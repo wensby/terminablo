@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import com.wensby.application.userinterface.*;
 
+import java.util.Optional;
+
 public class LayerWriterImpl implements LayerWriter {
 
   private final TerminalCharacterFactory characterFactory;
@@ -47,7 +49,8 @@ public class LayerWriterImpl implements LayerWriter {
       var characterLocation = InterfaceLocation.at(column, row);
       var character = text.charAt(i);
       if (character != '\n') {
-        var terminalCharacter = characterFactory.createCharacter(character, text.getDecoration(i));
+        var decoration = text.getDecoration(i);
+        var terminalCharacter = decoration.isPresent() ? characterFactory.createCharacter(character, decoration.get()) : characterFactory.createCharacter(character);
         put = layer.put(terminalCharacter, characterLocation);
         column = column + 1;
       }

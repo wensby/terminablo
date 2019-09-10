@@ -1,9 +1,14 @@
 package com.wensby.terminablo.scene.mainmenu;
 
+import com.wensby.application.userinterface.CharacterDecoration;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.player.PlayerCharacter;
+import com.wensby.terminablo.userinterface.DecoratedText;
 import com.wensby.terminablo.userinterface.reactive.*;
+import com.wensby.terminablo.userinterface.reactive.Component;
+import com.wensby.terminablo.userinterface.reactive.Container;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -30,15 +35,16 @@ public class GameGridItem extends ReactiveComponent {
   }
 
   private Component createVisual() {
+
     return new Graphic(character.getLevelEntity().getCharacter().orElse(characterFactory.createCharacter(' ')));
   }
 
   private Container createCharacterDetails() {
     return new Container(
         List.of(
-            new Text(characterFactory, character.getName(), selected),
-            new Text(characterFactory, "Level " + character.getLevel() + " " + character.getCharacterClass().getName(), selected),
-            new Text(characterFactory, "EXPANSION CHARACTER", selected)
+            new Text(characterFactory, DecoratedText.blank().append(character.getName(), new CharacterDecoration(null, null, selected)), selected),
+            new Text(characterFactory, DecoratedText.blank().append("Level " + character.getLevel() + " " + character.getCharacterClass().getName(), new CharacterDecoration(null, null, selected)), selected),
+            new Text(characterFactory, DecoratedText.blank().append("EXPANSION CHARACTER", new CharacterDecoration(null, Color.GREEN, selected)), selected)
             )
     );
   }
