@@ -1,14 +1,10 @@
 package com.wensby.terminablo.scene.mainmenu;
 
 import com.wensby.application.userinterface.TerminalCharacterFactory;
-import com.wensby.terminablo.game.Game;
 import com.wensby.terminablo.game.GameRepository;
 import com.wensby.terminablo.userinterface.reactive.Component;
 import com.wensby.terminablo.userinterface.reactive.ComponentFactory;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
-
-import java.util.List;
-import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
