@@ -1,22 +1,29 @@
 package com.wensby.terminablo.scene.mainmenu;
 
 import com.wensby.application.userinterface.TerminalCharacterFactory;
+import com.wensby.terminablo.game.Game;
+import com.wensby.terminablo.game.GameRepository;
 import com.wensby.terminablo.userinterface.reactive.Component;
 import com.wensby.terminablo.userinterface.reactive.ComponentFactory;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 
+import java.util.List;
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 public class MainMenuPageSwitch extends ReactiveComponent {
 
   private final ComponentFactory componentFactory;
   private final TerminalCharacterFactory characterFactory;
   private final Runnable onExitTerminabloClicked;
+  private final GameRepository gameRepository;
 
-  public MainMenuPageSwitch(ComponentFactory componentFactory, TerminalCharacterFactory characterFactory, Runnable onExitTerminabloClicked) {
-    this.componentFactory = Objects.requireNonNull(componentFactory);
-    this.characterFactory = Objects.requireNonNull(characterFactory);
-    this.onExitTerminabloClicked = Objects.requireNonNull(onExitTerminabloClicked);
+  public MainMenuPageSwitch(ComponentFactory componentFactory, TerminalCharacterFactory characterFactory, Runnable onExitTerminabloClicked, GameRepository gameRepository) {
+    this.componentFactory = requireNonNull(componentFactory);
+    this.characterFactory = requireNonNull(characterFactory);
+    this.onExitTerminabloClicked = requireNonNull(onExitTerminabloClicked);
+    this.gameRepository = requireNonNull(gameRepository);
     setState("switch", "main");
   }
 
@@ -33,7 +40,8 @@ public class MainMenuPageSwitch extends ReactiveComponent {
   }
 
   private GameSelectionPage createGameSelectionPage() {
-    return new GameSelectionPage(characterFactory, this::onBackFromCharacterSelection);
+    var games = gameRepository.getGames();
+    return new GameSelectionPage(characterFactory, this::onBackFromCharacterSelection, games);
   }
 
   private void onBackFromCharacterSelection() {

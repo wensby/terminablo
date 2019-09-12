@@ -3,17 +3,16 @@ package com.wensby.terminablo.scene.mainmenu;
 import com.wensby.application.userinterface.Key;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.game.Game;
-import com.wensby.terminablo.player.PlayerCharacter;
 import com.wensby.terminablo.userinterface.reactive.Component;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 import com.wensby.terminablo.userinterface.reactive.VerticalScroll;
 import com.wensby.terminablo.userinterface.reactive.SimpleGrid;
 import com.wensby.terminablo.util.UnitInterval;
-import com.wensby.terminablo.world.level.LevelEntityImpl;
 
 import java.util.List;
 import java.util.stream.IntStream;
 
+import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 
 public class GamesGrid extends ReactiveComponent {
@@ -24,15 +23,14 @@ public class GamesGrid extends ReactiveComponent {
   private final float itemsPerRow;
   private final int requiredRows;
 
-  public GamesGrid(TerminalCharacterFactory characterFactory) {
+  public GamesGrid(TerminalCharacterFactory characterFactory, List<Game> games) {
     this.characterFactory = characterFactory;
-    var character = new PlayerCharacter("Dj", null, new LevelEntityImpl(characterFactory.createCharacter('A')));
-    games = IntStream.range(0, 12).mapToObj(a -> character).map(Game::new).collect(toList());
+    this.games = requireNonNull(games);
     setSelectedGameIndex(0);
     setTopRow(0);
     visibleRows = 4f;
     itemsPerRow = 2f;
-    requiredRows = (int) (games.size() / itemsPerRow + 0.5f);
+    requiredRows = (int) (this.games.size() / itemsPerRow + 0.5f);
   }
 
   private void setTopRow(int row) {

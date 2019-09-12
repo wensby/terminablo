@@ -2,6 +2,7 @@ package com.wensby.terminablo;
 
 import com.wensby.application.TerminalApplication;
 import com.wensby.application.TerminalApplicationContext;
+import com.wensby.terminablo.game.GameRepository;
 import com.wensby.terminablo.scene.Scene;
 import com.wensby.terminablo.scene.SceneStackImpl;
 import com.wensby.terminablo.scene.mainmenu.MainMenuSceneFactory;
@@ -12,7 +13,8 @@ public class TerminabloFactory {
   public TerminalApplication createTerminablo(TerminalApplicationContext context) {
     var characterFactory = context.getCharacterFactory();
     var sceneStack = new SceneStackImpl();
-    var mainMenuSceneFactory = new MainMenuSceneFactory(sceneStack, characterFactory);
+    var gameRepository = new GameRepository();
+    var mainMenuSceneFactory = new MainMenuSceneFactory(sceneStack, characterFactory, gameRepository);
     var scene = mainMenuSceneFactory.createMainMenuScene();
     var stressTestScene = new Scene((elapsedTime, input) -> {}, new StressTestSceneView(characterFactory));
     sceneStack.push(scene);
