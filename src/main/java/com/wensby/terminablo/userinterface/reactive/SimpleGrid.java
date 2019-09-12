@@ -20,16 +20,7 @@ public class SimpleGrid implements Component {
 
   @Override
   public void render(TerminalLayer layer) {
-    if (children.size() > 0) {
-      var rows = (int) (children.size() / (float) columns + 0.5f);
-      var itemSize = InterfaceSize.of(layer.size().getWidth() / columns, layer.size().getHeight() / rows);
-      for (int i = 0; i < children.size(); i++) {
-        var row = i / columns;
-        var column = i % columns;
-        var topLeft = InterfaceLocation.at(column * itemSize.getWidth(), row * itemSize.getHeight());
-        children.get(i).render(layer.getSubsection(topLeft, itemSize));
-      }
-    }
+    new SimpleGridRenderer(children, columns, layer).render();
   }
 
   @Override
