@@ -8,12 +8,14 @@ import com.wensby.terminablo.scene.SceneStackImpl;
 import com.wensby.terminablo.scene.mainmenu.MainMenuSceneFactory;
 import com.wensby.terminablo.scene.testscene.StressTestSceneView;
 
+import java.nio.file.Paths;
+
 public class TerminabloFactory {
 
   public TerminalApplication createTerminablo(TerminalApplicationContext context) {
     var characterFactory = context.getCharacterFactory();
     var sceneStack = new SceneStackImpl();
-    var gameRepository = new GameRepository();
+    var gameRepository = new GameRepository(Paths.get("game"), characterFactory);
     var mainMenuSceneFactory = new MainMenuSceneFactory(sceneStack, characterFactory, gameRepository);
     var scene = mainMenuSceneFactory.createMainMenuScene();
     var stressTestScene = new Scene((elapsedTime, input) -> {}, new StressTestSceneView(characterFactory));
