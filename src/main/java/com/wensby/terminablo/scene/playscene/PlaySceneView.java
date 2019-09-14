@@ -22,8 +22,8 @@ public class PlaySceneView implements View {
   @Override
   public void render(TerminalLayer layer) {
     var level = model.getLevel();
-    var hero = model.getCharacter();
-    var heroLocation = level.locationOf(hero.getLevelEntity()).orElseThrow();
+    var hero = model.getCharacterPresence();
+    var heroLocation = level.locationOf(hero).orElseThrow();
     terminalLevelRenderer.render(level, heroLocation, layer);
     playSceneInterfaceRenderer.render(hero, layer, model);
   }

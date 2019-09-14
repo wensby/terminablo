@@ -37,7 +37,7 @@ public class GameRepository {
 
   private Game readGame(File file) {
     var entity = new LevelEntityImpl(characterFactory.createCharacter("\uD83D\uDE42"));
-    var character = new PlayerCharacter("name", new AgentStats(), entity);
+    var character = new PlayerCharacter("name", new AgentStats());
     return new Game(character);
   }
 }

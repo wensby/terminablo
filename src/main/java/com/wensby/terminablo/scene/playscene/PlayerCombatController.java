@@ -2,6 +2,7 @@ package com.wensby.terminablo.scene.playscene;
 
 import com.wensby.application.userinterface.Key;
 import com.wensby.terminablo.world.Agent;
+import com.wensby.terminablo.world.level.AgentPresence;
 import com.wensby.terminablo.world.level.LevelLocation;
 import com.wensby.application.userinterface.UserInput;
 
@@ -22,31 +23,30 @@ public class PlayerCombatController implements Controller {
   @Override
   public void update(Duration elapsedTime, UserInput input) {
     if (input.getKeyStrokes().contains(Key.SPACE)) {
-      model.getLevel().locationOf(hero.getLevelEntity())
-          .map(this::nearestMonster)
+      model.getPlayerLocation()
+          .map(this::nearestHostilePresence)
           .filter(Optional::isPresent)
           .map(Optional::get)
-          .ifPresent(agent -> {
-            model.setCurrentTarget(agent);
-            model.getLevel().putEntity(model.getLevel().locationOf(agent.getLevelEntity()).get(), new DamageEntity());
+          .ifPresent(agentPresence -> {
+            model.setCurrentTarget(agentPresence.getAgent());
+            model.getLevel().putEntity(model.getLevel().locationOf(agentPresence).get(), new DamageEntity());
           });
     }
   }
 
-  private Optional<Agent> nearestMonster(LevelLocation location) {
-    return model.getMonsters().stream()
-        .filter(agent -> model.getLevel().locationOf(agent.getLevelEntity()).isPresent())
+  private Optional<AgentPresence> nearestHostilePresence(LevelLocation location) {
+    return model.getMonsterPresences().stream()
+        .filter(agent -> model.getLevel().locationOf(agent).isPresent())
         .min(Comparator.comparingInt(a -> getAgentDistance(location, a)));
   }
 
-  private int getAgentDistance(LevelLocation location, Agent a) {
-    var levelLocation = model.getLevel().locationOf(a.getLevelEntity());
+  private int getAgentDistance(LevelLocation location, AgentPresence a) {
+    var levelLocation = model.getLevel().locationOf(a);
     return getDistance(location, levelLocation.get());
   }
 
   private Optional<LevelLocation> nearestMonsterLocation(LevelLocation location) {
-    return model.getMonsters().stream()
-        .map(Agent::getLevelEntity)
+    return model.getMonsterPresences().stream()
         .map(model.getLevel()::locationOf)
         .filter(Optional::isPresent)
         .map(Optional::get)

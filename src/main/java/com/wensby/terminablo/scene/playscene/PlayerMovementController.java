@@ -22,14 +22,19 @@ public class PlayerMovementController implements Controller {
   private final Agent hero;
   private final Level level;
 
+  private final LevelEntity levelEntity;
+  private LevelLocation location;
+
   private Duration movementElapsedTime = Duration.ZERO;
   private LevelLocation movementDelta = LevelLocation.ZERO;
   private boolean running;
   private AgentSpeed playerSpeed;
 
-  public PlayerMovementController(Agent hero, Level level) {
+  public PlayerMovementController(Agent hero, Level level, LevelEntity entity, LevelLocation location) {
     this.hero = hero;
     this.level = level;
+    levelEntity = entity;
+    this.location = location;
   }
 
   @Override
@@ -105,14 +110,12 @@ public class PlayerMovementController implements Controller {
   }
 
   private void moveOneYard(LevelLocation delta) {
-    var heroLevelLocation = level.locationOf(hero.getLevelEntity());
-    if (heroLevelLocation.isPresent()) {
-      var newLocation = heroLevelLocation.get().plus(delta);
-      if (level.entities(newLocation).stream().allMatch(LevelEntity::isPassable)) {
-        var heroEntity = hero.getLevelEntity();
-        level.removeEntity(heroEntity);
-        level.putEntity(newLocation, heroEntity);
-      }
+    var newLocation = location.plus(delta);
+    if (level.entities(newLocation).stream().allMatch(LevelEntity::isPassable)) {
+      var heroEntity = levelEntity;
+      level.removeEntity(location, heroEntity);
+      level.putEntity(newLocation, heroEntity);
+      location = newLocation;
     }
   }
 

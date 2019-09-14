@@ -4,6 +4,8 @@ import com.wensby.application.userinterface.*;
 import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.terminablo.world.Agent;
 import com.wensby.terminablo.util.Fraction;
+import com.wensby.terminablo.world.level.AgentPresence;
+
 import java.awt.Color;
 import java.math.BigDecimal;
 
@@ -19,9 +21,9 @@ public class PlaySceneInterfaceRenderer {
     this.terminalCharacterFactory = terminalCharacterFactory;
   }
 
-  public void render(Agent hero, TerminalLayer layer, PlaySceneModel model) {
+  public void render(AgentPresence hero, TerminalLayer layer, PlaySceneModel model) {
     renderHero(hero, layer);
-    renderOrbs(hero, layer);
+    renderOrbs(hero.getAgent(), layer);
     model.getCurrentTarget().ifPresent(agent -> renderHealthBar(agent, layer));
   }
 
@@ -30,15 +32,15 @@ public class PlaySceneInterfaceRenderer {
     healthBarRenderer.render(layer.getSubsection(InterfaceLocation.at((layer.size().getWidth() / 2) - (agent.getName().length() / 2), 1), InterfaceSize.of(agent.getName().length(), 3)));
   }
 
-  private void renderHero(Agent hero, TerminalLayer painter) {
+  private void renderHero(AgentPresence hero, TerminalLayer painter) {
     InterfaceSize layerSize = painter.size();
     int midColumn = layerSize.getWidth() / 2;
     int midRow = layerSize.getHeight() / 2;
     InterfaceLocation layerMidpoint = InterfaceLocation.at(midColumn, midRow);
     TerminalCharacter character;
-    if (hero.getStats().getLife().compareTo(BigDecimal.ZERO) == 0) {
+    if (hero.getAgent().getStats().getLife().compareTo(BigDecimal.ZERO) == 0) {
       character = terminalCharacterFactory.createCharacter("\uD83D\uDC80");
-    } else if (hero.getStats().getLife().compareTo(BigDecimal.TEN) < 0) {
+    } else if (hero.getAgent().getStats().getLife().compareTo(BigDecimal.TEN) < 0) {
       character = terminalCharacterFactory.createCharacter("\uD83D\uDE41");
     } else {
       character = terminalCharacterFactory.createCharacter("\uD83D\uDE42");

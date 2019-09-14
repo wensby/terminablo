@@ -9,6 +9,7 @@ public class AgentStats {
   private BigDecimal maxLife = new BigDecimal(50000);
   private BigDecimal mana = new BigDecimal(5000);
   private BigDecimal manaMax = new BigDecimal(50000);
+  private BigDecimal maxMana;
 
   public BigDecimal getMaxLife() {
     return maxLife;
@@ -32,5 +33,13 @@ public class AgentStats {
 
   public BigDecimal getMaxMana() {
     return manaMax;
+  }
+
+  public void setMaxLife(BigDecimal maxLife) {
+    this.maxLife = maxLife;
+  }
+
+  public void setMaxMana(BigDecimal maxMana) {
+    this.maxMana = maxMana;
   }
 }

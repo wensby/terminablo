@@ -42,7 +42,7 @@ public class LevelFactory {
       }
       y++;
     }
-    return new LevelImpl(entities);
+    return new Level(entities);
   }
 
   private Optional<LevelEntity> parseEntity(char c) {

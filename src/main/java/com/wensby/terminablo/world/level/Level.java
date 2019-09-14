@@ -1,15 +1,35 @@
 package com.wensby.terminablo.world.level;
 
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
-public interface Level {
+public class Level {
 
-  Set<LevelEntity> entities(LevelLocation location);
+  private final Map<LevelLocation, Set<LevelEntity>> entitiesByLocation;
+  private final Map<LevelEntity, LevelLocation> locationByEntity;
 
-  Optional<LevelLocation> locationOf(LevelEntity levelEntity);
+  public Level(Map<LevelLocation, Set<LevelEntity>> entitiesByLocation) {
+    this.entitiesByLocation = new HashMap<>(entitiesByLocation);
+    this.locationByEntity = new HashMap<>();
+    for (var levelLocationSetEntry : entitiesByLocation.entrySet()) {
+      levelLocationSetEntry.getValue().forEach(levelEntity -> locationByEntity.put(levelEntity, levelLocationSetEntry.getKey()));
+    }
+  }
 
-  void putEntity(LevelLocation location, LevelEntity entity);
+  public Set<LevelEntity> entities(LevelLocation location) {
+    return entitiesByLocation.getOrDefault(location, Set.of());
+  }
 
-  Optional<LevelLocation> removeEntity(LevelEntity entity);
+  public void putEntity(LevelLocation location, LevelEntity entity) {
+    entitiesByLocation.computeIfAbsent(location, levelLocation -> new HashSet<>()).add(entity);
+    locationByEntity.put(entity, location);
+  }
+
+  public void removeEntity(LevelLocation location, LevelEntity entity) {
+    entitiesByLocation.get(location).remove(entity);
+    locationByEntity.remove(entity);
+  }
+
+  public Optional<LevelLocation> locationOf(LevelEntity entity) {
+    return Optional.ofNullable(locationByEntity.getOrDefault(entity, null));
+  }
 }

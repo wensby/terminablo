@@ -36,7 +36,7 @@ public class GameGridItem extends ReactiveComponent {
 
   private Component createVisual() {
 
-    return new Graphic(character.getLevelEntity().getCharacter().orElse(characterFactory.createCharacter(' ')));
+    return new Graphic(characterFactory.createCharacter(' '));
   }
 
   private Container createCharacterDetails() {

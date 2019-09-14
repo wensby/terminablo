@@ -7,6 +7,4 @@ public interface Agent {
   String getName();
 
   AgentStats getStats();
-
-  LevelEntity getLevelEntity();
 }
