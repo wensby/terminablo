@@ -28,10 +28,10 @@ public class MainMenuButton extends ReactiveComponent {
   @Override
   public Component render() {
     if (focused) {
-      return new Border(new Button(characterFactory, String.format(">%s<", label), onClick), buttonBorderStyle);
+      return new Border(new Button(characterFactory, String.format(">%s<", label), onClick), selectedButtonBorderStyle);
     }
     else {
-      return new Border(new Button(characterFactory, label, onClick), selectedButtonBorderStyle);
+      return new Border(new Button(characterFactory, label, onClick), buttonBorderStyle);
     }
   }
 }
