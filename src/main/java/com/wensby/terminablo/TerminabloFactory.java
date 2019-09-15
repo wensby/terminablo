@@ -22,7 +22,7 @@ public class TerminabloFactory {
     var stressTestScene = new Scene((elapsedTime, input) -> {}, new StressTestSceneView(characterFactory));
     var playSceneFactory = new PlaySceneFactoryImpl(characterFactory, sceneStack);
     var playScene = playSceneFactory.createPlayScene();
-    sceneStack.push(playScene);
+    sceneStack.push(scene);
     var terminabloUpdater = new TerminabloUpdater(sceneStack);
     var terminabloRenderer = new TerminabloApplicationRenderer(sceneStack);
     return context.getApplicationBuilder()

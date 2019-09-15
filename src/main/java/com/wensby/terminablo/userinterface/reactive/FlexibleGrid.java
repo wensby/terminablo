@@ -10,20 +10,20 @@ import java.util.Objects;
 public class FlexibleGrid implements Component {
 
   private final Map<String, Component> childrenByGridKey;
-  private final String childLayout;
+  private final List<List<String>> layoutRowByColumn;
   private final List<Integer> columnLayout;
   private final List<Integer> rowLayout;
 
-  public FlexibleGrid(Map<String, Component> childrenByGridKey, String childLayout, List<Integer> columnLayout, List<Integer> rowLayout) {
+  FlexibleGrid(Map<String, Component> childrenByGridKey, List<List<String>> layoutRowByColumn, List<Integer> columnLayout, List<Integer> rowLayout) {
     this.childrenByGridKey = Objects.requireNonNull(childrenByGridKey);
-    this.childLayout = Objects.requireNonNull(childLayout);
+    this.layoutRowByColumn = Objects.requireNonNull(layoutRowByColumn);
     this.columnLayout = Objects.requireNonNull(columnLayout);
     this.rowLayout = Objects.requireNonNull(rowLayout);
   }
 
   @Override
   public void render(TerminalLayer layer) {
-    new GridPainter(layer, childrenByGridKey, childLayout, columnLayout, rowLayout).paint();
+    new GridPainter(layer, childrenByGridKey, layoutRowByColumn, columnLayout, rowLayout).paint();
   }
 
   @Override

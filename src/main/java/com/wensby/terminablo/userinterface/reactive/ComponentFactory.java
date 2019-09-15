@@ -5,4 +5,8 @@ public class ComponentFactory {
   public SwitchBuilder aSwitch() {
     return new SwitchBuilder();
   }
+
+  public FlexibleGridBuilder aFlexibleGrid() {
+    return new FlexibleGridBuilder();
+  }
 }

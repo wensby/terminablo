@@ -10,28 +10,31 @@ import com.wensby.terminablo.userinterface.reactive.Container;
 
 import java.awt.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 public class GameGridItem extends ReactiveComponent {
 
+  private final ComponentFactory componentFactory;
   private final PlayerCharacter character;
   private final boolean selected;
   private final TerminalCharacterFactory characterFactory;
 
-  public GameGridItem(PlayerCharacter character, boolean selected, TerminalCharacterFactory characterFactory) {
-    this.characterFactory = Objects.requireNonNull(characterFactory);
-    this.character = Objects.requireNonNull(character);
+  public GameGridItem(ComponentFactory componentFactory, PlayerCharacter character, boolean selected, TerminalCharacterFactory characterFactory) {
+    this.componentFactory = requireNonNull(componentFactory);
+    this.characterFactory = requireNonNull(characterFactory);
+    this.character = requireNonNull(character);
     this.selected = selected;
   }
 
   @Override
   public Component render() {
-    return new FlexibleGrid(Map.of(
-        "visual", createVisual(),
-        "details", createCharacterDetails()),
-        "visual details", List.of(1, 3), List.of(1)
-    );
+    return componentFactory.aFlexibleGrid()
+        .withChild("visual", createVisual())
+        .withChild("details", createCharacterDetails())
+        .withColumnRatios(List.of(1, 3))
+        .addRow(List.of("visual", "details"), 1)
+        .build();
   }
 
   private Component createVisual() {

@@ -13,17 +13,17 @@ public class GridPainter {
 
   private final TerminalLayer layer;
   private final Map<String, Component> childrenByGridKey;
-  private final String childLayout;
+  private final List<List<String>> layoutRowByColumn;
   private final List<Integer> columnLayout;
   private final List<Integer> rowLayout;
   private final InterfaceSize totalSize;
 
   private Set<String> paintedGridKeys;
 
-  public GridPainter(TerminalLayer layer, Map<String, Component> childrenByGridKey, String childLayout, List<Integer> columnLayout, List<Integer> rowLayout) {
+  public GridPainter(TerminalLayer layer, Map<String, Component> childrenByGridKey, List<List<String>> layoutRowByColumn, List<Integer> columnLayout, List<Integer> rowLayout) {
     this.layer = layer;
     this.childrenByGridKey = childrenByGridKey;
-    this.childLayout = childLayout;
+    this.layoutRowByColumn = layoutRowByColumn;
     this.columnLayout = columnLayout;
     this.rowLayout = rowLayout;
     this.totalSize = InterfaceSize.of(
@@ -100,11 +100,11 @@ public class GridPainter {
   }
 
   private Optional<InterfaceLocation> getFirstGridItem(String key) {
-    var rows = childLayout.split("\n");
-    for (int row = 0; row < rows.length; row++) {
-      var columns = rows[row].split(" ");
-      for (int column = 0; column < columns.length; column++) {
-        if (columns[column].equals(key)) {
+    var rows = layoutRowByColumn;
+    for (int row = 0; row < rows.size(); row++) {
+      var columns = rows.get(row);
+      for (int column = 0; column < columns.size(); column++) {
+        if (columns.get(column).equals(key)) {
           return Optional.of(InterfaceLocation.at(column, row));
         }
       }
@@ -114,11 +114,11 @@ public class GridPainter {
 
   private InterfaceLocation getLastGridItem(String key) {
     var lastLocation = (InterfaceLocation) null;
-    var rows = childLayout.split("\n");
-    for (int row = 0; row < rows.length; row++) {
-      var columns = rows[row].split(" ");
-      for (int column = 0; column < columns.length; column++) {
-        if (columns[column].equals(key)) {
+    var rows = layoutRowByColumn;
+    for (int row = 0; row < rows.size(); row++) {
+      var columns = rows.get(row);
+      for (int column = 0; column < columns.size(); column++) {
+        if (columns.get(column).equals(key)) {
           lastLocation = InterfaceLocation.at(column, row);
         }
       }
@@ -127,9 +127,8 @@ public class GridPainter {
   }
 
   private Optional<String> unpaintedKey() {
-    return Stream.of(childLayout.split("\n"))
-        .map(row -> Stream.of(row.split(" ")))
-        .flatMap(rowKeysStream -> rowKeysStream)
+    return layoutRowByColumn.stream()
+        .flatMap(Collection::stream)
         .filter(childrenByGridKey.keySet()::contains)
         .filter(key -> !paintedGridKeys.contains(key))
         .findFirst();

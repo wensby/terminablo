@@ -32,12 +32,12 @@ public class MainMenuPageSwitch extends ReactiveComponent {
   }
 
   private FirstPage createFirstPage() {
-    return new FirstPage(characterFactory, this::onSinglePlayerClicked, onExitTerminabloClicked);
+    return new FirstPage(componentFactory, characterFactory, this::onSinglePlayerClicked, onExitTerminabloClicked);
   }
 
   private GameSelectionPage createGameSelectionPage() {
     var games = gameRepository.getGames();
-    return new GameSelectionPage(characterFactory, this::onBackFromCharacterSelection, games);
+    return new GameSelectionPage(componentFactory, characterFactory, this::onBackFromCharacterSelection, games);
   }
 
   private void onBackFromCharacterSelection() {

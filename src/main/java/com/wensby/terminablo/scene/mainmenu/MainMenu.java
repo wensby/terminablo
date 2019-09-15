@@ -2,25 +2,24 @@ package com.wensby.terminablo.scene.mainmenu;
 
 import com.wensby.application.userinterface.Key;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
-import com.wensby.terminablo.userinterface.reactive.Component;
-import com.wensby.terminablo.userinterface.reactive.Container;
-import com.wensby.terminablo.userinterface.reactive.FlexibleGrid;
-import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
+import com.wensby.terminablo.userinterface.reactive.*;
 
 import java.util.List;
-import java.util.Map;
 
+import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 
 public class MainMenu extends ReactiveComponent {
 
+  private final ComponentFactory componentFactory;
   private final TerminalCharacterFactory characterFactory;
   private final Runnable onSinglePlayerClicked;
   private final Runnable onExitTerminabloClicked;
   private final List<String> itemLabels;
   private List<MainMenuButton> buttons = List.of();
 
-  public MainMenu(TerminalCharacterFactory characterFactory, Runnable onSinglePlayerClicked, Runnable onExitTerminabloClicked) {
+  public MainMenu(ComponentFactory componentFactory, TerminalCharacterFactory characterFactory, Runnable onSinglePlayerClicked, Runnable onExitTerminabloClicked) {
+    this.componentFactory = requireNonNull(componentFactory);
     this.characterFactory = characterFactory;
     this.onSinglePlayerClicked = onSinglePlayerClicked;
     this.onExitTerminabloClicked = onExitTerminabloClicked;
@@ -33,15 +32,14 @@ public class MainMenu extends ReactiveComponent {
     buttons = itemLabels.stream()
         .map(this::createMainMenuButton)
         .collect(toList());
-    return new FlexibleGrid(
-        Map.of(
-            "top", new Container(buttons.subList(0, 3)),
-            "bottom", new Container(buttons.subList(3, 5))
-        ),
-        "top\n_\nbottom",
-        List.of(1),
-        List.of(3, 2,2)
-    );
+    return componentFactory.aFlexibleGrid()
+        .withChild("top", new Container(buttons.subList(0, 3)))
+        .withChild("bottom", new Container(buttons.subList(3, 5)))
+        .withColumnRatios(List.of(1))
+        .addRow(List.of("top"), 3)
+        .addRow(List.of("_"), 2)
+        .addRow(List.of("bottom"), 2)
+        .build();
   }
 
   private MainMenuButton createMainMenuButton(String label) {

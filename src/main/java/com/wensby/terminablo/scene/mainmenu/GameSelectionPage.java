@@ -4,22 +4,22 @@ import com.wensby.application.userinterface.Key;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.game.Game;
 import com.wensby.terminablo.userinterface.reactive.Component;
-import com.wensby.terminablo.userinterface.reactive.FlexibleGrid;
+import com.wensby.terminablo.userinterface.reactive.ComponentFactory;
 import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
 public class GameSelectionPage extends ReactiveComponent {
 
+  private final ComponentFactory componentFactory;
   private final TerminalCharacterFactory characterFactory;
   private final Runnable onExit;
   private final List<Game> games;
 
-  public GameSelectionPage(TerminalCharacterFactory characterFactory, Runnable onExit, List<Game> games) {
+  public GameSelectionPage(ComponentFactory componentFactory, TerminalCharacterFactory characterFactory, Runnable onExit, List<Game> games) {
+    this.componentFactory = requireNonNull(componentFactory);
     this.characterFactory = requireNonNull(characterFactory);
     this.onExit = requireNonNull(onExit);
     this.games = requireNonNull(games);
@@ -27,8 +27,11 @@ public class GameSelectionPage extends ReactiveComponent {
 
   @Override
   public Component render() {
-    return new FlexibleGrid(Map.of("character", new GameSelection(characterFactory, games)),
-        "character _", List.of(2, 1), List.of(1));
+    return componentFactory.aFlexibleGrid()
+        .withChild("character", new GameSelection(componentFactory, characterFactory, games))
+        .withColumnRatios(List.of(2, 1))
+        .addRow(List.of("character", "_"), 1)
+        .build();
   }
 
   @Override

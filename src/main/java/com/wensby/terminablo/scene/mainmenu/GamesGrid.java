@@ -3,10 +3,7 @@ package com.wensby.terminablo.scene.mainmenu;
 import com.wensby.application.userinterface.Key;
 import com.wensby.application.userinterface.TerminalCharacterFactory;
 import com.wensby.terminablo.game.Game;
-import com.wensby.terminablo.userinterface.reactive.Component;
-import com.wensby.terminablo.userinterface.reactive.ReactiveComponent;
-import com.wensby.terminablo.userinterface.reactive.VerticalScroll;
-import com.wensby.terminablo.userinterface.reactive.SimpleGrid;
+import com.wensby.terminablo.userinterface.reactive.*;
 import com.wensby.terminablo.util.UnitInterval;
 
 import java.util.List;
@@ -17,13 +14,15 @@ import static java.util.stream.Collectors.toList;
 
 public class GamesGrid extends ReactiveComponent {
 
+  private final ComponentFactory componentFactory;
   private final List<Game> games;
   private final TerminalCharacterFactory characterFactory;
   private final float visibleRows;
   private final float itemsPerRow;
   private final int requiredRows;
 
-  public GamesGrid(TerminalCharacterFactory characterFactory, List<Game> games) {
+  public GamesGrid(ComponentFactory componentFactory, TerminalCharacterFactory characterFactory, List<Game> games) {
+    this.componentFactory = requireNonNull(componentFactory);
     this.characterFactory = characterFactory;
     this.games = requireNonNull(games);
     setSelectedGameIndex(0);
@@ -56,7 +55,7 @@ public class GamesGrid extends ReactiveComponent {
     return IntStream.range(0, games.size())
         .mapToObj(i -> {
           var selected = i == getSelectedGameIndex();
-          return new GameGridItem(games.get(i).getCharacter(), selected, characterFactory);
+          return new GameGridItem(componentFactory, games.get(i).getCharacter(), selected, characterFactory);
         })
         .collect(toList());
   }
