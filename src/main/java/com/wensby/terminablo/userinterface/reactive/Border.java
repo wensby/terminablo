@@ -1,18 +1,19 @@
-package com.wensby.terminablo.userinterface.component;
+package com.wensby.terminablo.userinterface.reactive;
 
 import com.wensby.application.userinterface.*;
 
+import java.util.List;
 import java.util.Objects;
 
 import static com.wensby.application.userinterface.InterfaceLocation.at;
 import static com.wensby.application.userinterface.InterfaceLocation.atOrigin;
 
-public class Border implements InterfaceComponent {
+public class Border implements Component {
 
-  private final InterfaceComponent child;
+  private final Component child;
   private final BorderStyle style;
 
-  public Border(InterfaceComponent child, BorderStyle style) {
+  public Border(Component child, BorderStyle style) {
     this.child = Objects.requireNonNull(child);
     this.style = Objects.requireNonNull(style);
   }
@@ -54,7 +55,7 @@ public class Border implements InterfaceComponent {
   }
 
   @Override
-  public InterfaceSize contentSize() {
-    return child.contentSize();
+  public void sendKeys(List<Key> keys) {
+    child.sendKeys(keys);
   }
 }

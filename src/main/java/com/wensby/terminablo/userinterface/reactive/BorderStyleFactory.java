@@ -1,4 +1,4 @@
-package com.wensby.terminablo.userinterface.component;
+package com.wensby.terminablo.userinterface.reactive;
 
 import com.wensby.application.userinterface.*;
 
