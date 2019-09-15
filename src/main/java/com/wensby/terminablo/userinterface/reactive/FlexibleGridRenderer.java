@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class GridPainter {
+public class FlexibleGridRenderer {
 
   private final TerminalLayer layer;
   private final Map<String, Component> childrenByGridKey;
@@ -20,7 +20,7 @@ public class GridPainter {
 
   private Set<String> paintedGridKeys;
 
-  public GridPainter(TerminalLayer layer, Map<String, Component> childrenByGridKey, List<List<String>> layoutRowByColumn, List<Integer> columnLayout, List<Integer> rowLayout) {
+  public FlexibleGridRenderer(TerminalLayer layer, Map<String, Component> childrenByGridKey, List<List<String>> layoutRowByColumn, List<Integer> columnLayout, List<Integer> rowLayout) {
     this.layer = layer;
     this.childrenByGridKey = childrenByGridKey;
     this.layoutRowByColumn = layoutRowByColumn;
@@ -33,7 +33,7 @@ public class GridPainter {
     Logger.getLogger(this.getClass()).debug("Total Size:" + totalSize);
   }
 
-  public void paint() {
+  public void render() {
     paintedGridKeys = new HashSet<>();
     Stream.generate(this::unpaintedKey)
         .takeWhile(Optional::isPresent)

@@ -23,7 +23,8 @@ public class FlexibleGrid implements Component {
 
   @Override
   public void render(TerminalLayer layer) {
-    new GridPainter(layer, childrenByGridKey, layoutRowByColumn, columnLayout, rowLayout).paint();
+    var renderer = new FlexibleGridRenderer(layer, childrenByGridKey, layoutRowByColumn, columnLayout, rowLayout);
+    renderer.render();
   }
 
   @Override
