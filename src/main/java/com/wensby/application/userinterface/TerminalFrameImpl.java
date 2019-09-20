@@ -41,6 +41,11 @@ public class TerminalFrameImpl implements TerminalFrame {
   }
 
   @Override
+  public TerminalLayer getSubsection(TerminalLayerSection section) {
+    return layer.getSubsection(section);
+  }
+
+  @Override
   public TerminalCharacter[][] getCharacters() {
     return layer.getCharacters();
   }

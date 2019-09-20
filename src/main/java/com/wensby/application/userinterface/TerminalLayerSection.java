@@ -12,6 +12,10 @@ public class TerminalLayerSection {
     this.size = Objects.requireNonNull(size);
   }
 
+  public InterfaceLocation getTopLeft() {
+    return topLeft;
+  }
+
   public InterfaceSize getSize() {
     return size;
   }
@@ -29,5 +33,27 @@ public class TerminalLayerSection {
 
   public InterfaceLocation getAbsoluteLocation(InterfaceLocation location) {
     return location.plus(topLeft);
+  }
+
+  @Override
+  public String toString() {
+    return "TerminalLayerSection{" +
+        "topLeft=" + topLeft +
+        ", size=" + size +
+        '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    TerminalLayerSection that = (TerminalLayerSection) o;
+    return Objects.equals(topLeft, that.topLeft) &&
+        Objects.equals(size, that.size);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(topLeft, size);
   }
 }

@@ -13,14 +13,14 @@ public class FlexibleGridBuilder {
 
   private List<Integer> columnRatios;
   private List<Integer> rowRatios;
-  private List<List<String>> layoutRowByColumn;
+  private List<List<String>> layoutRows;
 
 
   FlexibleGridBuilder() {
     childrenByGridKey = new HashMap<>();
     columnRatios = List.of();
     rowRatios = new ArrayList<>();
-    layoutRowByColumn = new ArrayList<>();
+    layoutRows = new ArrayList<>();
   }
 
   public FlexibleGridBuilder withChild(String key, Component component) {
@@ -34,12 +34,12 @@ public class FlexibleGridBuilder {
   }
 
   public FlexibleGridBuilder addRow(List<String> layoutRow, int ratio) {
-    layoutRowByColumn.add(layoutRow);
+    layoutRows.add(layoutRow);
     rowRatios.add(ratio);
     return this;
   }
 
   public FlexibleGrid build() {
-    return new FlexibleGrid(childrenByGridKey, layoutRowByColumn, columnRatios, rowRatios);
+    return new FlexibleGrid(childrenByGridKey, layoutRows, columnRatios, rowRatios);
   }
 }

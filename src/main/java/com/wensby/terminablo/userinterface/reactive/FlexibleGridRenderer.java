@@ -1,136 +1,44 @@
 package com.wensby.terminablo.userinterface.reactive;
 
-import com.wensby.application.userinterface.InterfaceLocation;
-import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.application.userinterface.TerminalLayer;
 import org.apache.log4j.Logger;
 
 import java.util.*;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+
+import static java.util.Objects.requireNonNull;
+import static java.util.stream.Collectors.joining;
 
 public class FlexibleGridRenderer {
 
+  private static final Logger LOGGER = Logger.getLogger(FlexibleGridRenderer.class);
+
   private final TerminalLayer layer;
-  private final Map<String, Component> childrenByGridKey;
-  private final List<List<String>> layoutRowByColumn;
-  private final List<Integer> columnLayout;
-  private final List<Integer> rowLayout;
-  private final InterfaceSize totalSize;
+  private final Set<FlexibleGridChild> children;
+  private final List<List<String>> layoutRows;
+  private final List<Integer> columnRatios;
+  private final List<Integer> rowRatios;
 
-  private Set<String> paintedGridKeys;
-
-  public FlexibleGridRenderer(TerminalLayer layer, Map<String, Component> childrenByGridKey, List<List<String>> layoutRowByColumn, List<Integer> columnLayout, List<Integer> rowLayout) {
-    this.layer = layer;
-    this.childrenByGridKey = childrenByGridKey;
-    this.layoutRowByColumn = layoutRowByColumn;
-    this.columnLayout = columnLayout;
-    this.rowLayout = rowLayout;
-    this.totalSize = InterfaceSize.of(
-        columnLayout.stream().mapToInt(Integer::intValue).sum(),
-        rowLayout.stream().mapToInt(Integer::intValue).sum()
-    );
-    Logger.getLogger(this.getClass()).debug("Total Size:" + totalSize);
+  public FlexibleGridRenderer(TerminalLayer layer, Set<FlexibleGridChild> children, List<List<String>> layoutRows, List<Integer> columnRatios, List<Integer> rowRatios) {
+    this.layer = requireNonNull(layer);
+    this.children = requireNonNull(children);
+    this.layoutRows = requireNonNull(layoutRows);
+    this.columnRatios = requireNonNull(columnRatios);
+    this.rowRatios = requireNonNull(rowRatios);
   }
 
   public void render() {
-    paintedGridKeys = new HashSet<>();
-    Stream.generate(this::unpaintedKey)
-        .takeWhile(Optional::isPresent)
-        .map(Optional::get)
-        .forEach(this::paintKey);
+    LOGGER.debug("Rendering Flexible Grid. Children: " + this.children.stream().map(FlexibleGridChild::getKey).collect(joining(", ")));
+    children.forEach(this::renderChild);
   }
 
-  private void paintKey(String key) {
-    getLayer(key).ifPresent(painter -> childrenByGridKey.get(key).render(painter));
-    paintedGridKeys.add(key);
+  private void renderChild(FlexibleGridChild child) {
+    var sectionCalculator = new FlexibleGridChildSectionCalculator(layer.size(), columnRatios, rowRatios, layoutRows, child);
+    sectionCalculator.findChildLayerSection().map(layer::getSubsection).ifPresent(childLayer -> renderChild(child, childLayer));
   }
 
-  private Optional<TerminalLayer> getLayer(String key) {
-    var firstGridItem = getFirstGridItem(key);
-    if (firstGridItem.isPresent()) {
-      var lastGridItem = getLastGridItem(key);
-      return Optional.of(getLayer(firstGridItem.get(), lastGridItem));
-    }
-    return Optional.empty();
+  private void renderChild(FlexibleGridChild child, TerminalLayer childLayer) {
+    LOGGER.debug("Rendering Flexible Grid Child " + child.getKey() + ". Size: " + childLayer.size());
+    child.getComponent().render(childLayer);
   }
 
-  private TerminalLayer getLayer(InterfaceLocation first, InterfaceLocation last) {
-    var location = getSubsectionLocation(first);
-    var size = getSubsectionSize(first, last);
-    return layer.getSubsection(location, size);
-  }
-
-  private InterfaceLocation getSubsectionLocation(InterfaceLocation first) {
-    var beforeX = getWidthBetween(0, first.getColumn());
-    var beforeY = getHeightBetween(0, first.getRow());
-    return InterfaceLocation.at(beforeX, beforeY);
-  }
-
-  private InterfaceSize getSubsectionSize(InterfaceLocation first, InterfaceLocation last) {
-    int width;
-    int height;
-    if (last.getColumn() == columnLayout.size() - 1) {
-      width = layer.size().getWidth() - getWidthBetween(0, first.getColumn());
-    }
-    else {
-      width = getWidthBetween(first.getColumn(), last.getColumn() + 1);
-    }
-    if (last.getRow() == rowLayout.size() - 1) {
-      height = layer.size().getHeight() - getHeightBetween(0, first.getRow());
-    }
-    else {
-      height = getHeightBetween(first.getRow(), last.getRow() + 1);
-    }
-    return InterfaceSize.of(width, height);
-  }
-
-  private int getWidthBetween(int x1, int x2) {
-    return IntStream.range(x1, x2)
-        .map(columnLayout::get)
-        .map(c -> layer.size().getWidth() * c / totalSize.getWidth())
-        .sum();
-  }
-
-  private int getHeightBetween(int y1, int y2) {
-    return IntStream.range(y1, y2)
-        .map(rowLayout::get)
-        .map(c -> layer.size().getHeight() * c / totalSize.getHeight())
-        .sum();
-  }
-
-  private Optional<InterfaceLocation> getFirstGridItem(String key) {
-    var rows = layoutRowByColumn;
-    for (int row = 0; row < rows.size(); row++) {
-      var columns = rows.get(row);
-      for (int column = 0; column < columns.size(); column++) {
-        if (columns.get(column).equals(key)) {
-          return Optional.of(InterfaceLocation.at(column, row));
-        }
-      }
-    }
-    return Optional.empty();
-  }
-
-  private InterfaceLocation getLastGridItem(String key) {
-    var lastLocation = (InterfaceLocation) null;
-    var rows = layoutRowByColumn;
-    for (int row = 0; row < rows.size(); row++) {
-      var columns = rows.get(row);
-      for (int column = 0; column < columns.size(); column++) {
-        if (columns.get(column).equals(key)) {
-          lastLocation = InterfaceLocation.at(column, row);
-        }
-      }
-    }
-    return lastLocation;
-  }
-
-  private Optional<String> unpaintedKey() {
-    return layoutRowByColumn.stream()
-        .flatMap(Collection::stream)
-        .filter(childrenByGridKey.keySet()::contains)
-        .filter(key -> !paintedGridKeys.contains(key))
-        .findFirst();
-  }
 }

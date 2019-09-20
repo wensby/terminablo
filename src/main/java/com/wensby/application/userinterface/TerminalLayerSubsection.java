@@ -55,4 +55,17 @@ public class TerminalLayerSubsection implements TerminalLayer {
   public TerminalLayerSubsection getSubsection(InterfaceLocation topLeft, InterfaceSize size) {
     return new TerminalLayerSubsection(this, this.section.createSection(topLeft, size));
   }
+
+  @Override
+  public TerminalLayer getSubsection(TerminalLayerSection section) {
+    return new TerminalLayerSubsection(this, this.section.createSection(section.getTopLeft(), section.getSize()));
+  }
+
+  @Override
+  public String toString() {
+    return "TerminalLayerSubsection{" +
+        "layer=" + layer +
+        ", section=" + section +
+        '}';
+  }
 }

@@ -114,4 +114,9 @@ public class TwoDimensionalCharacterArrayLayer implements TerminalLayer {
   public TerminalLayer getSubsection(InterfaceLocation topLeft, InterfaceSize size) {
     return ((TerminalLayer) new TerminalLayerSubsection(this, new TerminalLayerSection(atOrigin(), size()))).getSubsection(topLeft, size);
   }
+
+  @Override
+  public TerminalLayer getSubsection(TerminalLayerSection section) {
+    return new TerminalLayerSubsection(this, section);
+  }
 }
