@@ -14,6 +14,10 @@ public class InterfaceSize {
     return new InterfaceSize(width, height);
   }
 
+  public static InterfaceSize between(InterfaceLocation first, InterfaceLocation last) {
+    return new InterfaceSize(Math.abs(first.getColumn() - last.getColumn()), Math.abs(first.getRow() - last.getRow()));
+  }
+
   public static final InterfaceSize ZERO = new InterfaceSize(0, 0);
 
   private InterfaceSize(int width, int height) {

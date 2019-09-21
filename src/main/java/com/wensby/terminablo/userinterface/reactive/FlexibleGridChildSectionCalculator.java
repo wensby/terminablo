@@ -4,15 +4,15 @@ import com.wensby.application.userinterface.InterfaceLocation;
 import com.wensby.application.userinterface.InterfaceSize;
 import com.wensby.application.userinterface.TerminalLayerSection;
 import com.wensby.terminablo.util.Integers;
-import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.IntStream.range;
 
 public class FlexibleGridChildSectionCalculator {
-
-  private static final Logger LOGGER = Logger.getLogger(FlexibleGridChildSectionCalculator.class);
 
   private final InterfaceSize totalSize;
   private final List<List<String>> layoutRows;
@@ -29,76 +29,122 @@ public class FlexibleGridChildSectionCalculator {
   }
 
   public Optional<TerminalLayerSection> findChildLayerSection() {
-    InterfaceLocation first = null;
-    InterfaceLocation last = null;
+    return findChildCoordinates().map(this::createSection);
+  }
+
+  private Optional<List<Coordinates>> findChildCoordinates() {
+    var childCoordinates = getChildCoordinates();
+    return childCoordinates.isEmpty() ? Optional.empty() : Optional.of(childCoordinates);
+  }
+
+  private TerminalLayerSection createSection(List<Coordinates> childCoordinates) {
+    var topLeft = topLeft(childCoordinates.get(0));
+    var bottomRight = bottomRight(childCoordinates.get(childCoordinates.size() - 1));
+    var size = InterfaceSize.between(topLeft, bottomRight);
+    return new TerminalLayerSection(topLeft, size);
+  }
+
+  private List<Coordinates> getChildCoordinates() {
+    return coordinatesKeyPairsStream()
+        .filter(pair -> pair.key().equals(child.getKey()))
+        .map(CoordinatesKeyPair::coordinates)
+        .collect(toList());
+  }
+
+  private InterfaceLocation topLeft(Coordinates coordinates) {
+    return location(coordinates.x(), coordinates.y());
+  }
+
+  private InterfaceLocation bottomRight(Coordinates coordinates) {
+    return location(coordinates.x() + 1, coordinates.y() + 1);
+  }
+
+  private Stream<CoordinatesKeyPair> coordinatesKeyPairsStream() {
+    return range(0, layoutRows.size())
+        .mapToObj(this::rowCoordinatesKeyPairsStream)
+        .flatMap(stream -> stream);
+  }
+
+  private InterfaceLocation location(int x1, int y1) {
     var ratioUnitSize = calculateRatioUnitSize();
-    for (int r = 0; r < layoutRows.size(); r++) {
-      var columns = layoutRows.get(r);
-      for (int c = 0; c < columns.size(); c++) {
-        var cellKey = columns.get(c);
-        if (cellKey.equals(child.getKey())) {
-          if (first == null) {
-            first = InterfaceLocation.at(c, r);
-          }
-          last = InterfaceLocation.at(c, r);
-        }
-      }
-    }
-    if (first != null) {
-      return Optional.of(getTerminalLayerSection(first, last, ratioUnitSize));
-    }
-    return Optional.empty();
+    var column = (int) (getLengthBetween(0, x1, ratioUnitSize.widthRatio(), columnRatios) + 0.5);
+    var row = (int) (getLengthBetween(0, y1, ratioUnitSize.heightRatio(), rowRatios) + 0.5);
+    return InterfaceLocation.at(column, row);
   }
 
-  private InterfaceSize calculateRatioUnitSize() {
-    var ratioUnitWidth = totalSize.getWidth() / new Integers(columnRatios).sum();
-    var ratioUnitHeight = totalSize.getHeight() / new Integers(rowRatios).sum();
-    return InterfaceSize.of(ratioUnitWidth, ratioUnitHeight);
+  private Stream<CoordinatesKeyPair> rowCoordinatesKeyPairsStream(int row) {
+    var columns = layoutRows.get(row);
+    return range(0, columns.size())
+        .mapToObj(col -> new CoordinatesKeyPair(new Coordinates(col, row), columns.get(col)));
   }
 
-  private TerminalLayerSection getTerminalLayerSection(InterfaceLocation first, InterfaceLocation last, InterfaceSize ratioUnitSize) {
-    LOGGER.debug("Creating child layer subsection from " + first + " to " + last);
-    var location = getSubsectionLocation(first, ratioUnitSize);
-    var size = calculateSize(first, last, ratioUnitSize);
-    LOGGER.debug("totalSize: " + size);
-    return new TerminalLayerSection(location, size);
+  private RatioUnitSize calculateRatioUnitSize() {
+    var ratioUnitWidth = (float) totalSize.getWidth() / (float) new Integers(columnRatios).sum();
+    var ratioUnitHeight = (float) totalSize.getHeight() / (float) new Integers(rowRatios).sum();
+    return new RatioUnitSize(ratioUnitWidth, ratioUnitHeight);
   }
 
-  private InterfaceLocation getSubsectionLocation(InterfaceLocation first, InterfaceSize ratioUnitSize) {
-    var beforeX = getWidthBetween(0, first.getColumn(), ratioUnitSize.getWidth());
-    var beforeY = getHeightBetween(0, first.getRow(), ratioUnitSize.getHeight());
-    return InterfaceLocation.at(beforeX, beforeY);
-  }
-
-  private InterfaceSize calculateSize(InterfaceLocation first, InterfaceLocation last, InterfaceSize ratioUnitSize) {
-    int width;
-    int height;
-    if (last.getColumn() == layoutRows.get(0).size() - 1) {
-      width = totalSize.getWidth() - getWidthBetween(0, first.getColumn(), ratioUnitSize.getWidth());
-    }
-    else {
-      width = getWidthBetween(first.getColumn(), last.getColumn() + 1, ratioUnitSize.getWidth());
-    }
-    if (last.getRow() == layoutRows.size() - 1) {
-      height = totalSize.getHeight() - getHeightBetween(0, first.getRow(), ratioUnitSize.getHeight());
-    }
-    else {
-      height = getHeightBetween(first.getRow(), last.getRow() + 1, ratioUnitSize.getHeight());
-    }
-    return InterfaceSize.of(width, height);
-  }
-
-  private int getWidthBetween(int x1, int x2, int ratioUnitWidth) {
-    return IntStream.range(x1, x2)
-        .map(columnRatios::get)
-        .map(columnRatio -> ratioUnitWidth * columnRatio)
+  private double getLengthBetween(int a, int b, float ratio, List<Integer> cellRatios) {
+    return range(a, b)
+        .map(cellRatios::get)
+        .mapToDouble(cellRatio -> ratio * cellRatio)
         .sum();
   }
 
-  private int getHeightBetween(int y1, int y2, int ratioUnitHeight) {
-    return IntStream.range(y1, y2)
-        .map(rowRatios::get)
-        .map(rowRatio -> ratioUnitHeight * rowRatio)
-        .sum();
+  private static class CoordinatesKeyPair {
+
+    private final Coordinates coordinates;
+    private final String key;
+
+    private CoordinatesKeyPair(Coordinates coordinates, String key) {
+      this.coordinates = coordinates;
+      this.key = key;
+    }
+
+    public Coordinates coordinates() {
+      return coordinates;
+    }
+
+    public String key() {
+      return key;
+    }
+  }
+
+  private static class Coordinates {
+
+    private final int x;
+    private final int y;
+
+    private Coordinates(int x, int y) {
+      this.x = x;
+      this.y = y;
+    }
+
+    public int x() {
+      return x;
+    }
+
+    public int y() {
+      return y;
+    }
+  }
+
+  private static class RatioUnitSize {
+
+    private final float width;
+    private final float height;
+
+    public RatioUnitSize(float width, float height) {
+      this.width = width;
+      this.height = height;
+    }
+
+    public float widthRatio() {
+      return width;
+    }
+
+    public float heightRatio() {
+      return height;
+    }
   }
 }

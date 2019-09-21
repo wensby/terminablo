@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 public class FlexibleGridChildSectionCalculatorTest {
 
   @Test
-  public void simpleCase() {
+  public void whenUnitSize_oneRow_oneColumn_oneChild() {
     var component = mock(Component.class);
     var totalSize = of(1, 1);
     var columnRatios = List.of(1);
@@ -31,7 +31,7 @@ public class FlexibleGridChildSectionCalculatorTest {
   }
 
   @Test
-  public void twoEqualColumns() {
+  public void whenTwoColumns_oneRow_oneChild() {
     var component = mock(Component.class);
     var totalSize = of(2, 1);
     var columnRatios = List.of(1, 1);
